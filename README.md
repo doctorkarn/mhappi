@@ -2,15 +2,14 @@
 Medical History and APPointment Intelligence
 
 required
+- python 3.4.3
+- django 1.8.3
 
-python 3.4.3
-django 1.8.3
+For running local server:
+cd C:\mhappi
+python manage.py runserver 8888
 
-marrtan - KUY
-add name kongbhop
-
-Worrachate Bosri
-
-doctorkarn - Lord of DOTA !
-marrtan - KUY
-Worrachate Bosri
+For admin site:
+http://localhost:8888/admin/
+username: admin
+password: password
