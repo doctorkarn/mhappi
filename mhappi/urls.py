@@ -20,8 +20,10 @@ from apps.medical import views as med_view
 
 urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
+
     url(r'^login/$', auth_view.login_user, name='login'),
     url(r'^logout/$', auth_view.logout_user, name='logout'),
+    url(r'^register/$', auth_view.register_patient, name='register'),
     
 	url(r'^medical/', med_view.index, name='index'),
     
