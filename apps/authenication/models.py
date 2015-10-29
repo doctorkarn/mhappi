@@ -1,5 +1,6 @@
 from django.db import models
 from datetime import date
+from django.contrib.auth.models import User
 
 # Create your models here.
 class Patient(models.Model):
@@ -9,13 +10,14 @@ class Patient(models.Model):
 		(3, "Others"),
 	)
 
+	user = models.ForeignKey(User, default = 0)
 	hospital_id = models.CharField(max_length = 20)
 	national_id = models.CharField(max_length = 20)
 	prefix_name = models.CharField(max_length = 200)
 	first_name = models.CharField(max_length = 200)
 	last_name = models.CharField(max_length = 200)
 	gender = models.IntegerField(choices = GENDER_CHOICES)
-	birthdate = models.DateTimeField()
+	birthdate = models.DateField()
 	address = models.CharField(max_length = 500)
 	phone = models.CharField(max_length = 200)
 	email = models.CharField(max_length = 200)
@@ -32,7 +34,14 @@ class Officer(models.Model):
 		(2, "Female"),
 		(3, "Others"),
 	)
+	POSITION_CHOICES = (
+		(1, "Staff"),
+		(2, "Doctor"),
+		(3, "Nurse"),
+		(4, "Pharmacist"),
+	)
 
+	user = models.ForeignKey(User, default = 0)
 	hospital_id = models.CharField(max_length = 20)
 	national_id = models.CharField(max_length = 20)
 	prefix_name = models.CharField(max_length = 200)
@@ -44,7 +53,7 @@ class Officer(models.Model):
 	phone = models.CharField(max_length = 200)
 	email = models.CharField(max_length = 200)
 	specialist = models.CharField(max_length = 200)
-	position = models.CharField(max_length = 100, default = "")
+	position = models.IntegerField(choices = POSITION_CHOICES, default = 1)
 
 
 	def __str__(self):

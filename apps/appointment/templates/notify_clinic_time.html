@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% block main %}
+    <div id="login" class="row">
+        <div class="col-md-4 col-md-offset-4">
+            <h1>Notify Clinic Time <br/> (for Doctor)</h1>
+            <hr/>
+            <form class="form-horizontal" name="RegisterForm" action="/notify_clinic_time/" method="post">
+                {% csrf_token %}
+                {% if next %}
+                    <input type="hidden" name="next" value="{{ next }}" />
+                {% endif %}
+                <div class="form-group">
+                    <label class="control-label" for="officer_id">Doctor ID</label>
+                    <select class="form-control" id="officer_id" name="officer_id" >
+                        {% for doctor in doctors %}
+                        <option value="{{ doctor.id }}">{{ doctor.id }} - {{ doctor.first_name }} {{ doctor.last_name }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="control-label" for="clinic_time">Clinic Time</label>
+                    <input type="text" class="form-control" id="clinic_time" name="clinic_time" >
+                    <p class="help-block">format: yyyy-mm-dd</p>
+                </div>
+                <div class="form-group">
+                    <label class="control-label" for="clinic_status">Clinic Status</label>
+                    <input type="text" class="form-control" id="clinic_status" name="clinic_status" value="1">
+                    <p class="help-block">1 = active, 0 = inactive, -1 = banned</p>
+                </div>
+
+                <div class="form-group">
+                    <button type="submit" class="btn btn-default">Add</button>
+                </div>
+            </form>
+        </div>
+    </div>
+{% endblock %}

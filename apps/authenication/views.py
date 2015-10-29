@@ -2,13 +2,14 @@ from django.http import *
 from django.shortcuts import render, redirect
 from django.template import RequestContext
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 
 import json
 import random
 
-from .models import Patient
+from apps.authenication.models import Patient, Officer
 
 
 def login_user(request):
@@ -31,10 +32,12 @@ def login_user(request):
     else:
         return render(request, 'login.html')
 
+
 def logout_user(request):
     logout(request)
     messages.success(request, 'Logout successful')
     return HttpResponseRedirect('/login')
+
 
 def register_patient(request):
     if request.POST:
@@ -48,12 +51,18 @@ def register_patient(request):
         input['first_name'] = request.POST['first_name']
         input['last_name'] = request.POST['last_name']
         input['gender'] = request.POST['gender']
-        input['birthdate'] = '2000-01-01 00:00:00'
+        input['birthdate'] = '2000-01-01'
         input['address'] = request.POST['address']
         input['phone'] = request.POST['phone']
         input['email'] = request.POST['email']
 
+        user = User.objects.create_user(
+            input['username'], input['email'], input['password']
+        )
+
         patient = Patient.objects.create(
+        	id 			= user.id,
+        	user_id 	= user.id,
         	hospital_id = input['hospital_id'],
         	national_id = input['national_id'],
         	first_name 	= input['first_name'],
@@ -69,9 +78,55 @@ def register_patient(request):
         return render(request, 'register.html')
         # return HttpResponse(json.dumps(input))
 
-
     else:
         return render(request, 'register.html')
+
+
+def register_officer(request):
+    if request.POST:
+        input = {}
+        input['username'] = request.POST['username']
+        input['password'] = request.POST['password']
+        input['confirm_password'] = request.POST['confirm_password']
+
+        input['hospital_id'] = "MDxxxxx" + str(random.randint(0,9))
+        input['national_id'] = request.POST['national_id']
+        input['first_name'] = request.POST['first_name']
+        input['last_name'] = request.POST['last_name']
+        input['gender'] = request.POST['gender']
+        input['birthdate'] = '2000-01-01'
+        input['address'] = request.POST['address']
+        input['phone'] = request.POST['phone']
+        input['email'] = request.POST['email']
+
+        user = User.objects.create_user(
+            input['username'], input['email'], input['password']
+        )
+        user.is_staff = 1;
+        user.save()
+
+        officer = Officer.objects.create(
+        	id 			= user.id,
+        	user_id 	= user.id,
+        	hospital_id = input['hospital_id'],
+        	national_id = input['national_id'],
+        	first_name 	= input['first_name'],
+        	last_name 	= input['last_name'],
+        	gender 		= input['gender'],
+        	birthdate 	= input['birthdate'],
+        	address 	= input['address'],
+        	phone 		= input['phone'],
+        	email 		= input['email'],
+        	position	= 2,
+        )
+
+        messages.success(request, 'Register Officer successful')
+        return render(request, 'register_officer.html')
+        # return HttpResponse(json.dumps(input))
+
+    else:
+        return render(request, 'register_officer.html')
+
 
 # @login_required(login_url='/login/')
 # def main(request):
