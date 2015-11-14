@@ -36,20 +36,44 @@ def record_patient_info(request):
         return render(request, 'record_patient_info.html', data)
 
 
+def view_medical_info(request):
+    if request.POST:
+        input = {}
+        input['patient_id'] = request.POST['patient_id']
+
+        patient_info = PatientInfo.objects.filter(patient_id=input['patient_id'])
+        medical_info = MedicalRecord.objects.filter(patient_id=input['patient_id'])
+        data = {
+            'patient_info' : patient_info,
+            'medical_info' : medical_info,
+        }
+        return render(request, 'view_medical_info.html', data)
+
+    else:
+        patient_info = PatientInfo.objects.all()
+        medical_info = MedicalRecord.objects.all()
+
+        data = {
+            'patient_info' : patient_info,
+            'medical_info' : medical_info,
+        }
+        return render(request, 'view_medical_info.html', data)
+
+
 def record_medical_info(request):
     if request.POST:
         input = {}
         input['patient_id'] = request.POST['patient_id']
         input['officer_id'] = request.POST['officer_id']
-        input['_symptom'] = request.POST['_symptom']
-        input['_diagnosis'] = request.POST['_diagnosis']
+        input['symptom'] = request.POST['symptom']
+        input['diagnosis'] = request.POST['diagnosis']
         input['drgcode'] = request.POST['drgcode']
 
-        patient_info = MedicalRecord.objects.create(
+        medical_info = MedicalRecord.objects.create(
             patient_id 	= input['patient_id'],
             officer_id 	= input['officer_id'],
-            symptom 	= input['_symptom'],
-            diagnosis 	= input['_diagnosis'],
+            symptom 	= input['symptom'],
+            diagnosis 	= input['diagnosis'],
             drg_code 	= input['drgcode'],
         )
 
@@ -73,13 +97,13 @@ def record_prescription(request):
         input['officer_id'] = request.POST['officer_id']
         input['drug_list'] = request.POST['drug_list']
 
-        patient_info = Prescritpion.objects.create(
+        perscritpion = Prescritpion.objects.create(
             patient_id 	= input['patient_id'],
             officer_id 	= input['officer_id'],
             drug_list 	= input['drug_list'],
         )
 
-        messages.success(request, 'Record Medical Information')
+        messages.success(request, 'Record Prescritpion')
         return redirect('/record_prescription/')
 
     else:
@@ -90,3 +114,22 @@ def record_prescription(request):
             'doctors' : doctors,
         }
         return render(request, 'record_prescription.html', data)
+
+
+def view_prescription(request):
+    if request.POST:
+        input = {}
+        input['patient_id'] = request.POST['patient_id']
+
+        perscritpion = Perscritpion.objects.filter(patient_id=input['patient_id'])
+        data = {
+            'perscritpion' : perscritpion,
+        }
+        return render(request, 'view_prescription.html', data)
+
+    else:
+        perscritpion = Perscritpion.objects.all()
+        data = {
+            'perscritpion' : perscritpion,
+        }
+        return render(request, 'view_prescription.html', data)

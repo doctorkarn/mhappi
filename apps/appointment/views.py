@@ -34,7 +34,7 @@ def notify_clinic_time(request):
         return render(request, 'notify_clinic_time.html', data)
 
 
-def appoint_doctor(request):
+def make_appoint(request):
     if request.POST:
         input = {}
         input['patient_id'] = request.POST['patient_id']
@@ -59,3 +59,40 @@ def appoint_doctor(request):
         }
         return render(request, 'appoint_doctor.html', data)
 
+
+def cancel_appoint(request):
+    if request.POST:
+        appointment_id = request.POST['appointment_id']
+
+        appointment = Appointment.objects.filter(pk=appointment_id).update(
+            appointment_status  = input['appointment_status'],
+        )
+
+        messages.success(request, 'Cancel Appointment successful')
+        return redirect('/cancel_appoint/')
+
+    else:
+        appointments = Appointment.objects.all()
+        data = {
+            'appointments' : appointments,
+        }
+        return render(request, 'cancel_appoint.html', data)
+
+
+def view_appoint(request):
+    if request.POST:
+        input = {}
+        input['patient_id'] = request.POST['patient_id']
+
+        appointments = Appointment.objects.filter(patient_id=input['patient_id'])
+        data = {
+            'appointments' : appointments,
+        }
+        return render(request, 'view_appoint.html', data)
+
+    else:
+        appointments = Appointment.objects.all()
+        data = {
+            'appointments' : appointments,
+        }
+        return render(request, 'view_appoint.html', data)
