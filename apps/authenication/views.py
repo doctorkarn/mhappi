@@ -12,7 +12,7 @@ import random
 from apps.authenication.models import Patient, Officer
 
 
-def login_user(request):
+def login(request):
     if request.POST:
         username = request.POST['username']
         password = request.POST['password']
@@ -33,13 +33,21 @@ def login_user(request):
         return render(request, 'login.html')
 
 
-def logout_user(request):
+def logout(request):
     logout(request)
     messages.success(request, 'Logout successful')
     return HttpResponseRedirect('/login')
 
 
-def register_patient(request):
+def reset_password(request):
+    return "Under Construction ....."
+
+
+def update_profile(request):
+    return "Under Construction ....."
+
+
+def register(request):
     if request.POST:
         input = {}
         input['username'] = request.POST['username']
@@ -82,7 +90,7 @@ def register_patient(request):
         return render(request, 'register.html')
 
 
-def register_officer(request):
+def add_officer(request):
     if request.POST:
         input = {}
         input['username'] = request.POST['username']
@@ -128,5 +136,6 @@ def register_officer(request):
         return render(request, 'register_officer.html')
 
 
-# @login_required(login_url='/login/')
-# def main(request):
+def update_officer(request):
+    return "Under Construction ....."
+

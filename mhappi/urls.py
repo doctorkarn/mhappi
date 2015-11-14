@@ -37,7 +37,6 @@ urlpatterns = [
     url(r'^list_appointment/$', appo_view.list_appointment, name='list_appointment'),
     url(r'^view_appointment/$', appo_view.view_appointment, name='view_appointment'),
     url(r'^cancel_appointment/$', appo_view.cancel_appointment, name='cancel_appointment'),
-
     url(r'^make_clinic_time/$', appo_view.make_clinic_time, name='make_clinic_time'),
     url(r'^list_clinic_time/$', appo_view.list_clinic_time, name='list_clinic_time'),
     url(r'^view_clinic_time/$', appo_view.view_clinic_time, name='view_clinic_time'),

@@ -10,7 +10,11 @@ from apps.appointment.models import ClinicTime, Appointment
 from apps.medical.models import MedicalRecord, PatientInfo, Prescritpion
 
 
-def record_patient_info(request):
+def list_patient(request):
+    return "Under Construction ....."
+
+
+def add_patient_information(request):
     if request.POST:
         input = {}
         input['patient_id'] = request.POST['patient_id']
@@ -36,31 +40,11 @@ def record_patient_info(request):
         return render(request, 'record_patient_info.html', data)
 
 
-def view_medical_info(request):
-    if request.POST:
-        input = {}
-        input['patient_id'] = request.POST['patient_id']
-
-        patient_info = PatientInfo.objects.filter(patient_id=input['patient_id'])
-        medical_info = MedicalRecord.objects.filter(patient_id=input['patient_id'])
-        data = {
-            'patient_info' : patient_info,
-            'medical_info' : medical_info,
-        }
-        return render(request, 'view_medical_info.html', data)
-
-    else:
-        patient_info = PatientInfo.objects.all()
-        medical_info = MedicalRecord.objects.all()
-
-        data = {
-            'patient_info' : patient_info,
-            'medical_info' : medical_info,
-        }
-        return render(request, 'view_medical_info.html', data)
+def view_patient_information(request):
+    return "Under Construction ....."
 
 
-def record_medical_info(request):
+def add_medical_record(request):
     if request.POST:
         input = {}
         input['patient_id'] = request.POST['patient_id']
@@ -90,7 +74,31 @@ def record_medical_info(request):
         return render(request, 'record_medical_info.html', data)
 
 
-def record_prescription(request):
+def view_medical_record(request):
+    if request.POST:
+        input = {}
+        input['patient_id'] = request.POST['patient_id']
+
+        patient_info = PatientInfo.objects.filter(patient_id=input['patient_id'])
+        medical_info = MedicalRecord.objects.filter(patient_id=input['patient_id'])
+        data = {
+            'patient_info' : patient_info,
+            'medical_info' : medical_info,
+        }
+        return render(request, 'view_medical_info.html', data)
+
+    else:
+        patient_info = PatientInfo.objects.all()
+        medical_info = MedicalRecord.objects.all()
+
+        data = {
+            'patient_info' : patient_info,
+            'medical_info' : medical_info,
+        }
+        return render(request, 'view_medical_info.html', data)
+
+
+def add_prescription(request):
     if request.POST:
         input = {}
         input['patient_id'] = request.POST['patient_id']

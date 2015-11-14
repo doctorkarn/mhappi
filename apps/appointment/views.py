@@ -9,32 +9,7 @@ from apps.authenication.models import Patient, Officer
 from apps.appointment.models import ClinicTime, Appointment
 
 
-def notify_clinic_time(request):
-    if request.POST:
-        input = {}
-        input['officer_id'] = request.POST['officer_id']
-        input['clinic_time'] = request.POST['clinic_time']
-        input['clinic_status'] = request.POST['clinic_status']
-
-        clinic_time = ClinicTime.objects.create(
-        	officer_id 			= input['officer_id'],
-        	clinic_datetime 	= input['clinic_time'],
-        	clinic_status 		= input['clinic_status'],
-        )
-
-        messages.success(request, 'Notify Clinic Time successful')
-        return redirect('/notify_clinic_time/')
-
-    else:
-    	# doctors = Officer.objects.all()
-        doctors = Officer.objects.filter(position=2)
-        data = {
-            'doctors' : doctors
-    	}
-        return render(request, 'notify_clinic_time.html', data)
-
-
-def make_appoint(request):
+def make_appointment(request):
     if request.POST:
         input = {}
         input['patient_id'] = request.POST['patient_id']
@@ -60,7 +35,30 @@ def make_appoint(request):
         return render(request, 'appoint_doctor.html', data)
 
 
-def cancel_appoint(request):
+def list_appointment(request):
+    return "Under Construction ....."
+
+
+def view_appointment(request):
+    if request.POST:
+        input = {}
+        input['patient_id'] = request.POST['patient_id']
+
+        appointments = Appointment.objects.filter(patient_id=input['patient_id'])
+        data = {
+            'appointments' : appointments,
+        }
+        return render(request, 'view_appoint.html', data)
+
+    else:
+        appointments = Appointment.objects.all()
+        data = {
+            'appointments' : appointments,
+        }
+        return render(request, 'view_appoint.html', data)
+
+
+def cancel_appointment(request):
     if request.POST:
         appointment_id = request.POST['appointment_id']
 
@@ -79,20 +77,38 @@ def cancel_appoint(request):
         return render(request, 'cancel_appoint.html', data)
 
 
-def view_appoint(request):
+def make_clinic_time(request):
     if request.POST:
         input = {}
-        input['patient_id'] = request.POST['patient_id']
+        input['officer_id'] = request.POST['officer_id']
+        input['clinic_time'] = request.POST['clinic_time']
+        input['clinic_status'] = request.POST['clinic_status']
 
-        appointments = Appointment.objects.filter(patient_id=input['patient_id'])
-        data = {
-            'appointments' : appointments,
-        }
-        return render(request, 'view_appoint.html', data)
+        clinic_time = ClinicTime.objects.create(
+            officer_id          = input['officer_id'],
+            clinic_datetime     = input['clinic_time'],
+            clinic_status       = input['clinic_status'],
+        )
+
+        messages.success(request, 'Notify Clinic Time successful')
+        return redirect('/notify_clinic_time/')
 
     else:
-        appointments = Appointment.objects.all()
+        # doctors = Officer.objects.all()
+        doctors = Officer.objects.filter(position=2)
         data = {
-            'appointments' : appointments,
+            'doctors' : doctors
         }
-        return render(request, 'view_appoint.html', data)
+        return render(request, 'notify_clinic_time.html', data)
+
+
+def list_clinic_time(request):
+    return "Under Construction ....."
+
+
+def view_clinic_time(request):
+    return "Under Construction ....."
+
+
+def cancel_clinic_time(request):
+    return "Under Construction ....."
