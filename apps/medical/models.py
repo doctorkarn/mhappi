@@ -2,8 +2,8 @@ from django.db import models
 
 # Create your models here.
 class MedicalRecord(models.Model):
-	patient = models.ForeignKey('authenication.Patient')
-	officer = models.ForeignKey('authenication.Officer')
+	patient = models.ForeignKey('authentication.Patient')
+	officer = models.ForeignKey('authentication.Officer')
 	symptom = models.TextField()
 	diagnosis = models.TextField()
 	drg_code = models.CharField(max_length = 20)
@@ -13,8 +13,8 @@ class MedicalRecord(models.Model):
 
 
 class PatientInfo(models.Model):
-	patient = models.ForeignKey('authenication.Patient')
-	officer = models.ForeignKey('authenication.Officer')
+	patient = models.ForeignKey('authentication.Patient')
+	officer = models.ForeignKey('authentication.Officer')
 	information = models.TextField()
 
 	def __str__(self):
@@ -22,8 +22,8 @@ class PatientInfo(models.Model):
 
 
 class Prescritpion(models.Model):
-	patient = models.ForeignKey('authenication.Patient')
-	officer = models.ForeignKey('authenication.Officer')
+	patient = models.ForeignKey('authentication.Patient')
+	officer = models.ForeignKey('authentication.Officer')
 	drug_list = models.TextField()
 
 	def __str__(self):

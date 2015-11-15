@@ -16,7 +16,7 @@ Including another URLconf
 from django.conf.urls import patterns, include, url
 from django.contrib import admin
 
-from apps.authenication import views as auth_view
+from apps.authentication import views as auth_view
 from apps.appointment import views as appo_view
 from apps.medical import views as medi_view
 
@@ -29,6 +29,7 @@ urlpatterns = [
     url(r'^reset_password/$', auth_view.reset_password, name='reset_password'),
     url(r'^register/$', auth_view.register, name='register'),
     url(r'^update_profile/$', auth_view.update_profile, name='update_profile'),
+    url(r'^list_officer/$', auth_view.list_officer, name='list_officer'),
     url(r'^add_officer/$', auth_view.add_officer, name='add_officer'),
     url(r'^update_officer/$', auth_view.update_officer, name='update_officer'),
 

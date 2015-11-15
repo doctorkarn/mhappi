@@ -7,24 +7,24 @@ from django.db import models, migrations
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('authenication', '0002_officer_position'),
+        ('authentication', '0001_initial'),
     ]
 
     operations = [
         migrations.CreateModel(
             name='Appointment',
             fields=[
-                ('id', models.AutoField(verbose_name='ID', serialize=False, primary_key=True, auto_created=True)),
+                ('id', models.AutoField(verbose_name='ID', auto_created=True, serialize=False, primary_key=True)),
                 ('appointment_status', models.SmallIntegerField()),
             ],
         ),
         migrations.CreateModel(
             name='ClinicTime',
             fields=[
-                ('id', models.AutoField(verbose_name='ID', serialize=False, primary_key=True, auto_created=True)),
+                ('id', models.AutoField(verbose_name='ID', auto_created=True, serialize=False, primary_key=True)),
                 ('clinic_datetime', models.DateTimeField()),
                 ('clinic_status', models.SmallIntegerField()),
-                ('officer', models.ForeignKey(to='authenication.Officer')),
+                ('officer', models.ForeignKey(to='authentication.Officer')),
             ],
         ),
         migrations.AddField(
@@ -35,6 +35,6 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='appointment',
             name='patient',
-            field=models.ForeignKey(to='authenication.Patient'),
+            field=models.ForeignKey(to='authentication.Patient'),
         ),
     ]

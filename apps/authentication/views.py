@@ -1,15 +1,18 @@
 from django.http import *
 from django.shortcuts import render, redirect
 from django.template import RequestContext
+from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
-from django.contrib.auth import authenticate, login, logout
-from django.contrib import messages
+from django.contrib.auth import login as auth_login
+from django.contrib.auth import logout as auth_logout
+from django.contrib.auth import authenticate
+from django.core.mail import send_mail
 
 import json
 import random
 
-from apps.authenication.models import Patient, Officer
+from apps.authentication.models import Patient, Officer
 
 
 def login(request):
@@ -20,7 +23,7 @@ def login(request):
         user = authenticate(username=username, password=password)
         if user is not None:
             if user.is_active:
-                login(request, user)
+                auth_login(request, user)
                 messages.success(request, 'Login successful')
                 return HttpResponseRedirect('/login')
             else:
@@ -34,13 +37,32 @@ def login(request):
 
 
 def logout(request):
-    logout(request)
+    auth_logout(request)
     messages.success(request, 'Logout successful')
     return HttpResponseRedirect('/login')
 
 
 def reset_password(request):
-    return "Under Construction ....."
+    if request.POST:
+        to_email = request.POST['email']
+
+        # update new password into database
+        # .....
+
+        # send new username and password via email
+        email_subject = 'Subject here'
+        email_message = 'Here is the message.'
+        mail_success = send_mail(email_subject, email_message, 'mhappi@karnlab.com', [to_email])
+
+        if mail_success:
+            messages.success(request, 'System send new password to your email account, please check your inbox.')
+            return HttpResponseRedirect('/login')
+        else:
+            messages.warning(request, 'System cannot send you an email')
+            return HttpResponseRedirect('/login')
+        
+    else:
+        return render(request, 'reset_password.html')
 
 
 def update_profile(request):
@@ -48,6 +70,11 @@ def update_profile(request):
 
 
 def register(request):
+    user = User.objects.get(id=2)
+    user.role = 1
+    user.save()
+
+
     if request.POST:
         input = {}
         input['username'] = request.POST['username']
@@ -67,6 +94,8 @@ def register(request):
         user = User.objects.create_user(
             input['username'], input['email'], input['password']
         )
+        user.role = 1
+        user.save()
 
         patient = Patient.objects.create(
         	id 			= user.id,
@@ -110,7 +139,7 @@ def add_officer(request):
         user = User.objects.create_user(
             input['username'], input['email'], input['password']
         )
-        user.is_staff = 1;
+        user.is_staff = 1
         user.save()
 
         officer = Officer.objects.create(
@@ -139,3 +168,6 @@ def add_officer(request):
 def update_officer(request):
     return "Under Construction ....."
 
+
+def list_officer(request):
+    return "Under Construction ....."

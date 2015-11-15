@@ -37,10 +37,10 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-	'apps.authenication',
+    'apps.authentication',
 	'apps.appointment',
 	'apps.medical',
-	'apps.misc',
+	# 'apps.misc',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -102,10 +102,16 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.8/howto/static-files/
-
 STATIC_URL = '/static/'
 
 # Additional locations of static files
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, "static"),
 )
+
+# Email Setting
+# https://docs.djangoproject.com/en/1.8/ref/settings/#std:setting-EMAIL_HOST
+EMAIL_HOST = 'smtp.karnlab.com'
+EMAIL_PORT = '587'
+EMAIL_HOST_USER = 'mhappi@karnlab.com'
+EMAIL_HOST_PASSWORD = 'y26lynf7o7hl2pl'

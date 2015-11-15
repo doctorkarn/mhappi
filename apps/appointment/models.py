@@ -3,7 +3,7 @@ from datetime import date
 
 # Create your models here.
 class ClinicTime(models.Model):
-	officer = models.ForeignKey('authenication.Officer')
+	officer = models.ForeignKey('authentication.Officer')
 	clinic_datetime = models.DateTimeField()
 	clinic_status = models.SmallIntegerField()
 
@@ -12,7 +12,7 @@ class ClinicTime(models.Model):
 
 
 class Appointment(models.Model):
-	patient = models.ForeignKey('authenication.Patient')
+	patient = models.ForeignKey('authentication.Patient')
 	clinic_time = models.ForeignKey('appointment.ClinicTime')
 	appointment_status = models.SmallIntegerField()
 

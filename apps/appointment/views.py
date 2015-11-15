@@ -5,7 +5,7 @@ from django.contrib import messages
 
 import json, random
 
-from apps.authenication.models import Patient, Officer
+from apps.authentication.models import Patient, Officer
 from apps.appointment.models import ClinicTime, Appointment
 
 
