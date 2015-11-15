@@ -2,9 +2,9 @@
 {% block main %}
     <div id="login" class="row">
         <div class="col-md-4 col-md-offset-4">
-            <h1>Register Officer</h1>
+            <h1>Add Officer</h1>
             <hr/>
-            <form class="form-horizontal" name="RegisterForm" action="/register_officer/" method="post">
+            <form class="form-horizontal" name="RegisterForm" action="/add_officer/" method="post">
                 {% csrf_token %}
                 {% if next %}
                     <input type="hidden" name="next" value="{{ next }}" />
@@ -51,6 +51,7 @@
                 <div class="form-group">
                     <label class="control-label" for="birthdate">วันเกิด</label>
                     <input type="text" class="form-control" id="birthdate" name="birthdate">
+                    <p class="help-block">yyyy-mm-dd</p>
                 </div>
 
                 <div class="form-group">
@@ -67,7 +68,7 @@
                 </div>
 
                 <div class="form-group">
-                    <button type="submit" class="btn btn-default">Register</button>
+                    <button type="submit" class="btn btn-default">Add</button>
                 </div>
             </form>
         </div>

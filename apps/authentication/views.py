@@ -23,9 +23,47 @@ def login(request):
         user = authenticate(username=username, password=password)
         if user is not None:
             if user.is_active:
+                # login save session
                 auth_login(request, user)
-                messages.success(request, 'Login successful')
-                return HttpResponseRedirect('/login')
+
+                # assign role
+                if user.is_superuser:
+                    # request.session.get('user_role')
+                    request.session['user_role'] = 'admin'
+                    return HttpResponseRedirect('/login')
+                else:
+                    try:
+                        patient = Patient.objects.get(id=user.id)
+                        request.session['user_role'] = 'patient'
+                        return HttpResponseRedirect('/login')
+                    except ObjectDoesNotExist:
+                        try:
+                            officer = Officer.objects.get(id=user.id)
+                            if officer.position == 1:
+                                request.session['user_role'] = 'staff'
+                                # return HttpResponseRedirect('/home')
+                            elif officer.position == 2:
+                                request.session['user_role'] = 'doctor'
+                                # return HttpResponseRedirect('/home')
+                            elif officer.position == 3:
+                                request.session['user_role'] = 'nurse'
+                                # return HttpResponseRedirect('/home')
+                            elif officer.position == 4:
+                                request.session['user_role'] = 'pharmacist'
+                                # return HttpResponseRedirect('/home')
+                            else:
+                                request.session['user_role'] = 'unknown officer'
+                                auth_logout(request)
+                                messages.error(request, 'User is invalid, please contact admin')
+                                return HttpResponseRedirect('/login')
+
+                        except ObjectDoesNotExist:
+                            auth_logout(request)
+                            messages.error(request, 'User is invalid, please contact admin')
+                            return HttpResponseRedirect('/login')
+
+                # messages.success(request, 'Login successful')
+                # return HttpResponseRedirect('/login')
             else:
                 messages.warning(request, 'User is banned, please contact admin')
                 return HttpResponseRedirect('/login')
@@ -37,6 +75,10 @@ def login(request):
 
 
 def logout(request):
+    try:
+        del request.session['user_role']
+    except KeyError:
+        pass
     auth_logout(request)
     messages.success(request, 'Logout successful')
     return HttpResponseRedirect('/login')
@@ -65,16 +107,47 @@ def reset_password(request):
         return render(request, 'reset_password.html')
 
 
-def update_profile(request):
+def change_password(request):
     return "Under Construction ....."
 
 
+def update_profile(request):
+    logged_in = request.user.is_authenticated
+    uid = request.user.id
+
+    if request.POST:
+        input = {}
+        input['first_name'] = request.POST['first_name']
+        input['last_name'] = request.POST['last_name']
+
+        input['address'] = request.POST['address']
+        input['phone'] = request.POST['phone']
+        input['email'] = request.POST['email']
+
+        user = User.objects.get(id=request.user.id)
+        user.email = input['email']
+        user.save()
+
+        patient = Patient.objects.get(id=uid)
+        patient.first_name  = input['first_name']
+        patient.last_name  = input['last_name']
+        patient.address  = input['address']
+        patient.phone  = input['phone']
+        patient.email  = input['email']
+        patient.save()
+
+        messages.success(request, 'Update Profile successful')
+        return redirect('/update_profile/')
+
+    else:
+        patient = Patient.objects.get(id=uid)
+        data = {
+            'patient' : patient,
+        }
+        return render(request, 'update_profile.html', data)
+
+
 def register(request):
-    user = User.objects.get(id=2)
-    user.role = 1
-    user.save()
-
-
     if request.POST:
         input = {}
         input['username'] = request.POST['username']
@@ -94,8 +167,6 @@ def register(request):
         user = User.objects.create_user(
             input['username'], input['email'], input['password']
         )
-        user.role = 1
-        user.save()
 
         patient = Patient.objects.create(
         	id 			= user.id,
@@ -126,7 +197,7 @@ def add_officer(request):
         input['password'] = request.POST['password']
         input['confirm_password'] = request.POST['confirm_password']
 
-        input['hospital_id'] = "MDxxxxx" + str(random.randint(0,9))
+        input['hospital_id'] = "MDxxxxx" + str(random.randint(0,9)) + str(random.randint(0,9))
         input['national_id'] = request.POST['national_id']
         input['first_name'] = request.POST['first_name']
         input['last_name'] = request.POST['last_name']
@@ -135,6 +206,7 @@ def add_officer(request):
         input['address'] = request.POST['address']
         input['phone'] = request.POST['phone']
         input['email'] = request.POST['email']
+        input['position'] = request.POST['position']
 
         user = User.objects.create_user(
             input['username'], input['email'], input['password']
@@ -154,15 +226,15 @@ def add_officer(request):
         	address 	= input['address'],
         	phone 		= input['phone'],
         	email 		= input['email'],
-        	position	= 2,
+        	position	= input['position'],
         )
 
-        messages.success(request, 'Register Officer successful')
-        return render(request, 'register_officer.html')
+        messages.success(request, 'Add Officer successful')
+        return redirect('/add_officer/')
         # return HttpResponse(json.dumps(input))
 
     else:
-        return render(request, 'register_officer.html')
+        return render(request, 'add_officer.html')
 
 
 def update_officer(request):
