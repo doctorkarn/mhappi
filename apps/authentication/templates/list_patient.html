@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% block main %}
+    <div id="login" class="row">
+        <div class="col-md-8 col-md-offset-2">
+            <h1>Patient Lists (all)</h1>
+            <hr/>
+            <table class="table">
+            	<tr>
+            		<th>HN ID</th>
+            		<th>Name</th>
+            		<th></th>
+            	</tr>
+            	{% for patient in patients %}
+            	<tr>
+            		<td>{{ patient.hospital_id }}</td>
+            		<td>{{ patient.first_name }} {{ patient.last_name }}</td>
+            		<td>
+            			<a class="btn btn-default" href="#">button</a>
+            			<a class="btn btn-default" href="#">button</a>
+            			<a class="btn btn-default" href="#">button</a>
+            		</td>
+            	</tr>
+            	{% endfor %}
+            </table>
+        </div>
+    </div>
+{% endblock %}

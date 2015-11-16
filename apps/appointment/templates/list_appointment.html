@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% block main %}
+    <div id="login" class="row">
+        <div class="col-md-8 col-md-offset-2">
+            <h1>Appointment Lists (patient {{ patient_id }})</h1>
+            <hr/>
+            <table class="table">
+            	<tr>
+            		<th>Doctor</th>
+            		<th>DateTime</th>
+            		<th></th>
+            	</tr>
+            	{% for appointment in appointments %}
+            	<tr>
+            		<td>dr. {{ appointment.clinic_time.officer.first_name }} {{ appointment.clinic_time.officer.first_name }}</td>
+            		<td>{{ appointment.clinic_time.clinic_datetime }}</td>
+            		<td>
+            			<a class="btn btn-default" href="#">button</a>
+            		</td>
+            	</tr>
+            	{% endfor %}
+            </table>
+        </div>
+    </div>
+{% endblock %}

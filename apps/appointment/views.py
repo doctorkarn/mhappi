@@ -9,12 +9,12 @@ from apps.authentication.models import Patient, Officer
 from apps.appointment.models import ClinicTime, Appointment
 
 
-def make_appointment(request):
+def make_appointment(request, pid):
     if request.POST:
         input = {}
-        input['patient_id'] = request.POST['patient_id']
+        input['patient_id'] = pid
         input['clinic_time_id'] = request.POST['clinic_time_id']
-        input['appointment_status'] = request.POST['appointment_status']
+        input['appointment_status'] = 1
 
         appointment = Appointment.objects.create(
             patient_id 			= input['patient_id'],
@@ -23,7 +23,7 @@ def make_appointment(request):
         )
 
         messages.success(request, 'Appoint Doctor successful')
-        return redirect('/appoint_doctor/')
+        return redirect('/make_appointment/' + pid + '/')
 
     else:
         patients = Patient.objects.all()
@@ -31,12 +31,18 @@ def make_appointment(request):
         data = {
             'patients' : patients,
             'clinics' : clinics,
+            'patient_id' : pid,
         }
         return render(request, 'appoint_doctor.html', data)
 
 
-def list_appointment(request):
-    return "Under Construction ....."
+def list_appointment(request, pid):
+    appointments = Appointment.objects.all()
+    data = {
+        'appointments' : appointments,
+        'patient_id' : pid,
+    }
+    return render(request, 'list_appointment.html', data)
 
 
 def view_appointment(request):
@@ -77,12 +83,12 @@ def cancel_appointment(request):
         return render(request, 'cancel_appoint.html', data)
 
 
-def make_clinic_time(request):
+def make_clinic_time(request, did):
     if request.POST:
         input = {}
-        input['officer_id'] = request.POST['officer_id']
+        input['officer_id'] = did
         input['clinic_time'] = request.POST['clinic_time']
-        input['clinic_status'] = request.POST['clinic_status']
+        input['clinic_status'] = 1
 
         clinic_time = ClinicTime.objects.create(
             officer_id          = input['officer_id'],
@@ -90,14 +96,15 @@ def make_clinic_time(request):
             clinic_status       = input['clinic_status'],
         )
 
-        messages.success(request, 'Notify Clinic Time successful')
-        return redirect('/notify_clinic_time/')
+        messages.success(request, 'Make Clinic Time successful')
+        return redirect('/make_clinic_time/' + did + '/')
 
     else:
         # doctors = Officer.objects.all()
         doctors = Officer.objects.filter(position=2)
         data = {
-            'doctors' : doctors
+            'doctors' : doctors,
+            'doctor_id' : did,
         }
         return render(request, 'notify_clinic_time.html', data)
 

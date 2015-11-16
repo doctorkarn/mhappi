@@ -4,18 +4,20 @@
         <div class="col-md-4 col-md-offset-4">
             <h1>Notify Clinic Time <br/> (for Doctor)</h1>
             <hr/>
-            <form class="form-horizontal" name="RegisterForm" action="/appoint_doctor/" method="post">
+            <form class="form-horizontal" name="RegisterForm" action="/make_appointment/{{ patient_id }}/" method="post">
                 {% csrf_token %}
                 {% if next %}
                     <input type="hidden" name="next" value="{{ next }}" />
                 {% endif %}
                 <div class="form-group">
                     <label class="control-label" for="patient_id">Patient ID</label>
-                    <select class="form-control" id="patient_id" name="patient_id" >
+                    <input type="text" class="form-control" id="patient_id" name="patient_id" 
+                        value="{{ patient_id }}" disabled="">
+                    <!-- <select class="form-control" id="patient_id" name="patient_id" >
                         {% for patient in patients %}
                         <option value="{{ patient.id }}">{{ patient.id }} - {{ patient.first_name }} {{ patient.last_name }}</option>
                         {% endfor %}
-                    </select>
+                    </select> -->
                 </div>
                 <div class="form-group">
                     <label class="control-label" for="clinic_time_id">Clinic Time</label>
@@ -27,8 +29,8 @@
                 </div>
                 <div class="form-group">
                     <label class="control-label" for="appointment_status">Appointment Status</label>
-                    <input type="text" class="form-control" id="appointment_status" name="appointment_status" value="1">
-                    <p class="help-block">1 = active, 0 = inactive, -1 = banned</p>
+                    <input type="text" class="form-control" id="appointment_status" name="appointment_status" value="1" disabled="">
+                    <p class="help-block">1 = active, 0 = inactive, -1 = cancelled</p>
                 </div>
 
                 <div class="form-group">

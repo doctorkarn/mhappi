@@ -10,10 +10,6 @@ from apps.appointment.models import ClinicTime, Appointment
 from apps.medical.models import MedicalRecord, PatientInfo, Prescritpion
 
 
-def list_patient(request):
-    return "Under Construction ....."
-
-
 def add_patient_information(request):
     if request.POST:
         input = {}
@@ -96,6 +92,10 @@ def view_medical_record(request):
             'medical_info' : medical_info,
         }
         return render(request, 'view_medical_info.html', data)
+
+
+def list_medical_record(request):
+    return "Under Construction ....."
 
 
 def add_prescription(request):

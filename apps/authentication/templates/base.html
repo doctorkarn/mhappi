@@ -33,12 +33,12 @@
         <h3 class="text-muted"><img src="{% static 'img/logo.png' %}" /> MHAPPI </h3>
         <nav>
           <ul class="nav nav-justified">
-            <li class="active"><a href="/login">Home</a></li>
+            <li class="active"><a href="/home">Home</a></li>
             <li><a href="#">.</a></li>
             <li><a href="#">.</a></li>
             <li><a href="#">.</a></li>
             {% if request.user.is_authenticated %}
-            <li><a href="/update_profile/">Welcome, {{ request.user.username }} ({{ request.session.user_role }})</a></li>
+            <li><a href="/update_profile/">[{{ request.user.id }}] {{ request.user.username }} ({{ request.session.user_role }})</a></li>
             <li><a href="/logout/">Logout</a></li>
             {% else %}
             

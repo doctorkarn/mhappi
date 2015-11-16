@@ -8,6 +8,7 @@ from django.contrib.auth import login as auth_login
 from django.contrib.auth import logout as auth_logout
 from django.contrib.auth import authenticate
 from django.core.mail import send_mail
+from django.core.exceptions import ObjectDoesNotExist
 
 import json
 import random
@@ -28,29 +29,28 @@ def login(request):
 
                 # assign role
                 if user.is_superuser:
-                    # request.session.get('user_role')
                     request.session['user_role'] = 'admin'
                     return HttpResponseRedirect('/login')
                 else:
                     try:
                         patient = Patient.objects.get(id=user.id)
                         request.session['user_role'] = 'patient'
-                        return HttpResponseRedirect('/login')
+                        return HttpResponseRedirect('/home')
                     except ObjectDoesNotExist:
                         try:
                             officer = Officer.objects.get(id=user.id)
                             if officer.position == 1:
                                 request.session['user_role'] = 'staff'
-                                # return HttpResponseRedirect('/home')
+                                return HttpResponseRedirect('/home')
                             elif officer.position == 2:
                                 request.session['user_role'] = 'doctor'
-                                # return HttpResponseRedirect('/home')
+                                return HttpResponseRedirect('/home')
                             elif officer.position == 3:
                                 request.session['user_role'] = 'nurse'
-                                # return HttpResponseRedirect('/home')
+                                return HttpResponseRedirect('/home')
                             elif officer.position == 4:
                                 request.session['user_role'] = 'pharmacist'
-                                # return HttpResponseRedirect('/home')
+                                return HttpResponseRedirect('/home')
                             else:
                                 request.session['user_role'] = 'unknown officer'
                                 auth_logout(request)
@@ -147,6 +147,26 @@ def update_profile(request):
         return render(request, 'update_profile.html', data)
 
 
+def home(request):
+    if request.user.is_authenticated():
+        role = request.session.get('user_role')
+        if role == 'patient':
+            return render(request, 'patient_home.html')
+        elif role == 'staff':
+            return render(request, 'staff_home.html')
+        elif role == 'doctor':
+            return render(request, 'doctor_home.html')
+        elif role == 'nurse':
+            return render(request, 'nurse_home.html')
+        elif role == 'pharmacist':
+            return render(request, 'pharmacist_home.html')
+        else:
+            messages.warning(request, 'You have special role, ' + role)
+            return HttpResponseRedirect('/login')
+    else:
+        messages.warning(request, 'Please login again')
+        return HttpResponseRedirect('/login')
+
 def register(request):
     if request.POST:
         input = {}
@@ -183,11 +203,19 @@ def register(request):
         )
 
         messages.success(request, 'Register successful')
-        return render(request, 'register.html')
+        return HttpResponseRedirect('/login')
         # return HttpResponse(json.dumps(input))
 
     else:
         return render(request, 'register.html')
+
+
+def list_patient(request):
+    patients = Patient.objects.all()
+    data = {
+        'patients' : patients,
+    }
+    return render(request, 'list_patient.html', data)
 
 
 def add_officer(request):
