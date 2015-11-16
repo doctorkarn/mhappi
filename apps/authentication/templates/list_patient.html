@@ -15,8 +15,8 @@
             		<td>{{ patient.hospital_id }}</td>
             		<td>{{ patient.first_name }} {{ patient.last_name }}</td>
             		<td>
-            			<a class="btn btn-default" href="#">button</a>
-            			<a class="btn btn-default" href="#">button</a>
+            			<a class="btn btn-default" href="/make_appointment/{{ patient.id }}/">make appointment</a>
+            			<a class="btn btn-default" href="/list_appointment/{{ patient.id }}/">list appointment</a>
             			<a class="btn btn-default" href="#">button</a>
             		</td>
             	</tr>

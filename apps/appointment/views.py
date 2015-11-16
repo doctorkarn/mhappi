@@ -37,7 +37,7 @@ def make_appointment(request, pid):
 
 
 def list_appointment(request, pid):
-    appointments = Appointment.objects.all()
+    appointments = Appointment.objects.filter(patient_id=pid)
     data = {
         'appointments' : appointments,
         'patient_id' : pid,
@@ -109,8 +109,13 @@ def make_clinic_time(request, did):
         return render(request, 'notify_clinic_time.html', data)
 
 
-def list_clinic_time(request):
-    return "Under Construction ....."
+def list_clinic_time(request, did):
+    clinic_times = ClinicTime.objects.filter(officer_id=did)
+    data = {
+        'clinic_times' : clinic_times,
+        'doctor_id' : did,
+    }
+    return render(request, 'list_clinic_time.html', data)
 
 
 def view_clinic_time(request):

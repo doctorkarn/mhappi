@@ -218,6 +218,14 @@ def list_patient(request):
     return render(request, 'list_patient.html', data)
 
 
+def list_doctor(request):
+    doctors = Officer.objects.filter(position=2)
+    data = {
+        'doctors' : doctors,
+    }
+    return render(request, 'list_doctor.html', data)
+
+
 def add_officer(request):
     if request.POST:
         input = {}

@@ -2,20 +2,18 @@
 {% block main %}
     <div id="login" class="row">
         <div class="col-md-8 col-md-offset-2">
-            <h1>Appointment Lists (patient {{ patient_id }})</h1>
+            <h1>Clinic Time Lists (doctor {{ doctor_id }})</h1>
             <hr/>
             <table class="table">
             	<tr>
-                    <th>Patient</th>
             		<th>Doctor</th>
             		<th>DateTime</th>
             		<th></th>
             	</tr>
-            	{% for appointment in appointments %}
+            	{% for clinic_time in clinic_times %}
             	<tr>
-                    <td>{{ appointment.patient.first_name }} {{ appointment.patient.first_name }}</td>
-            		<td>dr. {{ appointment.clinic_time.officer.first_name }} {{ appointment.clinic_time.officer.first_name }}</td>
-            		<td>{{ appointment.clinic_time.clinic_datetime }}</td>
+            		<td>dr. {{ clinic_time.officer.first_name }} {{ clinic_time.officer.first_name }}</td>
+            		<td>{{ clinic_time.clinic_datetime }}</td>
             		<td>
             			<a class="btn btn-default" href="#">button</a>
             		</td>

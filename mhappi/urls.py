@@ -32,6 +32,7 @@ urlpatterns = [
     url(r'^home/$', auth_view.home, name='home'),
 
     url(r'^list_patient/', auth_view.list_patient, name='list_patient'),
+    url(r'^list_doctor/', auth_view.list_doctor, name='list_doctor'),
     url(r'^list_officer/$', auth_view.list_officer, name='list_officer'),
     url(r'^add_officer/$', auth_view.add_officer, name='add_officer'),
     url(r'^update_officer/$', auth_view.update_officer, name='update_officer'),
@@ -47,7 +48,8 @@ urlpatterns = [
 
     # url(r'^make_clinic_time/$', appo_view.make_clinic_time, name='make_clinic_time'),
     url(r'^make_clinic_time/([0-9]+)/$', appo_view.make_clinic_time, name='make_clinic_time'),
-    url(r'^list_clinic_time/$', appo_view.list_clinic_time, name='list_clinic_time'),
+    # url(r'^list_clinic_time/$', appo_view.list_clinic_time, name='list_clinic_time'),
+    url(r'^list_clinic_time/([0-9]+)/$', appo_view.list_clinic_time, name='list_clinic_time'),
     url(r'^view_clinic_time/$', appo_view.view_clinic_time, name='view_clinic_time'),
     url(r'^cancel_clinic_time/$', appo_view.cancel_clinic_time, name='cancel_clinic_time'),
 
