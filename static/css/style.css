@@ -1,0 +1,45 @@
+.bg-login{
+	
+	background: #fef2ca; /* Old browsers */
+	background: -moz-linear-gradient(top, #fef2ca 0%, #55b8a3 100%); /* FF3.6-15 */
+	background: -webkit-linear-gradient(top, #fef2ca 0%,#55b8a3 100%); /* Chrome10-25,Safari5.1-6 */
+	background: linear-gradient(to bottom, #fef2ca 0%,#55b8a3 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#fef2ca', endColorstr='#55b8a3',GradientType=0 ); /* IE6-9 */
+	height: 500px;
+	text-align: center;
+}
+
+#login{
+	margin-top: 60px;
+	border-radius: 5px;
+}
+
+.top-login{
+	background-color: rgba(255,255,255,0.4);
+	border-top-left-radius: 5px;
+	border-top-right-radius: 5px;
+}
+
+.bottom-login{
+	background-color: rgba(255,255,255,0.9);
+	border-bottom-left-radius: 5px;
+	border-bottom-right-radius: 5px;
+}
+
+.login-form{
+	margin-top: 10px;
+}
+
+.login-form-text{
+	width: 80%;
+	color: white;
+	background-color: #dfd8d0;
+}
+
+.login-button{
+	width:80%;
+	background-color:#59c9b1;
+	margin-top:10px;
+	color: white;
+	border-radius: 5px;
+}
