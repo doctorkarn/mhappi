@@ -10,11 +10,11 @@ from apps.appointment.models import ClinicTime, Appointment
 from apps.medical.models import MedicalRecord, PatientInfo, Prescritpion
 
 
-def add_patient_information(request):
+def add_patient_information(request, pid):
     if request.POST:
         input = {}
-        input['patient_id'] = request.POST['patient_id']
-        input['officer_id'] = request.POST['officer_id']
+        input['patient_id'] = pid
+        input['officer_id'] = request.user.id
         input['patient_info'] = request.POST['patient_info']
 
         patient_info = PatientInfo.objects.create(
@@ -24,14 +24,14 @@ def add_patient_information(request):
         )
 
         messages.success(request, 'Record Patient Information')
-        return redirect('/record_patient_info/')
+        return redirect('/list_patient/')
 
     else:
-        patients = Patient.objects.all()
-        nurses = Officer.objects.filter(position=3)
+        patient_id = pid
+        nurse_id = request.user.id
         data = {
-            'patients' : patients,
-            'nurses' : nurses,
+            'patient_id' : patient_id,
+            'nurse_id' : nurse_id,
         }
         return render(request, 'record_patient_info.html', data)
 
@@ -40,8 +40,14 @@ def view_patient_information(request):
     return "Under Construction ....."
 
 
-def list_patient_information(request):
-    return "Under Construction ....."
+def list_patient_information(request, pid):
+    patient_infos = PatientInfo.objects.filter(patient_id=pid)
+    medical_infos = MedicalRecord.objects.filter(patient_id=pid)
+    data = {
+        'patient_infos' : patient_infos,
+        'medical_infos' : medical_infos,
+    }
+    return render(request, 'list_patient_info.html', data)
 
 
 def add_medical_record(request, pid):
@@ -108,11 +114,11 @@ def list_medical_record(request, pid):
     return render(request, 'list_medical_info.html', data)
 
 
-def add_prescription(request):
+def add_prescription(request, pid):
     if request.POST:
         input = {}
-        input['patient_id'] = request.POST['patient_id']
-        input['officer_id'] = request.POST['officer_id']
+        input['patient_id'] = pid
+        input['officer_id'] = request.user.id
         input['drug_list'] = request.POST['drug_list']
 
         perscritpion = Prescritpion.objects.create(
@@ -122,14 +128,14 @@ def add_prescription(request):
         )
 
         messages.success(request, 'Record Prescritpion')
-        return redirect('/record_prescription/')
+        return redirect('/list_patient/')
 
     else:
-        patients = Patient.objects.all()
-        doctors = Officer.objects.filter(position=2)
+        patient_id = pid
+        doctor_id = request.user.id
         data = {
-            'patients' : patients,
-            'doctors' : doctors,
+            'patient_id' : patient_id,
+            'doctor_id' : doctor_id,
         }
         return render(request, 'record_prescription.html', data)
 
@@ -153,5 +159,9 @@ def view_prescription(request):
         return render(request, 'view_prescription.html', data)
 
 
-def list_prescription(request):
-    return "Under Construction ....."
+def list_prescription(request, pid):
+    prescriptions = Prescritpion.objects.filter(patient_id=pid)
+    data = {
+        'prescriptions' : prescriptions,
+    }
+    return render(request, 'list_prescription.html', data)
