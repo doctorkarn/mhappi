@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% block main %}
+    <div id="login" class="row">
+        <div class="col-md-8 col-md-offset-2">
+            <h1>Medical History (patient {{ patient_id }})</h1>
+            <hr/>
+            <table class="table">
+            	<tr>
+                    <th>Symptom</th>
+            		<th>Diagnosis</th>
+            		<th>DRG Code</th>
+            		<th></th>
+            	</tr>
+            	{% for medical_info in medical_infos %}
+            	<tr>
+                    <td>{{ medical_info.symptom }}</td>
+            		<td>{{ medical_info.diagnosis }}</td>
+            		<td>{{ medical_info.drg_code }}</td>
+            		<td>
+            			<a class="btn btn-default" href="#">button</a>
+            		</td>
+            	</tr>
+            	{% endfor %}
+            </table>
+        </div>
+    </div>
+{% endblock %}

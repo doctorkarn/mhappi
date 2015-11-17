@@ -57,12 +57,13 @@ urlpatterns = [
     # Medical
     url(r'^add_patient_information/', medi_view.add_patient_information, name='add_patient_information'),
     url(r'^view_patient_information/', medi_view.view_patient_information, name='view_patient_information'),
-    # url(r'^list_patient_information/', medi_view.view_patient_information, name='view_patient_information'),
+    url(r'^list_patient_information/', medi_view.view_patient_information, name='view_patient_information'),
 
-    url(r'^add_medical_record/', medi_view.add_medical_record, name='add_medical_record'),
+    url(r'^add_medical_record/([0-9]+)/$', medi_view.add_medical_record, name='add_medical_record'),
     url(r'^view_medical_record/', medi_view.view_medical_record, name='view_medical_record'),
-    # url(r'^list_medical_record/', medi_view.list_medical_record, name='list_medical_record'),
+    url(r'^list_medical_record/([0-9]+)/$', medi_view.list_medical_record, name='list_medical_record'),
 
     url(r'^add_prescription/', medi_view.add_prescription, name='add_prescription'),
     url(r'^view_prescription/', medi_view.view_prescription, name='view_prescription'),
+    url(r'^list_prescription/', medi_view.list_prescription, name='list_prescription'),
 ]

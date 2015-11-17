@@ -5,9 +5,9 @@
             <h1>Home (Doctor)</h1>
             <hr/>
             <a class="btn btn-default btn-block" href="/make_clinic_time/{{ request.user.id }}">Create Clinic Time</a>
-            <a class="btn btn-default btn-block" href="/make_appointment">Make Appointment</a>
-            <a class="btn btn-default btn-block" href="/list_appointment">List Appointment</a>
-            <a class="btn btn-default btn-block" href="/list_patient">List Patient</a>
+            <!-- <a class="btn btn-default btn-block" href="/make_appointment">Make Appointment</a> -->
+            <a class="btn btn-default btn-block" href="/list_clinic_time/{{ request.user.id }}">List Clinic Time</a>
+            <a class="btn btn-default btn-block" href="/list_patient">List Patient / Make Appointment</a>
         </div>
     </div>
 {% endblock %}

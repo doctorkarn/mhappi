@@ -4,34 +4,38 @@
         <div class="col-md-4 col-md-offset-4">
             <h1>Record Medical Information <br/> (for Doctor)</h1>
             <hr/>
-            <form class="form-horizontal" name="RegisterForm" action="/record_medical_info/" method="post">
+            <form class="form-horizontal" name="RegisterForm" action="/add_medical_record/{{ patient_id }}/" method="post">
                 {% csrf_token %}
                 {% if next %}
                     <input type="hidden" name="next" value="{{ next }}" />
                 {% endif %}
                 <div class="form-group">
                     <label class="control-label" for="patient_id">Patient ID</label>
-                    <select class="form-control" id="patient_id" name="patient_id" >
+                    <input type="text" class="form-control" id="patient_id" name="patient_id" 
+                        value="{{ patient_id }}" disabled="">
+                    <!-- <select class="form-control" id="patient_id" name="patient_id" >
                         {% for patient in patients %}
                         <option value="{{ patient.id }}">{{ patient.id }} - {{ patient.first_name }} {{ patient.last_name }}</option>
                         {% endfor %}
-                    </select>
+                    </select> -->
                 </div>
                 <div class="form-group">
-                    <label class="control-label" for="officer_id">Nurse ID</label>
-                    <select class="form-control" id="officer_id" name="officer_id" >
+                    <label class="control-label" for="officer_id">Doctor ID</label>
+                    <input type="text" class="form-control" id="officer_id" name="officer_id" 
+                        value="{{ doctor_id }}" disabled="">
+                    <!-- <select class="form-control" id="officer_id" name="officer_id" >
                         {% for doctor in doctors %}
                         <option value="{{ doctor.id }}">{{ doctor.id }} - {{ doctor.first_name }} {{ doctor.last_name }}</option>
                         {% endfor %}
-                    </select>
+                    </select> -->
                 </div>
                 <div class="form-group">
-                    <label class="control-label" for="_symptom">Symptom</label>
-                    <textarea class="form-control" id="_symptom" name="_symptom" ></textarea>
+                    <label class="control-label" for="symptom">Symptom</label>
+                    <textarea class="form-control" id="symptom" name="symptom" ></textarea>
                 </div>
                 <div class="form-group">
-                    <label class="control-label" for="_diagnosis">Diagnosis</label>
-                    <textarea class="form-control" id="_diagnosis" name="_diagnosis" ></textarea>
+                    <label class="control-label" for="diagnosis">Diagnosis</label>
+                    <textarea class="form-control" id="diagnosis" name="diagnosis" ></textarea>
                 </div>
                 <div class="form-group">
                     <label class="control-label" for="drgcode">DRG Code</label>
