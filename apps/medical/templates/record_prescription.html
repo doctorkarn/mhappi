@@ -4,26 +4,20 @@
         <div class="col-md-4 col-md-offset-4">
             <h1>Record Medical Information <br/> (for Doctor)</h1>
             <hr/>
-            <form class="form-horizontal" name="RegisterForm" action="/record_prescription/" method="post">
+            <form class="form-horizontal" name="RegisterForm" action="/add_prescription/{{ patient_id }}/" method="post">
                 {% csrf_token %}
                 {% if next %}
                     <input type="hidden" name="next" value="{{ next }}" />
                 {% endif %}
                 <div class="form-group">
                     <label class="control-label" for="patient_id">Patient ID</label>
-                    <select class="form-control" id="patient_id" name="patient_id" >
-                        {% for patient in patients %}
-                        <option value="{{ patient.id }}">{{ patient.id }} - {{ patient.first_name }} {{ patient.last_name }}</option>
-                        {% endfor %}
-                    </select>
+                    <input type="text" class="form-control" id="patient_id" name="patient_id" 
+                        value="{{ patient_id }}" disabled="">
                 </div>
                 <div class="form-group">
                     <label class="control-label" for="officer_id">Doctor ID</label>
-                    <select class="form-control" id="officer_id" name="officer_id" >
-                        {% for doctor in doctors %}
-                        <option value="{{ doctor.id }}">{{ doctor.id }} - {{ doctor.first_name }} {{ doctor.last_name }}</option>
-                        {% endfor %}
-                    </select>
+                    <input type="text" class="form-control" id="officer_id" name="officer_id" 
+                        value="{{ doctor_id }}" disabled="">
                 </div>
                 <div class="form-group">
                     <label class="control-label" for="drug_list">Drug List</label>
