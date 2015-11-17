@@ -40,11 +40,15 @@ def view_patient_information(request):
     return "Under Construction ....."
 
 
-def add_medical_record(request):
+def list_patient_information(request):
+    return "Under Construction ....."
+
+
+def add_medical_record(request, pid):
     if request.POST:
         input = {}
-        input['patient_id'] = request.POST['patient_id']
-        input['officer_id'] = request.POST['officer_id']
+        input['patient_id'] = pid
+        input['officer_id'] = request.user.id
         input['symptom'] = request.POST['symptom']
         input['diagnosis'] = request.POST['diagnosis']
         input['drgcode'] = request.POST['drgcode']
@@ -58,14 +62,14 @@ def add_medical_record(request):
         )
 
         messages.success(request, 'Record Medical Information')
-        return redirect('/record_medical_info/')
+        return redirect('/list_patient/')
 
     else:
-        patients = Patient.objects.all()
-        doctors = Officer.objects.filter(position=2)
+        patient_id = pid
+        doctor_id = request.user.id
         data = {
-            'patients' : patients,
-            'doctors' : doctors,
+            'patient_id' : patient_id,
+            'doctor_id' : doctor_id,
         }
         return render(request, 'record_medical_info.html', data)
 
@@ -94,8 +98,14 @@ def view_medical_record(request):
         return render(request, 'view_medical_info.html', data)
 
 
-def list_medical_record(request):
-    return "Under Construction ....."
+def list_medical_record(request, pid):
+    patient_infos = PatientInfo.objects.filter(patient_id=pid)
+    medical_infos = MedicalRecord.objects.filter(patient_id=pid)
+    data = {
+        'patient_infos' : patient_infos,
+        'medical_infos' : medical_infos,
+    }
+    return render(request, 'list_medical_info.html', data)
 
 
 def add_prescription(request):
@@ -141,3 +151,7 @@ def view_prescription(request):
             'perscritpion' : perscritpion,
         }
         return render(request, 'view_prescription.html', data)
+
+
+def list_prescription(request):
+    return "Under Construction ....."
