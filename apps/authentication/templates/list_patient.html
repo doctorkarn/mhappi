@@ -22,8 +22,15 @@
 						{% if request.session.user_role == 'doctor' %}
             			<a class="btn btn-default" href="/add_medical_record/{{ patient.id }}/">create medical record</a>
             			<a class="btn btn-default" href="/list_medical_record/{{ patient.id }}/">list medical record</a>
+            			<a class="btn btn-default" href="/add_prescription/{{ patient.id }}/">create prescription</a>
             			{% endif %}
-            			<a class="btn btn-default" href="#">button</a>
+            			{% if request.session.user_role == 'nurse' %}
+            			<a class="btn btn-default" href="/add_patient_information/{{ patient.id }}/">create patient info.</a>
+            			<a class="btn btn-default" href="/list_patient_information/{{ patient.id }}/">list patient info.</a>
+            			{% endif %}
+            			{% if request.session.user_role == 'pharmacist' %}
+            			<a class="btn btn-default" href="/list_prescription/{{ patient.id }}/">list prescription</a>
+            			{% endif %}
             		</td>
             	</tr>
             	{% endfor %}
