@@ -61,7 +61,7 @@ function calendar(monthSearch,yearSearch)
                 //alert(yearSearch+">="+year+" , "+month+">="+monthSearch+" , "+i+">="+dateNow)
                 dateText = yearSearch+'-'+monthSearch+'-'+i;
                 if(yearSearch >= year && monthSearch > month){
-                    text += '<td id="date_'+dateText+'" class="cal_day" onclick="setCalendarDate(\''+dateText+'\');">'+i+'</td>';
+                    text += '<td id="date_'+dateText+'" class="cal_day" onclick="setCalendarDate(\''+dateText+'\');"><div class="day-selected">'+i+'</div></td>';
                 }
                 else if(yearSearch == year && monthSearch == month && i >= dateNow)
                 {
@@ -72,8 +72,8 @@ function calendar(monthSearch,yearSearch)
                                 if(docDay[dd] > i) break;
                             }
                         }
-                        if(check) text += '<td id="date_'+dateText+'" class="cal_day notify" onclick="setCalendarDate(\''+dateText+'\');">'+i+'</td>';
-                        else text += '<td id="date_'+dateText+'" class="cal_day" onclick="setCalendarDate(\''+dateText+'\');">'+i+'</td>';
+                        if(check) text += '<td id="date_'+dateText+'" class="cal_day notify" onclick="setCalendarDate(\''+dateText+'\');">'+i+'<div class="day-selected"></div></td>';
+                        else text += '<td id="date_'+dateText+'" class="cal_day" onclick="setCalendarDate(\''+dateText+'\');">'+i+'<div class="day-selected"></div></td>';
                 }
                 else{
                     text += '<td> </td>';
@@ -104,6 +104,14 @@ var textDateNow = "";
 var textTimeNow = "";
 
 function setCalendarDate(date){
+    //reset checkbox
+    document.getElementById("checkboxTimeM").checked = false;
+    document.getElementById("checkboxTimeA").checked = false;
+    document.getElementById("checkboxTimeM").disabled = true;
+    document.getElementById("checkboxTimeA").disabled = true;
+    var elem = document.getElementById("clinic_time");
+    elem.value = ""
+
     if(textDateNow == date) {
         textDateNow = "";
         document.getElementById("date_"+date).style.backgroundColor = "#F4F4F4";
@@ -113,10 +121,14 @@ function setCalendarDate(date){
         document.getElementById("date_"+textDateNow).style.backgroundColor = "#F4F4F4";
         textDateNow = date;
         document.getElementById("date_"+date).style.backgroundColor = "red";
+        document.getElementById("checkboxTimeM").disabled = false;
+        document.getElementById("checkboxTimeA").disabled = false;
     }
     textTimeNow = "";
 }
-function setCalendarTime(time){
+function setCalendarTime(time,type){
+    if(type=='M')       document.getElementById("checkboxTimeM").checked = true;
+    else if(type=='A')  document.getElementById("checkboxTimeA").checked = true;
     textTimeNow = time;
     setCalendar();
 }
