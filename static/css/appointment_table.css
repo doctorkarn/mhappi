@@ -67,3 +67,16 @@ td{
 .calendar_time input[type="radio"]:checked + label {
     background: url("../img/appointment/Checkbox_checked.svg") no-repeat;
 }
+
+.calendar_time input[type="radio"]:disabled + label {
+    background: url("../img/appointment/Checkbox_disabled.svg") no-repeat;
+    cursor: default;
+}
+
+.day-selected{
+	width: 3em;
+	height: 3em;
+	border-radius: 3em;
+	border: 3px solid #59C9B2;
+	margin: 0 auto;
+}
