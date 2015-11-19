@@ -1,67 +1,150 @@
 {% extends "base.html" %}
 {% block main %}
-    <div id="login" class="row">
-        <div class="col-md-4 col-md-offset-4">
-            <h1>Register Patient</h1>
-            <hr/>
-            <form class="form-horizontal" name="RegisterForm" action="/register/" method="post">
-                {% csrf_token %}
-                {% if next %}
-                    <input type="hidden" name="next" value="{{ next }}" />
-                {% endif %}
-                <div class="form-group">
-                    <label class="control-label" for="username">Username</label>
-                    <input type="text" class="form-control" id="username" name="username">
-                </div>
-                <div class="form-group">
-                    <label class="control-label" for="password">Password</label>
-                    <input type="password" class="form-control" name="password" id="password">
-                </div>
-                <div class="form-group">
-                    <label class="control-label" for="confirm_password">Confirm Password</label>
-                    <input type="password" class="form-control" name="confirm_password" id="confirm_password">
-                </div>
+{% load staticfiles %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}"/>
+<style>
+    .row-100{
+        width:100%;
+        margin: 0px;
+    }
+    #page_01{
+        display: block;
+    }
+    #page_02,#page_03,#page_04{
+        display: none;
+    }
 
-                <div class="form-group">
-                    <label class="control-label" for="national_id">เลขบัตรประจำตัวประชาชน</label>
-                    <input type="text" class="form-control" id="national_id" name="national_id">
-                </div>
-                <div class="form-group">
-                    <label class="control-label" for="first_name">ชื่อ</label>
-                    <input type="text" class="form-control" id="first_name" name="first_name">
-                </div>
-                <div class="form-group">
-                    <label class="control-label" for="first_name">นามสกุล</label>
-                    <input type="text" class="form-control" id="last_name" name="last_name">
-                </div>
-                <div class="form-group">
-                    <label class="control-label" for="gender">เพศ</label>
-                    <input type="text" class="form-control" id="gender" name="gender">
-                    <p class="help-block">1 = ชาย, 2 = หญิง, 3 = อื่นๆ</p>
-                </div>
-                <div class="form-group">
-                    <label class="control-label" for="birthdate">วันเกิด</label>
-                    <input type="text" class="form-control" id="birthdate" name="birthdate">
-                    <p class="help-block">yyyy-mm-dd</p>
-                </div>
+</style>
+<form class="form-horizontal" name="RegisterForm" action="/register/" method="post">
+    {% csrf_token %}
+    {% if next %}
+        <input type="hidden" name="next" value="{{ next }}" />
+    {% endif %}
 
-                <div class="form-group">
-                    <label class="control-label" for="address">ที่อยู่</label>
-                    <input type="text" class="form-control" id="address" name="address">
-                </div>
-                <div class="form-group">
-                    <label class="control-label" for="phone">เบอร์โทรศัพท์</label>
-                    <input type="text" class="form-control" id="phone" name="phone">
-                </div>
-                <div class="form-group">
-                    <label class="control-label" for="email">อีเมล</label>
-                    <input type="email" class="form-control" id="email" name="email">
-                </div>
 
-                <div class="form-group">
-                    <button type="submit" class="btn btn-default">Register</button>
-                </div>
-            </form>
+    <div class="row row-100 regis-header">
+        <div style="color:white;">
+            <h1 style="margin:0px;">ลงทะเบียนผู้ป่วย</h1>
+            <div>-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-</div>
         </div>
     </div>
+
+    <div id="page_01" class="row row-100 regis-bottom" align="center">
+        <div class="col-md-8 col-md-offset-2 regis-bottom">
+            <h3 class="row" style="color: #948d94;">กรุณาระบุเพศ</h3>
+            <div class="row" style="height:100px; margin-top:30px;">
+                <div class="col-md-4 col-md-offset-4">
+                    <div class="row gender-radio">
+                        <div class="col-md-3 col-md-offset-3" style="height:100px; padding:5px;">
+                            <input type="radio" class="form-control" id="gender-male" name="gender" value="1" checked>
+                            <label class="round-btn" for="gender-male">
+                                LEFT
+                            </label>
+                        </div>
+                        <div class="col-md-3" style="height:100px; padding:5px;">
+                            <input type="radio" class="form-control" id="gender-female" name="gender" value="2">
+                            <label class="round-btn" for="gender-female">
+                                RIGHT
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-2 col-md-offset-5 next-btn" onclick="nextpage();">
+                    ถัดไป
+                </div>
+            </div>
+        </div>
+    </div>
+    <div align="center">===================================================================================</div>
+    <div id="page_02" class="row row-100 regis-bottom" align="center">
+        <div class="col-md-8 col-md-offset-2" align="center">
+            <h3 class="row" style="color: #948d94;">กรุณากรอกชื่อ-นามสกุล</h3>
+            <div class="row" style="margin-top:35px;" align="center">
+                <div class="form-group text-input">
+                    <input type="text" class="form-control login-form-text" id="prefix_name" name="prefix_name" placeholder="คำนำหน้าชื่อ">
+                </div>
+            </div>
+            <div class="row" style="margin-top:5px;" align="center">
+                <div class="form-group text-input">
+                    <input type="text" class="form-control  login-form-text" id="first_name" name="first_name" placeholder="ชื่อ">
+                </div>
+            </div>
+            <div class="row" style="margin-top:5px;" align="center">
+                <div class="form-group text-input">
+                    <input type="text" class="form-control  login-form-text" id="last_name" name="last_name" placeholder="นามสกุล">
+                </div>
+            </div>
+            <div class="row" style="margin-top:30px;" align="center">
+                    <div class="col-md-3 col-md-offset-1 next-btn">
+                        ย้อนกลับ
+                    </div>
+                    <div class="col-md-3 col-md-offset-4 next-btn" onclick="nextpage();">
+                        ถัดไป
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div align="center">===================================================================================</div>
+    <div id="page_03" class="row row-100 regis-bottom" align="center">
+        <div class="col-md-8 col-md-offset-2" align="center">
+            <h3 class="row" style="color: #948d94;">กรุณากรอกเลขบัตรประจำตัวประชาชน</h3>
+            <div class="row" style="margin-top:35px;" align="center">
+                <div class="form-group text-input">
+                    <input type="text" class="form-control login-form-text" id="national_id" name="national_id" placeholder="ex. 1129900935123">
+                </div>
+            </div>
+            
+            <div class="row" style="margin-top:30px;" align="center">
+                    <div class="col-md-3 col-md-offset-1 next-btn">
+                        ย้อนกลับ
+                    </div>
+                    <div class="col-md-3 col-md-offset-4 next-btn" onclick="nextpage();">
+                        ถัดไป
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div align="center">===================================================================================</div>
+    <div id="page_04" class="row row-100 regis-bottom" align="center">
+        <div class="col-md-8 col-md-offset-2" align="center">
+            <h3 class="row" style="color: #948d94;">กรุณากรอกที่อยู่ของคุณ</h3>
+            <div class="row" style="margin-top:35px;" align="center">
+                <div class="col-md-2">
+                    บ้านเลขที่
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group text-input">
+
+                        <input type="text" class="form-control login-form-text" id="home_id" name="home_id" placeholder="ex. 1129900935123">
+                    </div>
+                </div>
+            </div>
+            
+            <div class="row" style="margin-top:30px;" align="center">
+                    <div class="col-md-3 col-md-offset-1 next-btn">
+                        ย้อนกลับ
+                    </div>
+                    <div class="col-md-3 col-md-offset-4 next-btn" onclick="nextpage();">
+                        ถัดไป
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript">
+        var page_now = 1;
+        function nextpage(){
+            document.getElementById('page_0'+page_now).style.display = "none"
+            page_now++;
+            document.getElementById('page_0'+page_now).style.display = "block";
+        }
+    </script>
+
+
 {% endblock %}

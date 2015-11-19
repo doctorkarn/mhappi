@@ -102,9 +102,11 @@ def make_clinic_time(request, did):
     else:
         # doctors = Officer.objects.all()
         doctors = Officer.objects.filter(position=2)
+        clinic_times = ClinicTime.objects.filter(officer_id=did) #marrtan edit
         data = {
             'doctors' : doctors,
             'doctor_id' : did,
+            'clinic_times' : clinic_times
         }
         return render(request, 'notify_clinic_time.html', data)
 

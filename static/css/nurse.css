@@ -3,9 +3,23 @@
 	height: 300pt;
 	background-color: #f8f8f8;
 }
+.lowFrame{
+	height: 300pt;
+	background-color: #f0f0f0;
+}
 .contentFrame{
 	height: 200pt;
-	background-color: #cfc7c7;	
+	background-color: #f8f8f8;	
+}
+.rectangle{
+	border:2pt solid #59c9b1;
+	background-color: white;
+
+}
+.setColor{
+	border-top-width: 10pt;
+	color: #59c9b1;
+	font-size: 14pt;
 }
 .pictureFrame{
 	height: 200pt;
@@ -13,7 +27,7 @@
 }
 .informationFrame{
 	height: 150pt;
-	background-color: #59c9b1;
+	background-color: #f8f8f8;
 }
 .margin{
 	margin-top: 25pt;

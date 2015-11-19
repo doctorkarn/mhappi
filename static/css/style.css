@@ -1,10 +1,29 @@
+@font-face {
+    font-family: SK-Bold;
+    src: url("../fonts/SukhumvitSet-Bold.ttf");
+}
+@font-face {
+    font-family: SK-SemiBold;
+    src: url("../fonts/SukhumvitSet-SemiBold.ttf");
+}
+@font-face {
+    font-family: SK-Medium;
+    src: url("../fonts/SukhumvitSet-Medium.ttf");
+}
+@font-face {
+    font-family: SK-Text;
+    src: url("../fonts/SukhumvitSet-Text.ttf");
+}
+@font-face {
+    font-family: SK-Thin;
+    src: url("../fonts/SukhumvitSet-Thin.ttf");
+}
+@font-face {
+    font-family: SK-Light;
+    src: url("../fonts/SukhumvitSet-Light.ttf");
+}
+
 .bg-login{
-	
-	background: #fef2ca; /* Old browsers */
-	background: -moz-linear-gradient(top, #fef2ca 0%, #55b8a3 100%); /* FF3.6-15 */
-	background: -webkit-linear-gradient(top, #fef2ca 0%,#55b8a3 100%); /* Chrome10-25,Safari5.1-6 */
-	background: linear-gradient(to bottom, #fef2ca 0%,#55b8a3 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
-	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#fef2ca', endColorstr='#55b8a3',GradientType=0 ); /* IE6-9 */
 	height: 500px;
 	text-align: center;
 }
@@ -18,12 +37,14 @@
 	background-color: rgba(255,255,255,0.4);
 	border-top-left-radius: 5px;
 	border-top-right-radius: 5px;
+	height: 180px;
 }
 
 .bottom-login{
 	background-color: rgba(255,255,255,0.9);
 	border-bottom-left-radius: 5px;
 	border-bottom-right-radius: 5px;
+	height: 343px;
 }
 
 .login-form{
@@ -42,4 +63,60 @@
 	margin-top:10px;
 	color: white;
 	border-radius: 5px;
+}
+
+.register-container{
+
+}
+
+.regis-header{
+	background: #45ab96; /* Old browsers */
+	background: -moz-linear-gradient(top, #45ab96 0%, #89c9bb 100%); /* FF3.6-15 */
+	background: -webkit-linear-gradient(top, #45ab96 0%,#89c9bb 100%); /* Chrome10-25,Safari5.1-6 */
+	background: linear-gradient(to bottom, #45ab96 0%,#89c9bb 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#45ab96', endColorstr='#89c9bb',GradientType=0 ); /* IE6-9 */
+	width: 100%;
+	height: 35vh;
+	padding: 80px 0px;
+	margin: 0px;
+	text-align: center;
+}
+.regis-bottom{
+	background-color: #fafdfc;
+	width: 100%;
+	padding: 30px 0px;
+	margin: 0px;
+	height: 65vh;
+	vertical-align: middle;
+	text-align: center;
+}
+
+.gender-radio .round-btn{
+	width: 100px;
+	height: 100px;
+	border: 2px solid #59c9b1;
+	border-radius: 100px;
+	display: inline-block;
+	line-height: 100px;
+	/*color: #948d94;*/
+}
+
+.next-btn{
+	margin-top:50px;
+	height: 40px;
+	line-height: 40px;
+	color: #59c9b1;
+	border: 2px solid #59c9b1;
+}
+
+.gender-radio input[type="radio"] {
+    display:none;
+}
+
+.gender-radio input[type="radio"]:checked + label {
+    background-color:#bbb;
+}
+
+.text-input{
+	width: 100%;
 }
