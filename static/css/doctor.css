@@ -3,6 +3,16 @@
 	height: 250pt;
 	background-color: #f8f8f8;
 }
+.splitter{
+	padding-left: 50px;
+	padding-right: 50px;
+}
+.button{
+	height: 200px;
+	width: 150px;
+	background-color: #59c9b1;
+	margin-left: 16px;
+}
 .lowFrame{
 	height: 120pt;
 	background-color: white;

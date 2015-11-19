@@ -61,7 +61,7 @@ function calendar(monthSearch,yearSearch)
                 //alert(yearSearch+">="+year+" , "+month+">="+monthSearch+" , "+i+">="+dateNow)
                 dateText = yearSearch+'-'+monthSearch+'-'+i;
                 if(yearSearch >= year && monthSearch > month){
-                    text += '<td id="date_"'+dateText+'" class="cal_day" onclick="setCalendar(\''+dateText+'\',\'\');">'+i+'</td>';
+                    text += '<td id="date_'+dateText+'" class="cal_day" onclick="setCalendarDate(\''+dateText+'\');">'+i+'</td>';
                 }
                 else if(yearSearch == year && monthSearch == month && i >= dateNow)
                 {
@@ -72,8 +72,8 @@ function calendar(monthSearch,yearSearch)
                                 if(docDay[dd] > i) break;
                             }
                         }
-                        if(check) text += '<td id="date_"'+dateText+'" class="cal_day notify" onclick="setCalendar(\''+dateText+'\',\'\');">'+i+'</td>';
-                        else text += '<td id="date_"'+dateText+'" class="cal_day" onclick="setCalendar(\''+dateText+'\',\'\');">'+i+'</td>';
+                        if(check) text += '<td id="date_'+dateText+'" class="cal_day notify" onclick="setCalendarDate(\''+dateText+'\');">'+i+'</td>';
+                        else text += '<td id="date_'+dateText+'" class="cal_day" onclick="setCalendarDate(\''+dateText+'\');">'+i+'</td>';
                 }
                 else{
                     text += '<td> </td>';
@@ -100,11 +100,28 @@ function calendar(monthSearch,yearSearch)
         return true;
 }
 
-var textNow;
+var textDateNow = "";
+var textTimeNow = "";
 
-function setCalendar(date, time){
+function setCalendarDate(date){
+    if(textDateNow == date) {
+        textDateNow = "";
+        document.getElementById("date_"+date).style.backgroundColor = "#F4F4F4";
+    }
+    else {
+        if(document.getElementById("date_"+textDateNow) !== null)
+        document.getElementById("date_"+textDateNow).style.backgroundColor = "#F4F4F4";
+        textDateNow = date;
+        document.getElementById("date_"+date).style.backgroundColor = "red";
+    }
+    textTimeNow = "";
+}
+function setCalendarTime(time){
+    textTimeNow = time;
+    setCalendar();
+}
+function setCalendar(){
     var elem = document.getElementById("clinic_time");
-    //alert(date);
-    //if(date != "" && time != "") 
-        elem.value = date+" "+time;
+    if(textDateNow != "" && textTimeNow != "") elem.value = textDateNow+" "+textTimeNow;
+    else elem.value = "";
 }
