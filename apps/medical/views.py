@@ -41,9 +41,11 @@ def view_patient_information(request):
 
 
 def list_patient_information(request, pid):
+    # patient = Patient.objects.filter(pk=pid)
     patient_infos = PatientInfo.objects.filter(patient_id=pid)
     medical_infos = MedicalRecord.objects.filter(patient_id=pid)
     data = {
+        # 'patient' : patient,
         'patient_infos' : patient_infos,
         'medical_infos' : medical_infos,
     }

@@ -35,10 +35,29 @@ def login(request):
                     try:
                         patient = Patient.objects.get(id=user.id)
                         request.session['user_role'] = 'patient'
+                        request.session['user_info'] = {
+                            'hospital_id' : patient.hospital_id,
+                            'national_id' : patient.national_id,
+                            'prefix_name' : patient.prefix_name,
+                            'first_name' : patient.first_name,
+                            'last_name' : patient.last_name,
+                            'phone' : patient.phone,
+                            'email' : patient.email,
+                        }
                         return HttpResponseRedirect('/home')
                     except ObjectDoesNotExist:
                         try:
                             officer = Officer.objects.get(id=user.id)
+                            request.session['user_role'] = 'patient'
+                            request.session['user_info'] = {
+                                'hospital_id' : officer.hospital_id,
+                                'national_id' : officer.national_id,
+                                'prefix_name' : officer.prefix_name,
+                                'first_name' : officer.first_name,
+                                'last_name' : officer.last_name,
+                                'phone' : officer.phone,
+                                'email' : officer.email,
+                            }
                             if officer.position == 1:
                                 request.session['user_role'] = 'staff'
                                 return HttpResponseRedirect('/home')
@@ -164,7 +183,7 @@ def home(request):
             messages.warning(request, 'You have special role, ' + role)
             return HttpResponseRedirect('/login')
     else:
-        messages.warning(request, 'Please login again')
+        # messages.warning(request, 'Please login again')
         return HttpResponseRedirect('/login')
 
 def register(request):

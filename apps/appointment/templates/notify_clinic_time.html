@@ -1,9 +1,16 @@
 {% extends "base.html" %}
 {% block main %}
+    {% load staticfiles %}
+    <link href="{% static 'css/appointment_table.css' %}" rel="stylesheet" media="screen">
     <div id="login" class="row">
+
+    <div id="calendar" class="col-md-10 col-md-offset-2"></div>
+    <div id="calendar_time" class="col-md-10 col-md-offset-2" style="margin-top: 2em;">
+        <label class="checkboxTime col-md-3 col-md-offset-2" style="margin-left: 15%">เช้า (9.00 น. - 11.30 น.)</label>
+        <label class="checkboxTime col-md-3">บ่าย (13.00 น. - 15.30 น.)</label>
+    </div>
         <div class="col-md-4 col-md-offset-4">
-            <h1>Notify Clinic Time <br/> (for Doctor)</h1>
-            <hr/>
+
             <form class="form-horizontal" name="AddClinicForm" action="/make_clinic_time/{{ doctor_id }}/" method="post">
                 {% csrf_token %}
                 {% if next %}
@@ -36,4 +43,11 @@
             </form>
         </div>
     </div>
+    <script>
+        var docDay = [{% for clinic_time in clinic_times %}{{clinic_time.clinic_datetime.day}}, {% endfor %} 0];
+        var docMonth = [{% for clinic_time in clinic_times %}{{clinic_time.clinic_datetime.month}}, {% endfor %} 0];
+        var docYear = [{% for clinic_time in clinic_times %}{{clinic_time.clinic_datetime.year}}, {% endfor %} 0];
+    </script>
+    <script src="{% static 'js/calendar.js' %}"></script>
+    <script> calendar(12,2015); </script>
 {% endblock %}
