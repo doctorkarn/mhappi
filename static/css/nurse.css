@@ -1,0 +1,23 @@
+.frame{
+	/*width: 100%;*/
+	height: 300pt;
+	background-color: #f8f8f8;
+}
+.contentFrame{
+	height: 200pt;
+	background-color: #cfc7c7;	
+}
+.pictureFrame{
+	height: 200pt;
+	background-color: #e0e2e1;
+}
+.informationFrame{
+	height: 150pt;
+	background-color: #59c9b1;
+}
+.margin{
+	margin-top: 25pt;
+}
+.clear{
+	clear:both;
+}

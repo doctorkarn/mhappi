@@ -1,10 +1,28 @@
 {% extends "base.html" %}
 {% block main %}
-    <div id="login" class="row">
-        <div class="col-md-4 col-md-offset-4">
-            <h1>Home (Nurse)</h1>
-            <hr/>
-            <a class="btn btn-default btn-block" href="/list_patient">List Patient</a>
-        </div>
+{% load staticfiles %}
+<link href="{% static 'css/nurse.css' %}" rel="stylesheet" media="screen">
+    <div class="row">
+    	<div class="frame col-md-12">
+        	<div class="contentFrame margin col-md-6 col-md-offset-3">
+        		<div class="pictureFrame col-md-4">
+
+         		</div>
+         		<div class="informationFrame col-md-7 col-md-offset-1">
+         		</div>
+         		<div class="col-md-2 col-md-offset-4">
+        		 <li><a href="/update_profile/">[pic)</a></li>
+        	</div>   
+         	</div>
+
+        	<div class="clear">
+        	</div>   
+
+    	</div>    
+    </div>
+    <div class="row">
+    	<div class="margin col-md-12">
+            	<a href="/list_patient">List Patient</a>
+            </div>
     </div>
 {% endblock %}
