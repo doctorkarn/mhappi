@@ -53,14 +53,30 @@ td{
 	line-height: 2.1em;
 	padding-left: 3em;
 	color: #9b9b9b;
+	cursor: pointer;
 }
 
-.checkbox:checked{
-	/* Rectangle 69: */
-background: #FFFFFF;
-box-shadow: inset 0px 1px 3px 0px rgba(0,0,0,0.50);
-border-radius: 4px;
+.checkboxTime p{
+	cursor: default;
+}
 
+.calendar_time input[type="radio"] {
+    display:none;
+}
 
-/* Path 28: */
-background: #948D94;;
+.calendar_time input[type="radio"]:checked + label {
+    background: url("../img/appointment/Checkbox_checked.svg") no-repeat;
+}
+
+.calendar_time input[type="radio"]:disabled + label {
+    background: url("../img/appointment/Checkbox_disabled.svg") no-repeat;
+    cursor: default;
+}
+
+.day-selected{
+	width: 3em;
+	height: 3em;
+	border-radius: 3em;
+	border: 3px solid #59C9B2;
+	margin: 0 auto;
+}
