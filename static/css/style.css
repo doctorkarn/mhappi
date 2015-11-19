@@ -95,3 +95,7 @@
 .gender-radio input[type="radio"]:checked + label {
     background-color:#bbb;
 }
+
+.text-input{
+	width: 100%;
+}
