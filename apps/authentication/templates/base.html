@@ -18,15 +18,6 @@
     <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}" />
 
     <style type="text/css">
-
-    .container-100{
-        width:100% !important;
-        padding-right: 0px;
-        padding-left: 0px;
-        margin-right: auto;
-        margin-left: auto;
-    }
-
     {% block loginBg %}
     {% endblock %}
     </style>
@@ -45,7 +36,15 @@
       <!-- The justified navigation menu is meant for single line per list item.
            Multiple lines will require custom code not provided by Bootstrap. -->
       <div class="masthead">
-        <h3 class="text-muted"><div style="width:45px;height:50px;float:left"><img src="{% static 'img/Logo-Green.svg' %}" /></div> MHAPPI </h3>
+        <div class="text-muted">
+          <div class="logo">
+            <img src="{% static 'img/Logo-Green.svg' %}" />
+          </div> 
+          <p>MHAPPI</p> 
+          <div class="logout">
+            <a href="/logout/">ออกจากระบบ</a>
+          </div>
+        </div>
         <!--nav>
           <ul class="nav nav-justified">
             <li class="active"><a href="/home">Home</a></li>
@@ -61,28 +60,31 @@
           </ul>
         </nav-->
       </div>
+      <div class="wrapper">
+        <!-- Flash Messages -->
+        {% if messages %}
+          {% for msg in messages %}
+            {% if msg.level_tag == 'error' %}
+            <div class="alert alert-danger">
+            {% else %}
+            <div class="alert alert-{{msg.level_tag}}">
+            {% endif %}
+              [{{msg.level_tag}}] {{msg.message}}
+            </div>
+          {% endfor %}
+        {% endif %}
 
-      <!-- Flash Messages -->
-      {% if messages %}
-        {% for msg in messages %}
-          {% if msg.level_tag == 'error' %}
-          <div class="alert alert-danger">
-          {% else %}
-          <div class="alert alert-{{msg.level_tag}}">
-          {% endif %}
-            [{{msg.level_tag}}] {{msg.message}}
-          </div>
-        {% endfor %}
-      {% endif %}
 
+        <!-- Main Content -->
+        <div class="content">
+        {% block main %}{% endblock %}
+        </div>
 
-      <!-- Main Content -->
-      {% block main %}{% endblock %}
-
-      <!-- Site footer -->
-      <footer class="footer">
-        <p>&copy; MHAPPI 2015, All rights reserved.</p>
-      </footer>
+        <!-- Site footer -->
+        <div class="footer">
+          <div class="text">&copy; MHAPPI 2015, All rights reserved.</div>
+        </div>
+      </div>
 
     </div> <!-- /container -->
 
