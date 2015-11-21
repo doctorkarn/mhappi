@@ -5,6 +5,9 @@
             <p>{{ request.session.user_info.hospital_id }} {{ request.session.user_info.national_id }}</p>
             <p>{{ request.session.user_info.prefix_name }} {{ request.session.user_info.first_name }} {{ request.session.user_info.last_name }}</p>
             <p>{{ request.session.user_info.phone }} {{ request.session.user_info.email }}</p>
+            {% load staticfiles %}
+            <p><img src="{% static 'avatar/' %}{{request.user.id}}.jpg" style="height:64px;"></p>
+
         </div>
     </div>
     <div id="login" class="row">
