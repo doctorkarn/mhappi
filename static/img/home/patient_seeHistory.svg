@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg width="173px" height="236px" viewBox="0 0 173 236" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns">
+    <!-- Generator: Sketch 3.4.2 (15857) - http://www.bohemiancoding.com/sketch -->
+    <title>Untitled</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage">
+        <g id="ดูประวัติการรักษา-Button" sketch:type="MSLayerGroup">
+            <g id="icon" transform="translate(23.000000, 0.000000)" sketch:type="MSShapeGroup">
+                <rect id="Rectangle-16" fill="#444444" x="0" y="17.9057592" width="127" height="153.094241" rx="3"></rect>
+                <rect id="Rectangle-17" fill="#F8F8F8" x="10" y="25.9633508" width="108" height="133.397906"></rect>
+                <path d="M111.98049,25.9633508 L118,25.9633508 L118,159.361257 L10,159.361257 L10,145.031682 C38.5910829,134.887466 99.2315145,104.428949 111.98049,25.9633508 Z" id="Rectangle-17-Copy" fill="#F0F0F0"></path>
+                <path d="M92.4817291,32.1228421 C92.8219146,31.1081816 93,30.0606357 93,28.9893342 C93,22.2248046 85.8996453,16.4074269 75.7232962,13.8356421 C75.9045132,13.0932912 76,12.3222385 76,11.531219 C76,5.59777238 70.627417,0.787763518 64,0.787763518 C57.372583,0.787763518 52,5.59777238 52,11.531219 C52,12.3222385 52.0954868,13.0932912 52.2767038,13.8356421 C42.1003547,16.4074269 35,22.2248046 35,28.9893342 C35,30.0606357 35.1780854,31.1081816 35.5182709,32.1228421 L92.4817291,32.1228421 Z M63.5,13.4293194 C65.4329966,13.4293194 67,12.0264001 67,10.2958115 C67,8.56522292 65.4329966,7.16230366 63.5,7.16230366 C61.5670034,7.16230366 60,8.56522292 60,10.2958115 C60,12.0264001 61.5670034,13.4293194 63.5,13.4293194 Z" id="Oval-1" fill="#F0F0F0"></path>
+                <path d="M90.600691,22.382199 C92.1440867,24.406272 93,26.6407158 93,28.9893342 C93,30.0606357 92.8219146,31.1081816 92.4817291,32.1228421 L35.5182709,32.1228421 C35.1780854,31.1081816 35,30.0606357 35,28.9893342 C35,26.6407158 35.8559133,24.406272 37.399309,22.382199 L90.600691,22.382199 Z" id="Oval-1-Copy" fill="#E7E2E2"></path>
+            </g>
+            <text id="ดูประวัติการรักษา" sketch:type="MSTextLayer" font-family="Sukhumvit Set" font-size="25" font-weight="normal" sketch:alignment="middle" fill="#FFFFFF">
+                <tspan x="0" y="223">ดูประวัติการรักษา</tspan>
+            </text>
+        </g>
+    </g>
+</svg>

@@ -22,10 +22,40 @@
     font-family: SK-Light;
     src: url("../fonts/SukhumvitSet-Light.ttf");
 }
-
+body{
+	cursor: default;
+}
 .bg-login{
 	height: 500px;
 	text-align: center;
+}
+
+.navText{
+    font-family: SK-Text;
+    font-size: 1.2em;
+    color: #948D94;
+    margin-top: 1.5em;
+    margin-bottom: 2.5em; 
+}
+.navText > a{
+	text-decoration: none;
+	color: #948D94;
+	cursor: pointer;
+}
+.navText > a:hover{
+	text-decoration: none;
+	color: #948D94;
+}
+.navText > .next{
+    margin-left: 1em;
+    margin-right: 1em;
+}
+.title{
+	text-align: center;
+    font-family: SK-Text;
+    font-size: 1.5em;
+    color: #948D94;
+    margin-bottom: 1.8em;
 }
 
 #login{
