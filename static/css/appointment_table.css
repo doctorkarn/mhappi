@@ -52,7 +52,7 @@
 .table-month-left,.table-month-right{
 	font-family: SK-SemiBold;
 	padding:15px 20px;
-	font-size: 1.5em;
+	font-size: 2em;
 	color: white;
 }
 .cal_calendar > tbody > .cal_d_weeks{
@@ -226,6 +226,7 @@
     font-family: SK-Text;
     font-size: 1.2em;
     color: #59C9B2;
+	margin-bottom: 2em;
 }
 .add-button-disable{
 	cursor: default !important;
@@ -237,4 +238,5 @@
     font-family: SK-Text;
     font-size: 1.2em;
     color: #CFCFCF;
+	margin-bottom: 2em;
 }
