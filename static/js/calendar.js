@@ -21,6 +21,7 @@ function calendar(monthSearch,yearSearch)
         var month = date.getMonth();
         var year = date.getYear() + 1900;
         var dateNow = date.getDate();
+        var countWeek = 0;
 
         if(yearSearch<=200)
         {
@@ -58,31 +59,34 @@ function calendar(monthSearch,yearSearch)
                 {
                         text += '<tr>';
                 }
-                //alert(yearSearch+">="+year+" , "+month+">="+monthSearch+" , "+i+">="+dateNow)
                 dateText = yearSearch+'-'+monthSearch+'-'+i;
-                if(yearSearch >= year && monthSearch > month){
-                    text += '<td id="date_'+dateText+'" class="cal_day" onclick="setCalendarDate(\''+dateText+'\');"><div class="day-selected">'+i+'</div></td>';
-                }
-                else if(yearSearch == year && monthSearch == month && i >= dateNow)
+                if((yearSearch == year && monthSearch > month) || (yearSearch == year && monthSearch == month && i >= dateNow) || (yearSearch > year))
                 {
                         var check = false;
+                        var index = -1;
+                        var allDay = false;
                         for(var dd = 0; dd < docDay.length; dd++){
                             if(docMonth[dd]-1 == monthSearch) {
-                                if(docDay[dd] == i) check = true;
-                                if(docDay[dd] > i) break;
+                                if(index > -1 && docDay[dd] == docDay[index]) { allDay = true; }
+                                if(docDay[dd] == i) { check = true; index = dd; }
                             }
                         }
-                        if(check) text += '<td id="date_'+dateText+'" class="cal_day notify" onclick="setCalendarDate(\''+dateText+'\');">'+i+'<div class="day-selected"></div></td>';
-                        else text += '<td id="date_'+dateText+'" class="cal_day" onclick="setCalendarDate(\''+dateText+'\');">'+i+'<div class="day-selected"></div></td>';
+                        if(check && yearSearch == year) {
+                            if(allDay) text += '<td id="date_'+dateText+'_all" class="cal-day-all" onclick="setCalendarDate(\''+dateText+'\',\'all\');"><div class="day-selected-choose"><div class="day-selected-left"></div><div class="day-selected-right"></div><div class="day-selected-text">'+i+'</div></div></div>';
+                            else if(docHour[index] < 13) text += '<td id="date_'+dateText+'_m" class="cal-day-morning" onclick="setCalendarDate(\''+dateText+'\',\'m\');"><div class="day-selected-choose"><div class="day-selected-left"></div><div class="day-selected-right" style="opacity:0"></div><div class="day-selected-text">'+i+'</div></div></div>';
+                            else text += '<td id="date_'+dateText+'_a" class="cal-day-afternoon" onclick="setCalendarDate(\''+dateText+'\',\'a\');"><div class="day-selected-choose"><div class="day-selected-left" style="opacity:0"></div><div class="day-selected-right"></div><div class="day-selected-text">'+i+'</div></div></div>';
+                        }
+                        else text += '<td id="date_'+dateText+'_none" class="cal-day" onclick="setCalendarDate(\''+dateText+'\',\'none\');">'+i+'</td>';
                 }
                 else{
-                    text += '<td> </td>';
+                    text += '<td class="cal_days_bef_aft"> </td>';
                 }
                 week++;
                 if(week==7)
                 {
                         text += '</tr>';
                         week=0;
+                        countWeek++;
                 }
         }
         for(i=1;week!=0;i++)
@@ -93,47 +97,168 @@ function calendar(monthSearch,yearSearch)
                 {
                         text += '</tr>';
                         week=0;
+                        countWeek++;
                 }
+        }
+        if(countWeek < 6){
+            countWeek++;
+            text += '<tr>';
+            for(i=1;i<=7;i++)
+            {
+                text += '<td class="cal_days_bef_aft"> </td>';
+                week++;
+                if(week==7)
+                {
+                        text += '</tr>';
+                        week=0;
+                        countWeek++;
+                }
+            }
         }
         text += '</tbody></table>';
         document.getElementById('calendar').innerHTML = text;
         return true;
 }
 
+var notifyType = ""; 
 var textDateNow = "";
+var notifyNow = "";
 var textTimeNow = "";
 
-function setCalendarDate(date){
-    //reset checkbox
-    document.getElementById("checkboxTimeM").checked = false;
-    document.getElementById("checkboxTimeA").checked = false;
-    document.getElementById("checkboxTimeM").disabled = true;
-    document.getElementById("checkboxTimeA").disabled = true;
-    var elem = document.getElementById("clinic_time");
-    elem.value = ""
+function setCalendarDate(date,notify){
 
-    if(textDateNow == date) {
+    resetForm();
+
+    var day = date.split('-')[2];
+    var lastDay = textDateNow.split('-')[2];
+
+    if(textDateNow == date && notify == "none") {
         textDateNow = "";
-        document.getElementById("date_"+date).style.backgroundColor = "#F4F4F4";
+        document.getElementById("date_"+date+"_"+notify).innerHTML = day;
     }
     else {
-        if(document.getElementById("date_"+textDateNow) !== null)
-        document.getElementById("date_"+textDateNow).style.backgroundColor = "#F4F4F4";
+
+        if(document.getElementById("date_"+textDateNow+"_"+notifyNow) !== null){
+            if(notifyNow == "none") document.getElementById("date_"+textDateNow+"_"+notifyNow).innerHTML = lastDay;
+            else if(notifyNow == "m") document.getElementById("date_"+textDateNow+"_"+notifyNow).innerHTML = '<div class="day-selected-choose"><div class="day-selected-left"></div><div class="day-selected-right" style="opacity:0"></div><div class="day-selected-text">'+lastDay+'</div></div>';
+            else if(notifyNow == "a") document.getElementById("date_"+textDateNow+"_"+notifyNow).innerHTML = '<div class="day-selected-choose"><div class="day-selected-left" style="opacity:0"></div><div class="day-selected-right"></div><div class="day-selected-text">'+lastDay+'</div></div>';
+            else if(notifyNow == "all") document.getElementById("date_"+textDateNow+"_"+notifyNow).innerHTML = '<div class="day-selected-choose"><div class="day-selected-left"></div><div class="day-selected-right"></div><div class="day-selected-text">'+lastDay+'</div></div>';
+        }
+
         textDateNow = date;
-        document.getElementById("date_"+date).style.backgroundColor = "red";
-        document.getElementById("checkboxTimeM").disabled = false;
-        document.getElementById("checkboxTimeA").disabled = false;
+        notifyNow = notify;
+
+        if(notify == "none") document.getElementById("date_"+date+"_"+notify).innerHTML = '<div class="day-selected">'+day+'</div>';
+
+        if(notify != "all"){
+            if(notify != "m") document.getElementById("checkboxTimeM").disabled = false;
+            if(notify != "a") document.getElementById("checkboxTimeA").disabled = false;
+        }
     }
     textTimeNow = "";
 }
 function setCalendarTime(time,type){
-    if(type=='M')       document.getElementById("checkboxTimeM").checked = true;
-    else if(type=='A')  document.getElementById("checkboxTimeA").checked = true;
-    textTimeNow = time;
-    setCalendar();
+    var lastDay = textDateNow.split('-')[2];
+    var mornigDisable = document.getElementById("checkboxTimeM").disabled;
+    var afternoonDisable = document.getElementById("checkboxTimeA").disabled;
+    if(type=='M' && !mornigDisable) {
+        var check = document.getElementById("checkboxTimeM").checked;
+        if(check) {document.getElementById("checkboxTimeM").checked = false; clearField();}
+        else{
+            document.getElementById("checkboxTimeM").checked = true;
+            if(notifyNow == "none"){
+                document.getElementById("date_"+textDateNow+"_"+notifyNow).innerHTML = '<div class="day-selected-choose"><div class="day-selected-left"></div><div class="day-selected-right" style="opacity:0"></div><div class="day-selected-text">'+lastDay+'</div></div>';
+            }
+            else {
+                document.getElementById("date_"+textDateNow+"_"+notifyNow).innerHTML = '<div class="day-selected-choose"><div class="day-selected-left"></div><div class="day-selected-right"></div><div class="day-selected-text">'+lastDay+'</div></div>';
+            }
+            textTimeNow = time;
+            setCalendar();
+        }
+    }
+    else if(type=='A' && !afternoonDisable) {
+        var check = document.getElementById("checkboxTimeA").checked;
+        if(check) {document.getElementById("checkboxTimeA").checked = false; clearField();}
+        else{
+            document.getElementById("checkboxTimeA").checked = true;
+            if(notifyNow == "none"){
+                document.getElementById("date_"+textDateNow+"_"+notifyNow).innerHTML = '<div class="day-selected-choose"><div class="day-selected-left" style="opacity:0"></div><div class="day-selected-right"></div><div class="day-selected-text">'+lastDay+'</div></div>';
+            }
+            else {
+                document.getElementById("date_"+textDateNow+"_"+notifyNow).innerHTML = '<div class="day-selected-choose"><div class="day-selected-left"></div><div class="day-selected-right"></div><div class="day-selected-text">'+lastDay+'</div></div>';
+            }
+            textTimeNow = time;
+            setCalendar();
+        }
+    }
 }
 function setCalendar(){
     var elem = document.getElementById("clinic_time");
-    if(textDateNow != "" && textTimeNow != "") elem.value = textDateNow+" "+textTimeNow;
-    else elem.value = "";
+    if(textDateNow != "" && textTimeNow != "") {
+        elem.value = textDateNow+" "+textTimeNow;
+        document.getElementById("add-button").className = "add-button";
+        document.getElementById("add-button").disabled = false;
+    }
+    else clearField();
 }
+
+var currentDate = new Date();
+var currentMonth = currentDate.getMonth() + 1;
+var currentYear = currentDate.getYear() + 1900;
+
+var monthCount = currentMonth;
+var yearCount = currentYear;
+
+function nextMonth(){
+
+    document.getElementById("left-button").className = "left-button";
+    monthCount++;
+    if(monthCount > 12){
+        monthCount = 1;
+        yearCount++;
+    }
+
+    resetForm();
+    calendar(monthCount,yearCount);
+}
+
+function backMonth(){
+    if((yearCount == currentYear && monthCount > currentMonth) || (yearCount > currentYear)){
+        monthCount--;
+        if(monthCount < 1){
+            monthCount = 12;
+            yearCount--;
+        }
+
+        if(monthCount <= currentMonth && yearCount <= currentYear){
+            document.getElementById("left-button").className = "left-button-disable";
+            monthCount = currentMonth;
+            yearCount = currentYear;
+            calendar(monthCount,yearCount);
+            resetForm();
+        }
+        else {
+            calendar(monthCount,yearCount);    
+            resetForm();
+        }
+    }
+}
+
+function clearField(){
+    var elem = document.getElementById("clinic_time");
+    elem.value = "";
+    document.getElementById("add-button").className = "add-button-disable";
+    document.getElementById("add-button").disabled = true;
+}
+
+function resetForm(){
+    //reset checkbox
+    document.getElementById("checkboxTimeM").checked = false;
+    document.getElementById("checkboxTimeA").checked = false;
+    document.getElementById("checkboxTimeM").disabled = true;
+    document.getElementById("checkboxTimeA").disabled = true; 
+    clearField();           
+}
+
+calendar(currentMonth,currentYear);
+document.getElementById("add-button").disabled = true;
