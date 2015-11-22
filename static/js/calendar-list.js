@@ -212,12 +212,12 @@ function backMonth(){
 
 function cancelMorning(){
     var elem = document.getElementById("clinic_time");
-    elem.value = textDateNow + " 9.00";
+    elem.value = textDateNow + " 9:00";
 }
 
 function cancelAfternoon(){
     var elem = document.getElementById("clinic_time");
-    elem.value = textDateNow + " 13.00";
+    elem.value = textDateNow + " 13:00";
 }
 
 function clearField(){

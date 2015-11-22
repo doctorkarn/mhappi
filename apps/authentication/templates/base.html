@@ -65,9 +65,9 @@
         {% if messages %}
           {% for msg in messages %}
             {% if msg.level_tag == 'error' %}
-            <div class="alert alert-danger">
+            <div class="alert alert-danger" style="display:none">
             {% else %}
-            <div class="alert alert-{{msg.level_tag}}">
+            <div class="alert alert-{{msg.level_tag}}" style="display:none">
             {% endif %}
               [{{msg.level_tag}}] {{msg.message}}
             </div>

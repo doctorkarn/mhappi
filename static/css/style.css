@@ -39,7 +39,18 @@ html, body{
 }
 .bg-login{
 	height: 500px;
+	width: 25%;
 	text-align: center;
+	margin-top: 50px;
+}
+@media (max-width: 800px){
+	.bg-login{
+		width: 55%;
+	}
+	.login-button,
+	.login-other-button{
+		font-size: 14px !important;
+	}
 }
 .text-muted > p{
 	font-family: SK-Thin;
@@ -108,19 +119,24 @@ html, body{
 	margin-top: 60px;
 	border-radius: 5px;
 }
-
 .top-login{
 	background-color: rgba(255,255,255,0.4);
 	border-top-left-radius: 5px;
 	border-top-right-radius: 5px;
-	height: 180px;
+	padding-top: 2em;
+	padding-bottom: 2em;
 }
-
+.top-login > img {
+	width: 20%;
+	height: 20%;
+	content: url("../img/Logo-White.svg");
+}
 .bottom-login{
 	background-color: rgba(255,255,255,0.9);
 	border-bottom-left-radius: 5px;
 	border-bottom-right-radius: 5px;
-	height: 343px;
+	padding-bottom: 1em;
+	font-family: SK-Text;
 }
 
 .login-form{
@@ -129,7 +145,7 @@ html, body{
 
 .login-form-text{
 	width: 80%;
-	color: white;
+	color: black;
 	background-color: #dfd8d0;
 }
 
@@ -138,7 +154,24 @@ html, body{
 	background-color:#59c9b1;
 	margin-top:10px;
 	color: white;
-	border-radius: 5px;
+	border-radius: 2.3px;
+	padding: 0.5em;
+	font-size: 20px;
+	font-family: SK-Text;
+
+}
+.login-other-button{
+	margin-left: 10%;
+	width: 80%;
+	border-radius: 0em !important;
+	border: 3px solid #fff;
+	background-color: transparent;
+	padding: 0.5em 2em;
+    font-family: SK-Text;
+	font-size: 20px;
+    color: #fff;
+	margin-top: 2em;
+	float: left;
 }
 
 .register-container{
@@ -217,11 +250,11 @@ html, body{
 	height: 80px;
 	border: none !important;
 	padding: 0px !important;
-	background: #fafafa !important; /* Old browsers */
-    background: -moz-linear-gradient(top, #fafafa 10%, #dadada 100%) !important; /* FF3.6-15 */
-    background: -webkit-linear-gradient(top, #fafafa 10%,#dadada 100%) !important; /* Chrome10-25,Safari5.1-6 */
-    background: linear-gradient(to bottom, #fafafa 10%,#dadada 100%) !important; /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
-    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#fafafa', endColorstr='#dadada',GradientType=0 ) !important; /* IE6-9 */
+	background: #fafafa; /* Old browsers */
+    background: -moz-linear-gradient(top, #fafafa 10%, #dadada 100%) ; /* FF3.6-15 */
+    background: -webkit-linear-gradient(top, #fafafa 10%,#dadada 100%) ; /* Chrome10-25,Safari5.1-6 */
+    background: linear-gradient(to bottom, #fafafa 10%,#dadada 100%) ; /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#fafafa', endColorstr='#dadada',GradientType=0 ) ; /* IE6-9 */
 }
 .footer > .text{
 	border: none !important;
