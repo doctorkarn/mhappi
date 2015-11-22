@@ -35,11 +35,53 @@
                         {% endfor %}
                     </select>
                 </div>
+                <hr/>
 
                 <div class="form-group">
-                    <button type="submit" class="btn btn-default">Add</button>
+                    <label class="control-label" for="drug_name">Drug Name (optional)</label>
+                    <select class="form-control" id="drug_name" name="drug_name" >
+                        {% for drug_item in drug_list %}
+                        <option value="{{ drug_item.id }}">{{ drug_item.description }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="control-label" for="drug_dose">Drug Dose (optional)</label>
+                    <input type="number" class="form-control" id="drug_dose" name="drug_dose" value="0">
+                </div>
+                <div class="form-group">
+                    <button type="button" class="btn btn-default" id="add-drug-btn">Add Drug</button>
+                </div>
+                <div class="form-group">
+                    <label class="control-label" for="drug_list">Drug List (optional)</label>
+                    <input type="text" class="form-control" id="drug_list" name="drug_list" readonly="">
+                </div>
+
+                <hr/>
+                <div class="form-group">
+                    <button type="submit" class="btn btn-default">Save</button>
                 </div>
             </form>
         </div>
     </div>
+{% endblock %}
+
+{% block script %}
+<script type="text/javascript">
+$("#add-drug-btn").click(function(){
+    var drug_name = $("#drug_name").val();
+    var drug_dose = $("#drug_dose").val();
+    var drug_item = drug_name + ':' + drug_dose;
+
+    var old_val = $("#drug_list").val();
+    if( old_val == '' ) {
+        $("#drug_list").val(old_val + drug_item);
+    } else {
+        $("#drug_list").val(old_val + ',' + drug_item);
+    }
+
+    $("#drug_name").val(0);
+    $("#drug_dose").val(0);
+});
+</script>
 {% endblock %}

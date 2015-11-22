@@ -43,8 +43,8 @@ urlpatterns = [
     url(r'^make_appointment/([0-9]+)/$', appo_view.make_appointment, name='make_appointment'),
     # url(r'^list_appointment/$', appo_view.list_appointment, name='list_appointment'),
     url(r'^list_appointment/([0-9]+)/$', appo_view.list_appointment, name='list_appointment'),
-    url(r'^view_appointment/$', appo_view.view_appointment, name='view_appointment'),
-    # url(r'^cancel_appointment/$', appo_view.cancel_appointment, name='cancel_appointment'),
+    # url(r'^view_appointment/$', appo_view.view_appointment, name='view_appointment'),
+    url(r'^cancel_appointment/([0-9]+)/$', appo_view.cancel_appointment, name='cancel_appointment'),
 
     # url(r'^make_clinic_time/$', appo_view.make_clinic_time, name='make_clinic_time'),
     url(r'^make_clinic_time/([0-9]+)/$', appo_view.make_clinic_time, name='make_clinic_time'),
