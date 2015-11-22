@@ -5,13 +5,26 @@
 <link href="{% static 'css/doctor.css' %}" rel="stylesheet" media="screen">
     <div class="row">
         <div class="frame col-md-12">
-            <div class="contentFrame col-md-6 col-md-offset-3" style="text-align:center" >
+            <div class="contentFrame margin col-md-6 col-md-offset-3" style="text-align:center" >
                 <div class="pictureFrame col-md-4">
-                    <img src="{% static 'img/Logo-Green.svg' %}" />
+                    <!-- <img src="{% static 'img/Logo-Green.svg' %}" /> -->
+                    <p><img src="{% static 'avatar/' %}{{request.user.id}}.jpg" style="height:200pt;"></p>
                 </div>
                 <div class="informationFrame col-md-7 col-md-offset-1" style="display:inline-block">
+                    <div class="name" style="text-align:left">
+                        <p>{{ request.session.user_info.prefix_name }}  {{ request.session.user_info.first_name }}</p>
+                    </div>
+                    <div class="info" style="text-align:left">
+                        <p>เลขที่ใบอณุญาต {{ request.session.user_info.hospital_id }}
+                    </div>
+                    <div class="info" style="text-align:left">
+                        <p>แผนก </p>
+                    </div>
+                    <div class="info" style="text-align:left">
+                        <p>เบอร์โทรศัพท์ {{ request.session.user_info.phone }}
+                    </div>
                 </div>
-                <div class="rectangle col-md-3 col-md-offset-3"style="text-align:center; margin-top:10px;x">
+                <div class="rectangle col-md-3 col-md-offset-3"style="text-align:center; margin-top:10px;">
                  <a class="setColor" href="/update_profile/">แก้ไขข้อมูลส่วนตัว</a>
             </div>   
             </div>
@@ -20,24 +33,28 @@
         </div>    
     </div>
     <div class="row">
+        <div class="line col-md-12" style="text-align:center;"  >
+        </div>
         <div class="splitter col-md-6 col-md-offset-3" style="text-align:center;">
             <a href="/make_clinic_time/{{ request.user.id }}">
-                <div class="button col-md-3" style="display:inline-block">
-                    Make Clinic Time        
+                <div class="button col-md-3" style="display:inline-block;text-align:center">
+                    <img src="{% static 'img/home/doctor_notify.svg' %}" style="width:100% ;margin-top:30px;"> 
                 </div>
             </a>
             <!-- <a class="btn btn-default btn-block" href="/make_appointment">Make Appointment</a> -->
-            <a href="/list_clinic_time/{{ request.user.id }}">
+            <a href="/list_patient">
                 <div class="button col-md-3" style="display:inline-block">
-                    List Clinic Time
+                    <img src="{% static 'img/home/doctor_appoint.svg' %}" style="width:96%;margin-top:30px;">
                 </div>
             </a>
-            <a href="/list_patient">
-                <div class="button col-md-3" style="display:inline-block">List Patient / Make Appointment
+            <a href="/list_clinic_time/{{ request.user.id }}">
+                <div class="button col-md-3" style="display:inline-block">
+                    <img src="{% static 'img/home/doctor_seeAppointment.svg' %}" style="width:96%;margin-top:30px;">
                 </div>
             </a>  
             <a href="/list_patient">
-                <div class="button col-md-3" style="display:inline-block">List Patient / Make Appointment
+                <div class="button col-md-3" style="display:inline-block">
+                    <img src="{% static 'img/home/doctor_manage.svg' %}" style="width:70%;margin-top:30px;">
                 </div>
             </a>   
                 
@@ -47,3 +64,4 @@
     </div>
     </div>
 {% endblock %}
+ <!-- <p><img src="{% static 'avatar/' %}{{request.user.id}}.jpg" style="height:64px;"></p> -->
