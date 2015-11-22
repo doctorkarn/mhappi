@@ -81,9 +81,11 @@ def add_medical_record(request, pid):
     else:
         patient_id = pid
         doctor_id = request.user.id
+        patient_info = PatientInfo.objects.filter(patient_id=pid).order_by('-created_at').first()
         drg_codes = DrgCode.objects.all()
         drug_list = DrugList.objects.all()
         data = {
+            'patient_info' : patient_info,
             'patient_id' : patient_id,
             'doctor_id' : doctor_id,
             'drg_codes' : drg_codes,
@@ -173,6 +175,8 @@ def view_prescription(request):
 
 def list_prescription(request, pid):
     prescriptions = Prescritpion.objects.filter(patient_id=pid)
+    # for p in prescriptions:
+    #     d_list = 
     data = {
         'prescriptions' : prescriptions,
     }
