@@ -18,6 +18,7 @@
             			{% if request.session.user_role == 'staff' %}
             			<a class="btn btn-default" href="/make_appointment/{{ patient.id }}/">make appointment</a>
             			<a class="btn btn-default" href="/list_appointment/{{ patient.id }}/">list appointment</a>
+            			<a class="btn btn-default" href="/cancel_appointment/{{ patient.id }}/">cancel appointment</a>
             			{% endif %}
 						{% if request.session.user_role == 'doctor' %}
             			<a class="btn btn-default" href="/add_medical_record/{{ patient.id }}/">create medical record</a>

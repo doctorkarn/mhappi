@@ -28,6 +28,7 @@ class PatientInfo(models.Model):
 class Prescritpion(models.Model):
 	patient = models.ForeignKey('authentication.Patient')
 	officer = models.ForeignKey('authentication.Officer')
+	medical_record = models.ForeignKey('medical.MedicalRecord')
 	drug_list = models.TextField()
 	created_at = models.DateTimeField(auto_now_add = True)
 	# updated_at = models.DateTimeField(auto_now = True)
