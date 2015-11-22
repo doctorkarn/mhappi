@@ -1,22 +1,74 @@
 {% extends "base.html" %}
 {% block main %}
+{% load staticfiles %}
+<link href="{% static 'css/patient.css' %}" rel="stylesheet" media="screen">
     <div class="row">
-        <div class="col-md-4 col-md-offset-4">
+        <!-- <div class="col-md-4 col-md-offset-4">
             <p>{{ request.session.user_info.hospital_id }} {{ request.session.user_info.national_id }}</p>
             <p>{{ request.session.user_info.prefix_name }} {{ request.session.user_info.first_name }} {{ request.session.user_info.last_name }}</p>
             <p>{{ request.session.user_info.phone }} {{ request.session.user_info.email }}</p>
             {% load staticfiles %}
             <p><img src="{% static 'avatar/' %}{{request.user.id}}.jpg" style="height:64px;"></p>
 
-        </div>
+        </div> -->
+        <div class="frame col-md-12">
+            <div class="contentFrame margin col-md-9 col-md-offset-3" style="text-align:center" >
+                <div class="pictureFrame col-md-3">
+                    <!-- <img src="{% static 'img/Logo-Green.svg' %}" /> -->
+                    <p><img src="{% static 'avatar/' %}{{request.user.id}}.jpg" style="height:200pt;width:150pt"></p>
+                </div>
+                <div class="informationFrame col-md-7" style="display:inline-block">
+                    <div class="name" style="text-align:left">
+                        <p>{{ request.session.user_info.prefix_name }}  {{ request.session.user_info.first_name }} {{ request.session.user_info.last_name }}</p>
+                    </div>
+                    <div class="info" style="text-align:left">
+                        <p>เลขประจำตัวผู้ป่วย {{ request.session.user_info.hospital_id }}</p>
+                    </div>
+                    <div class="info" style="text-align:left">
+                        <p>วันเกิด </p>
+                    </div>
+                    <div class="info" style="text-align:left">
+                        <p>ที่อยู่ </p>
+                    </div>
+                    <div class="info" style="text-align:left">
+                        <p>เบอร์โทรศัพท์ {{ request.session.user_info.phone }}
+                    </div>
+                </div>
+                <div class="rectangle col-md-3"style="text-align:center; margin-top:10px;">
+                 <a class="setColor" href="/update_profile/">แก้ไขข้อมูลส่วนตัว</a>
+            </div>   
+            </div>
+
+
+        </div> 
     </div>
-    <div id="login" class="row">
-        <div class="col-md-4 col-md-offset-4">
-            <h1>Home (Patient)</h1>
-            <hr/>
-            <a class="btn btn-default btn-block" href="/make_appointment/{{ request.user.id }}">Make Appointment</a>
-            <a class="btn btn-default btn-block" href="/list_appointment/{{ request.user.id }}">List Appointment</a>
-            <a class="btn btn-default btn-block" href="/list_medical_record/{{ request.user.id }}">List Medical Record</a>
+    <div class="row">
+        <div class="line col-md-12" style="text-align:center;"  >
+        </div>
+        <div class="splitter col-md-6 col-md-offset-3" style="text-align:center;">
+            
+            <!-- <a class="btn btn-default btn-block" href="/make_appointment">Make Appointment</a> -->
+            <a href="/make_appointment/{{ request.user.id }}">
+                <div class="button col-md-3" style="display:inline-block">
+                    <img src="{% static 'img/home/doctor_appoint.svg' %}" style="width:96%;margin-top:30px;">
+                </div>
+            </a>
+            <a href="/list_clinic_time/{{ request.user.id }}">
+                <div class="button col-md-3" style="display:inline-block">
+                    <img src="{% static 'img/home/doctor_seeAppointment.svg' %}" style="width:96%;margin-top:30px;">
+                </div>
+            </a>  
+            <a href="/list_patient">
+                <div class="button col-md-3" style="display:inline-block">
+                    <img src="{% static 'img/home/doctor_manage.svg' %}" style="width:70%;margin-top:30px;">
+                </div>
+            </a>   
+                
+
+            
         </div>
     </div>
 {% endblock %}
+            <!-- <a class="btn btn-default btn-block" href="/make_appointment/{{ request.user.id }}">Make Appointment</a>
+            <a class="btn btn-default btn-block" href="/list_appointment/{{ request.user.id }}">List Appointment</a>
+            <a class="btn btn-default btn-block" href="/list_medical_record/{{ request.user.id }}">List Medical Record</a> -->
