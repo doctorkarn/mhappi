@@ -13,6 +13,10 @@
         <div class="col-md-4 col-md-offset-4">
             <h1>Record Medical Information <br/> (for Doctor)</h1>
             <hr/>
+            <h2>การตรวจสุขภาพล่าสุด</h2>
+            <p>{{ patient_info.id }}: [{{ patient_info.created_at }}] <br/>
+             {{ patient_info.information }}</p>
+            <hr/>
             <form class="form-horizontal" name="RegisterForm" action="/add_medical_record/{{ patient_id }}/" method="post">
                 {% csrf_token %}
                 {% if next %}

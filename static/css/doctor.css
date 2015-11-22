@@ -11,6 +11,26 @@
 }
 @media (max-width: 480px){
 	.info{
+		font-size: 0.6em;
+
+	}
+}
+
+@media (max-width: 880px){
+	.info{
+		font-size: 0.8em;
+
+	}
+}
+@media (max-width: 480px){
+	.name{
+		font-size: 0.6em;
+
+	}
+}
+
+@media (max-width: 880px){
+	.name{
 		font-size: 0.8em;
 
 	}
@@ -27,9 +47,9 @@
 }
 .button{
 	height: 220px;
-	width: 150px;
+	width: 23%;
 	background-color: #59c9b1;
-	margin-left: 16px;
+	margin-left: 1%;
 }
 .lowFrame{
 	background-color: white;
@@ -38,6 +58,7 @@
 	background-color: #f8f8f8;	
 }
 .rectangle{
+	width: 23%;
 	border:3px solid #59c9b1;
 	background-color: white;
 
@@ -50,8 +71,8 @@
 
 }
 .pictureFrame{
-	height: 267px;
-	
+	width: 20%;
+	float: left;
 }
 .informationFrame{
 	height: 200px;
