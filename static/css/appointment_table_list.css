@@ -1,7 +1,3 @@
-.cal-button-screen{
-	display: block;
-}
-
 .cal-button > tbody > tr > th{
 	width:111px;
 	height:41px;
@@ -12,12 +8,6 @@
 	height:78px;
 	text-align: center;
 }
-@media (max-width: 991px){
-	.cal-button-screen{
-		display: none;
-	}
-}
-
 .left-button, .left-button-disable{
 	width: 4.5em;
 	height: 4.5em;
@@ -102,7 +92,9 @@
 	background: #EEE !important;
 }
 
-.cal-day,
+.cal-day{
+	cursor: default;
+}
 .cal-day-all,
 .cal-day-morning,
 .cal-day-afternoon{
@@ -127,47 +119,63 @@
 	cursor: default;
 }
 
-@media screen{
-	.calendar_time{
-		margin-top: 2em; 
-		margin-bottom:2em
-	}
-}
-@media (max-width: 991px){
-	.calendar_time{
-		margin-left: 10%;
-	}
-	.calendar_time > .row{
-		display: block;
-	}
-}
-
-.calendar_time > .row{
-	display: none;
-}
 .calendar_time input[type="radio"] {
     display:none;
 }
+
 .calendar_time input[type="radio"]:checked + label {
     background: url("../img/appointment/Checkbox_checked.svg") no-repeat;
 }
+
 .calendar_time input[type="radio"]:disabled + label {
 	color: #CACACA;
     background: url("../img/appointment/Checkbox_disabled.svg") no-repeat;
     cursor: default;
 }
 
-
-.cal-day > .day-selected{
+.cal-day-all-select > .day-selected-choose,
+.cal-day-afternoon-select > .day-selected-choose,
+.cal-day-morning-select > .day-selected-choose{
 	width: 3em;
 	height: 3em;
 	border-radius: 3em;
-	border: 3px solid #59C9B2;
-	padding: 0.65em;
+	border: 3px solid #8BC0FF;
 	margin: 0 auto;
 }
 
-.cal-day > .day-selected-choose,
+.cal-day-all-select > .day-selected-choose > .day-selected-right,
+.cal-day-morning-select > .day-selected-choose > .day-selected-right,
+.cal-day-afternoon-select > .day-selected-choose > .day-selected-right{
+	width: 50%;
+	height: 100%;
+	padding: 0.65em;
+	margin: 0 auto;
+	background-color: #8BC0FF;
+
+	float:left;
+
+    border-top-left-radius: 0;
+    border-top-right-radius: 3em;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 3em;
+}
+
+.cal-day-all-select > .day-selected-choose > .day-selected-left,
+.cal-day-morning-select > .day-selected-choose > .day-selected-left,
+.cal-day-afternoon-select > .day-selected-choose > .day-selected-left{
+	width: 50%;
+	height: 100%;
+	background-color: #8BC0FF;
+	padding: 0.65em;
+	margin: 0 0;
+	float:left;
+
+    border-top-left-radius: 3em;
+    border-top-right-radius: 0;
+    border-bottom-left-radius: 3em;
+    border-bottom-right-radius: 0;
+}
+
 .cal-day-all > .day-selected-choose,
 .cal-day-afternoon > .day-selected-choose,
 .cal-day-morning > .day-selected-choose{
@@ -178,21 +186,6 @@
 	margin: 0 auto;
 }
 
-.cal-day > .day-selected-choose > .day-selected-right,
-.cal-day > .day-selected-choose > .day-selected-left,
-.cal-day-morning > .day-selected-choose > .day-selected-right,
-.cal-day-afternoon > .day-selected-choose > .day-selected-left{
-	opacity: 0.5;
-}
-.cal-day-morning > .day-selected-choose > .day-selected-left,
-.cal-day-afternoon > .day-selected-choose > .day-selected-right,
-.cal-day-all > .day-selected-choose > .day-selected-left,
-.cal-day-all > .day-selected-choose > .day-selected-right,
-{
-	opacity: 0.75;
-}
-
-.cal-day > .day-selected-choose > .day-selected-right,
 .cal-day-all > .day-selected-choose > .day-selected-right,
 .cal-day-morning > .day-selected-choose > .day-selected-right,
 .cal-day-afternoon > .day-selected-choose > .day-selected-right{
@@ -210,7 +203,6 @@
     border-bottom-right-radius: 3em;
 }
 
-.cal-day > .day-selected-choose > .day-selected-left,
 .cal-day-all > .day-selected-choose > .day-selected-left,
 .cal-day-morning > .day-selected-choose > .day-selected-left,
 .cal-day-afternoon > .day-selected-choose > .day-selected-left{
@@ -227,10 +219,12 @@
     border-bottom-right-radius: 0;
 }
 
-.cal-day > .day-selected-choose > .day-selected-text,
 .cal-day-all > .day-selected-choose > .day-selected-text,
 .cal-day-afternoon > .day-selected-choose > .day-selected-text,
-.cal-day-morning > .day-selected-choose > .day-selected-text{
+.cal-day-morning > .day-selected-choose > .day-selected-text,
+.cal-day-all-select > .day-selected-choose > .day-selected-text,
+.cal-day-afternoon-select > .day-selected-choose > .day-selected-text,
+.cal-day-morning-select > .day-selected-choose > .day-selected-text{
 	position: relative;
 	left: -0.17em;
 	top: -2em;
@@ -244,8 +238,9 @@
 .hidden-form{
 	display: none;
 }
-.add-button{
+.cancel-button{
 	width: 100%;
+	text-align: center;
 	border-radius: 0em !important;
 	border: 3px solid #59C9B2;
 	background-color: transparent;
@@ -255,9 +250,10 @@
     color: #59C9B2;
 	margin-bottom: 2em;
 }
-.add-button-disable{
-	cursor: default !important;
+.cancel-button-disable{
 	width: 100%;
+	text-align: center;
+	cursor: default !important;
 	border-radius: 0em !important;
 	border: 3px solid #CFCFCF;
 	background-color: transparent;
