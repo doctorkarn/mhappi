@@ -1,28 +1,22 @@
 .frame{
 	/*width: 100%;*/
-	margin-bottom: 3em;
+	height: 333px	;
 	background-color: #f8f8f8;
 }
 .info{
 	color: #897e86;
 	font-family: SK-Medium;
-	font-size: 1.2em;
+	font-size: 14pt;
 
-}
-@media (max-width: 480px){
-	.info{
-		font-size: 0.8em;
-
-	}
 }
 .name{
 	color: #897e86;
 	font-family: SK-Medium;
-	font-size: 1.6em;
+	font-size: 16pt;
 
 }
 .splitter{
-	padding-left: 50px;
+	padding-left: 120px;
 	padding-right: 50px;
 }
 .button{
@@ -32,9 +26,11 @@
 	margin-left: 16px;
 }
 .lowFrame{
+	height: 160px;
 	background-color: white;
 }
 .contentFrame{
+	height: 267px;
 	background-color: #f8f8f8;	
 }
 .rectangle{
