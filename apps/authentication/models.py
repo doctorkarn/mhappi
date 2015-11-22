@@ -52,9 +52,13 @@ class Officer(models.Model):
 	address = models.CharField(max_length = 500)
 	phone = models.CharField(max_length = 200)
 	email = models.CharField(max_length = 200)
-	specialist = models.CharField(max_length = 200)
+	specialist = models.ForeignKey('authentication.Department', default = 0)
 	position = models.IntegerField(choices = POSITION_CHOICES, default = 1)
 
 
 	def __str__(self):
 		return self.hospital_id + " " + self.first_name + " " + self.last_name
+
+
+class Department(models.Model):
+	name = models.CharField(max_length = 200)

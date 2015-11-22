@@ -44,6 +44,7 @@ def login(request):
                             'phone' : patient.phone,
                             'email' : patient.email,
                         }
+                        messages.success(request, 'Welcome, ' + user.username)
                         return HttpResponseRedirect('/home')
                     except ObjectDoesNotExist:
                         try:
@@ -183,7 +184,7 @@ def home(request):
             messages.warning(request, 'You have special role, ' + role)
             return HttpResponseRedirect('/login')
     else:
-        # messages.warning(request, 'Please login again')
+        messages.warning(request, 'Please Login')
         return HttpResponseRedirect('/login')
 
 def register(request):
@@ -245,6 +246,12 @@ def list_doctor(request):
     return render(request, 'list_doctor.html', data)
 
 
+def handle_uploaded_file(f, i):
+    with open('static/avatar/'+str(i)+'.jpg', 'wb+') as destination:
+        for chunk in f.chunks():
+            destination.write(chunk)
+
+
 def add_officer(request):
     if request.POST:
         input = {}
@@ -283,6 +290,8 @@ def add_officer(request):
         	email 		= input['email'],
         	position	= input['position'],
         )
+
+        handle_uploaded_file(request.FILES['picture'], user.id)
 
         messages.success(request, 'Add Officer successful')
         return redirect('/add_officer/')
