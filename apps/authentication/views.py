@@ -92,6 +92,8 @@ def login(request):
         else:
             messages.error(request, 'Username or Password is invalid')
             return HttpResponseRedirect('/login')
+    elif request.user.is_authenticated():
+        return HttpResponseRedirect('/home')
     else:
         return render(request, 'login.html')
 
