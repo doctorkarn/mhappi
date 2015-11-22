@@ -50,17 +50,17 @@
             <!-- <a class="btn btn-default btn-block" href="/make_appointment">Make Appointment</a> -->
             <a href="/make_appointment/{{ request.user.id }}">
                 <div class="button col-md-3" style="display:inline-block">
-                    <img src="{% static 'img/home/doctor_appoint.svg' %}" style="width:96%;margin-top:30px;">
+                    <img src="{% static 'img/home/patient_appoint.svg' %}" style="width:96%;margin-top:30px;">
                 </div>
             </a>
-            <a href="/list_clinic_time/{{ request.user.id }}">
+            <a href="/list_appointment/{{ request.user.id }}">
                 <div class="button col-md-3" style="display:inline-block">
-                    <img src="{% static 'img/home/doctor_seeAppointment.svg' %}" style="width:96%;margin-top:30px;">
+                    <img src="{% static 'img/home/patient_seeAppointment.svg' %}" style="width:93%;margin-top:35px;">
                 </div>
             </a>  
-            <a href="/list_patient">
+            <a href="/list_medical_record/{{ request.user.id }}">
                 <div class="button col-md-3" style="display:inline-block">
-                    <img src="{% static 'img/home/doctor_manage.svg' %}" style="width:70%;margin-top:30px;">
+                    <img src="{% static 'img/home/patient_seeHistory.svg' %}" style="width:88%;margin-top:36px;">
                 </div>
             </a>   
                 
