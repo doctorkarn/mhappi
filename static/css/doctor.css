@@ -1,6 +1,6 @@
 .frame{
 	/*width: 100%;*/
-	height: 333px;
+	height: 333px	;
 	background-color: #f8f8f8;
 }
 .info{
@@ -12,7 +12,7 @@
 .name{
 	color: #897e86;
 	font-family: SK-Medium;
-	font-size: 20pt;
+	font-size: 16pt;
 
 }
 .splitter{
@@ -47,7 +47,7 @@
 }
 .pictureFrame{
 	height: 267px;
-	background-color: #e0e2e1;
+	
 }
 .informationFrame{
 	height: 200px;
