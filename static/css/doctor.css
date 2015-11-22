@@ -1,18 +1,24 @@
 .frame{
 	/*width: 100%;*/
-	height: 333px	;
+	margin-bottom: 3em;
 	background-color: #f8f8f8;
 }
 .info{
 	color: #897e86;
 	font-family: SK-Medium;
-	font-size: 14pt;
+	font-size: 1.2em;
 
+}
+@media (max-width: 480px){
+	.info{
+		font-size: 0.8em;
+
+	}
 }
 .name{
 	color: #897e86;
 	font-family: SK-Medium;
-	font-size: 16pt;
+	font-size: 1.6em;
 
 }
 .splitter{
@@ -26,11 +32,9 @@
 	margin-left: 16px;
 }
 .lowFrame{
-	height: 160px;
 	background-color: white;
 }
 .contentFrame{
-	height: 267px;
 	background-color: #f8f8f8;	
 }
 .rectangle{
