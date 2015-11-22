@@ -22,12 +22,69 @@
     font-family: SK-Light;
     src: url("../fonts/SukhumvitSet-Light.ttf");
 }
-body{
+html, body{
+	height:100% !important;
 	cursor: default;
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-attachment: fixed;
+    background-size: cover;
+    background: #fafafa;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
 }
 .bg-login{
 	height: 500px;
+	width: 25%;
 	text-align: center;
+	margin-top: 50px;
+}
+@media (max-width: 800px){
+	.bg-login{
+		width: 55%;
+	}
+	.login-button,
+	.login-other-button{
+		font-size: 14px !important;
+	}
+}
+.text-muted > p{
+	font-family: SK-Thin;
+	font-size: 1.8em;
+	line-height: 2em;
+	color: #59c9b1;
+	float: left;
+}
+.logo{
+	margin-left: 2em;
+	margin-right: 1em;
+	width:3em;
+	height:3em;
+	float:left;
+}
+.logo > img{
+	width: 100%;
+	height: 100%;
+}
+.logout{
+	font-family: SK-Thin;
+	font-size: 1.4em;
+	line-height: 2.5em;
+	color: #59c9b1;
+	margin-right: 2em;
+	float:right;
+}
+.logout > a{
+	text-decoration: none;
+	color: #59c9b1;
+}
+.logout > a:hover{
+	text-decoration: none;
+	color: #42AE97;
 }
 
 .navText{
@@ -62,19 +119,24 @@ body{
 	margin-top: 60px;
 	border-radius: 5px;
 }
-
 .top-login{
 	background-color: rgba(255,255,255,0.4);
 	border-top-left-radius: 5px;
 	border-top-right-radius: 5px;
-	height: 180px;
+	padding-top: 2em;
+	padding-bottom: 2em;
 }
-
+.top-login > img {
+	width: 20%;
+	height: 20%;
+	content: url("../img/Logo-White.svg");
+}
 .bottom-login{
 	background-color: rgba(255,255,255,0.9);
 	border-bottom-left-radius: 5px;
 	border-bottom-right-radius: 5px;
-	height: 343px;
+	padding-bottom: 1em;
+	font-family: SK-Text;
 }
 
 .login-form{
@@ -83,7 +145,7 @@ body{
 
 .login-form-text{
 	width: 80%;
-	color: white;
+	color: black;
 	background-color: #dfd8d0;
 }
 
@@ -92,7 +154,24 @@ body{
 	background-color:#59c9b1;
 	margin-top:10px;
 	color: white;
-	border-radius: 5px;
+	border-radius: 2.3px;
+	padding: 0.5em;
+	font-size: 20px;
+	font-family: SK-Text;
+
+}
+.login-other-button{
+	margin-left: 10%;
+	width: 80%;
+	border-radius: 0em !important;
+	border: 3px solid #fff;
+	background-color: transparent;
+	padding: 0.5em 2em;
+    font-family: SK-Text;
+	font-size: 20px;
+    color: #fff;
+	margin-top: 2em;
+	float: left;
 }
 
 .register-container{
@@ -149,4 +228,50 @@ body{
 
 .text-input{
 	width: 100%;
+}
+
+.container-100{
+	position: relative;
+    width:100% !important;
+    min-height: 100%;
+    padding-right: 0px;
+    padding-left: 0px;
+    margin-right: auto;
+    margin-left: auto;
+}
+.content{
+	padding-bottom:80px;
+}
+.footer{
+	position: absolute;
+	left: 0px;
+	bottom: 0px;
+	width: 100%;
+	height: 80px;
+	border: none !important;
+	padding: 0px !important;
+	background: #fafafa; /* Old browsers */
+    background: -moz-linear-gradient(top, #fafafa 10%, #dadada 100%) ; /* FF3.6-15 */
+    background: -webkit-linear-gradient(top, #fafafa 10%,#dadada 100%) ; /* Chrome10-25,Safari5.1-6 */
+    background: linear-gradient(to bottom, #fafafa 10%,#dadada 100%) ; /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#fafafa', endColorstr='#dadada',GradientType=0 ) ; /* IE6-9 */
+}
+.footer > .text{
+	border: none !important;
+	padding-top: 35px;
+	text-align: center;
+	font-family: SK-Thin;
+	font-size: 1em;
+	color: #bbb;
+}
+
+.fade{
+	display: none;
+	width:100%;
+	height:100%;
+	background-color:black;
+	opacity:0.5;
+	position:fixed;
+	top:0px;
+	left:0px;
 }

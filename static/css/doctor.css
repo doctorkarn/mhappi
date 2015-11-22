@@ -1,0 +1,90 @@
+.frame{
+	/*width: 100%;*/
+	margin-bottom: 3em;
+	background-color: #f8f8f8;
+}
+.info{
+	color: #897e86;
+	font-family: SK-Medium;
+	font-size: 1.2em;
+
+}
+@media (max-width: 480px){
+	.info{
+		font-size: 0.6em;
+
+	}
+}
+
+@media (max-width: 880px){
+	.info{
+		font-size: 0.8em;
+
+	}
+}
+@media (max-width: 480px){
+	.name{
+		font-size: 0.6em;
+
+	}
+}
+
+@media (max-width: 880px){
+	.name{
+		font-size: 0.8em;
+
+	}
+}
+.name{
+	color: #897e86;
+	font-family: SK-Medium;
+	font-size: 1.6em;
+
+}
+.splitter{
+	padding-left: 50px;
+	padding-right: 50px;
+}
+.button{
+	height: 220px;
+	width: 23%;
+	background-color: #59c9b1;
+	margin-left: 1%;
+}
+.lowFrame{
+	background-color: white;
+}
+.contentFrame{
+	background-color: #f8f8f8;	
+}
+.rectangle{
+	width: 23%;
+	border:3px solid #59c9b1;
+	background-color: white;
+
+}
+.setColor{
+	border-top-width: 13pt;
+	color: #59c9b1;
+	font-family: SK-Medium;
+	font-size: 14pt;
+
+}
+.pictureFrame{
+	width: 20%;
+	float: left;
+}
+.informationFrame{
+	height: 200px;
+	background-color: #f8f8f8;
+}
+.margin{
+	margin-top: 33px;
+}
+.line{
+	height: 3px;
+	background-color: #59c9b1;
+}
+.clear{
+	clear:both;
+}

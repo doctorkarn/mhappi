@@ -1,25 +1,102 @@
 {% extends "base.html" %}
 {% block main %}
-    <div id="login" class="row">
-        <div class="col-md-8 col-md-offset-2">
-            <h1>Clinic Time Lists (doctor {{ doctor_id }})</h1>
-            <hr/>
-            <table class="table">
-            	<tr>
-            		<th>Doctor</th>
-            		<th>DateTime</th>
-            		<th></th>
-            	</tr>
-            	{% for clinic_time in clinic_times %}
-            	<tr>
-            		<td>dr. {{ clinic_time.officer.first_name }} {{ clinic_time.officer.first_name }}</td>
-            		<td>{{ clinic_time.clinic_datetime }}</td>
-            		<td>
-            			<a class="btn btn-default" href="#">button</a>
-            		</td>
-            	</tr>
-            	{% endfor %}
-            </table>
+    {% load staticfiles %}
+    <link href="{% static 'css/appointment_table_list.css' %}" rel="stylesheet" media="screen">
+    <div class="row">
+        <div class="col-md-10 col-md-offset-1 navText">
+            <a href="/home/" style="text-decoration:none"><span>Home</span></a>
+            <span class="next"> > </span>
+            <span>ยกเลิกเวลาออกตรวจ</span>
+        </div>
+    </div>
+    <div class="row title">
+        กรุณาเลือกวันที่ท่านต้องการยกเลิกการออกตรวจผู้ป่วย
+    </div>
+    <div class="row"  style="zoom:80%">
+        <div class="col-md-8 col-md-offset-2" style="padding-left:2em">
+            <div class="col-md-1">
+                <table class="cal-button">
+                    <tbody>
+                        <tr><td style="height:50px;"></td></tr>
+                        <tr><td></td></tr>
+                        <tr><td></td></tr>
+                        <tr><td></td></tr>
+                        <tr>
+                            <td>
+                                <div class="left-button-disable" id="left-button">
+                                        <div class="button-div" onclick="backMonth();">
+                                            <img src="{% static 'img/appointment/LeftButton.svg' %}"></img>
+                                        </div>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr><td></td></tr>
+                        <tr><td></td></tr>
+                    </tbody>
+                </table>
+            </div>
+            <div id="calendar" class="col-md-10 calendar-cover"></div>
+            <div class="col-md-1">
+                <table class="cal-button">
+                    <tbody>
+                        <tr><td style="height:50px;"></td></tr>
+                        <tr><td></td></tr>
+                        <tr><td></td></tr>
+                        <tr><td></td></tr>
+                        <tr>
+                            <td>
+                                <div class="right-button" id="right-button">
+                                    <div class="button-div" onclick="nextMonth();">
+                                        <img src="{% static 'img/appointment/RightButton.svg' %}"></img>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr><td></td></tr>
+                        <tr><td></td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div id="calendar_time" class="col-md-8 col-md-offset-2 calendar_time" style="margin-top: 2em; margin-bottom:2em">
+            <div class="col-md-3 col-md-offset-2">
+                <button class="cancel-button-disable" id="cancel-m" href="#" onclick="cancelMorning();" disabled>ยกเลิกช่วงเช้า</button>
+            </div>
+            <div class="col-md-3 col-md-offset-2 ">
+                <button class="cancel-button-disable" id="cancel-a" href="#" onclick="cancelAfternoon();" disabled>ยกเลิกช่วงบ่าย</button>
+            </div>
+        </div>
+        <div class="col-md-2 col-md-offset-5">
+            <form class="form-horizontal">
+                <div class="form-group">
+                    <label class="control-label" for="clinic_time">Clinic Time</label>
+                    <input type="text" class="form-control" id="clinic_time" name="clinic_time" >
+                    <p class="help-block">format: yyyy-mm-dd</p>
+                </div>
+                <div class="form-group">
+                    <button type="submit" class="add-button-disable" id="add-button">เพิ่มเวลาออกตรวจ</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <script>
+        var docHour = [{% for clinic_time in clinic_times %}{{clinic_time.clinic_datetime.hour}}, {% endfor %}, 9, 9, 14, 14, 0];
+        var docDay = [{% for clinic_time in clinic_times %}{{clinic_time.clinic_datetime.day}}, {% endfor %}, 23, 24, 24, 25, 0];
+        var docMonth = [{% for clinic_time in clinic_times %}{{clinic_time.clinic_datetime.month}}, {% endfor %}, 11, 11, 11, 11, 0];
+        var docYear = [{% for clinic_time in clinic_times %}{{clinic_time.clinic_datetime.year}}, {% endfor %}, 115, 115, 115, 115, 0];
+    </script>
+    <script src="{% static 'js/calendar-list.js' %}"></script>
+{% endblock %}
+{% block popup %}
+    {% load staticfiles %}
+    <link href="{% static 'css/appointment_table_list.css' %}" rel="stylesheet" media="screen">
+    <div class="row">
+        <div class="col-md-10 col-md-offset-1 navText">
+            <a href="/home/" style="text-decoration:none"><span>Home</span></a>
+            <span class="next"> > </span>
+            <span>ยกเลิกเวลาออกตรวจ</span>
         </div>
     </div>
 {% endblock %}

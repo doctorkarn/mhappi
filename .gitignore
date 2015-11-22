@@ -42,6 +42,5 @@ apps/medical/migrations/__pycache__/__init__.cpython-34.pyc
 mhappi/__pycache__/__init__.cpython-34.pyc
 mhappi/__pycache__/settings.cpython-34.pyc
 mhappi/__pycache__/urls.cpython-34.pyc
-
 db.sqlite3
 mhappi/__pycache__/wsgi.cpython-34.pyc

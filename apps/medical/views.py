@@ -7,7 +7,7 @@ import json, random
 
 from apps.authentication.models import Patient, Officer
 from apps.appointment.models import ClinicTime, Appointment
-from apps.medical.models import MedicalRecord, PatientInfo, Prescritpion
+from apps.medical.models import MedicalRecord, PatientInfo, Prescritpion, DrugList, DrgCode
 
 
 def add_patient_information(request, pid):
@@ -59,25 +59,37 @@ def add_medical_record(request, pid):
         input['officer_id'] = request.user.id
         input['symptom'] = request.POST['symptom']
         input['diagnosis'] = request.POST['diagnosis']
-        input['drgcode'] = request.POST['drgcode']
+        input['drgcode'] = request.POST['drg_code']
+        input['drug_list'] = request.POST['drug_list']
 
         medical_info = MedicalRecord.objects.create(
             patient_id 	= input['patient_id'],
             officer_id 	= input['officer_id'],
             symptom 	= input['symptom'],
             diagnosis 	= input['diagnosis'],
-            drg_code 	= input['drgcode'],
+            drg_code_id 	= input['drgcode'],
+        )
+        perscritpion = Prescritpion.objects.create(
+            patient_id  = input['patient_id'],
+            officer_id  = input['officer_id'],
+            drug_list   = input['drug_list'],
         )
 
-        messages.success(request, 'Record Medical Information')
+        messages.success(request, 'Record Medical Information (and Prescritpion) for Patient ID:' + pid)
         return redirect('/list_patient/')
 
     else:
         patient_id = pid
         doctor_id = request.user.id
+        patient_info = PatientInfo.objects.filter(patient_id=pid).order_by('-created_at').first()
+        drg_codes = DrgCode.objects.all()
+        drug_list = DrugList.objects.all()
         data = {
+            'patient_info' : patient_info,
             'patient_id' : patient_id,
             'doctor_id' : doctor_id,
+            'drg_codes' : drg_codes,
+            'drug_list' : drug_list,
         }
         return render(request, 'record_medical_info.html', data)
 
@@ -163,7 +175,16 @@ def view_prescription(request):
 
 def list_prescription(request, pid):
     prescriptions = Prescritpion.objects.filter(patient_id=pid)
+    # for p in prescriptions:
+    #     d_list = 
     data = {
         'prescriptions' : prescriptions,
     }
     return render(request, 'list_prescription.html', data)
+
+# def add_drug_list(request):
+#     drug_list = DrugList.objects.create(
+#         description  = input['patient_id'],
+#     )
+#     messages.success(request, 'Add All Drug List')
+#     return redirect('/login/')
