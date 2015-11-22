@@ -5,12 +5,12 @@ from django.contrib import messages
 
 import json, random
 
-from apps.authentication.models import Patient, Officer
+from apps.authentication.models import Patient, Officer, Department
 from apps.appointment.models import ClinicTime, Appointment
 
 
 def make_appointment(request, pid):
-    if request.POST:
+    if request.POST.get('clinic_time_id'):
         input = {}
         input['patient_id'] = pid
         input['clinic_time_id'] = request.POST['clinic_time_id']
@@ -23,17 +23,35 @@ def make_appointment(request, pid):
         )
 
         messages.success(request, 'Appoint Doctor successful')
-        return redirect('/make_appointment/' + pid + '/')
+        return redirect('/list_appointment/' + pid + '/')
 
-    else:
-        patients = Patient.objects.all()
-        clinics = ClinicTime.objects.all()
+    elif request.POST.get('doctor_id'):
+        did = request.POST['doctor_id']
+        clinics = ClinicTime.objects.filter(officer_id=did)
         data = {
-            'patients' : patients,
-            'clinics' : clinics,
             'patient_id' : pid,
+            'clinics' : clinics,
         }
         return render(request, 'appoint_doctor.html', data)
+
+    elif request.POST.get('department_id'):
+        did = request.POST['department_id']
+        clinics = ClinicTime.objects.filter(officer__specialist_id=did)
+        data = {
+            'patient_id' : pid,
+            'clinics' : clinics,
+        }
+        return render(request, 'appoint_doctor.html', data)
+
+    else:
+        doctors = Officer.objects.filter(position=2)
+        departments = Department.objects.all()
+        data = {
+            'patient_id' : pid,
+            'doctors' : doctors,
+            'departments' : departments,
+        }
+        return render(request, 'search_doctor.html', data)
 
 
 def list_appointment(request, pid):

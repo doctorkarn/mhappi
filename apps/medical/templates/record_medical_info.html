@@ -13,33 +13,27 @@
                     <label class="control-label" for="patient_id">Patient ID</label>
                     <input type="text" class="form-control" id="patient_id" name="patient_id" 
                         value="{{ patient_id }}" disabled="">
-                    <!-- <select class="form-control" id="patient_id" name="patient_id" >
-                        {% for patient in patients %}
-                        <option value="{{ patient.id }}">{{ patient.id }} - {{ patient.first_name }} {{ patient.last_name }}</option>
-                        {% endfor %}
-                    </select> -->
                 </div>
                 <div class="form-group">
                     <label class="control-label" for="officer_id">Doctor ID</label>
                     <input type="text" class="form-control" id="officer_id" name="officer_id" 
                         value="{{ doctor_id }}" disabled="">
-                    <!-- <select class="form-control" id="officer_id" name="officer_id" >
-                        {% for doctor in doctors %}
-                        <option value="{{ doctor.id }}">{{ doctor.id }} - {{ doctor.first_name }} {{ doctor.last_name }}</option>
-                        {% endfor %}
-                    </select> -->
                 </div>
                 <div class="form-group">
                     <label class="control-label" for="symptom">Symptom</label>
-                    <textarea class="form-control" id="symptom" name="symptom" ></textarea>
+                    <textarea class="form-control" id="symptom" name="symptom" rows="3"></textarea>
                 </div>
                 <div class="form-group">
                     <label class="control-label" for="diagnosis">Diagnosis</label>
-                    <textarea class="form-control" id="diagnosis" name="diagnosis" ></textarea>
+                    <textarea class="form-control" id="diagnosis" name="diagnosis" rows="3"></textarea>
                 </div>
                 <div class="form-group">
-                    <label class="control-label" for="drgcode">DRG Code</label>
-                    <input type="text" class="form-control" id="drgcode" name="drgcode" >
+                    <label class="control-label" for="drg_code">DRG Code</label>
+                    <select class="form-control" id="drg_code" name="drg_code" >
+                        {% for drg_code in drg_codes %}
+                        <option value="{{ drg_code.id }}">{{ drg_code.description }}</option>
+                        {% endfor %}
+                    </select>
                 </div>
 
                 <div class="form-group">

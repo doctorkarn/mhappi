@@ -13,7 +13,7 @@ from django.core.exceptions import ObjectDoesNotExist
 import json
 import random
 
-from apps.authentication.models import Patient, Officer
+from apps.authentication.models import Patient, Officer, Department
 
 
 def login(request):
@@ -63,9 +63,11 @@ def login(request):
                                 request.session['user_role'] = 'staff'
                                 return HttpResponseRedirect('/home')
                             elif officer.position == 2:
+                                request.session['user_dept'] = officer.specialist.name
                                 request.session['user_role'] = 'doctor'
                                 return HttpResponseRedirect('/home')
                             elif officer.position == 3:
+                                request.session['user_dept'] = officer.specialist.name
                                 request.session['user_role'] = 'nurse'
                                 return HttpResponseRedirect('/home')
                             elif officer.position == 4:
@@ -90,6 +92,8 @@ def login(request):
         else:
             messages.error(request, 'Username or Password is invalid')
             return HttpResponseRedirect('/login')
+    elif request.user.is_authenticated():
+        return HttpResponseRedirect('/home')
     else:
         return render(request, 'login.html')
 
@@ -246,6 +250,12 @@ def list_doctor(request):
     return render(request, 'list_doctor.html', data)
 
 
+def handle_uploaded_file(f, i):
+    with open('static/avatar/'+str(i)+'.jpg', 'wb+') as destination:
+        for chunk in f.chunks():
+            destination.write(chunk)
+
+
 def add_officer(request):
     if request.POST:
         input = {}
@@ -285,12 +295,18 @@ def add_officer(request):
         	position	= input['position'],
         )
 
+        handle_uploaded_file(request.FILES['picture'], user.id)
+
         messages.success(request, 'Add Officer successful')
         return redirect('/add_officer/')
         # return HttpResponse(json.dumps(input))
 
     else:
-        return render(request, 'add_officer.html')
+        departments = Department.objects.all()
+        data = {
+            'departments': departments,
+        }
+        return render(request, 'add_officer.html', data)
 
 
 def update_officer(request):

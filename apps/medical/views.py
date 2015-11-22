@@ -7,7 +7,7 @@ import json, random
 
 from apps.authentication.models import Patient, Officer
 from apps.appointment.models import ClinicTime, Appointment
-from apps.medical.models import MedicalRecord, PatientInfo, Prescritpion
+from apps.medical.models import MedicalRecord, PatientInfo, Prescritpion, DrugList, DrgCode
 
 
 def add_patient_information(request, pid):
@@ -59,14 +59,14 @@ def add_medical_record(request, pid):
         input['officer_id'] = request.user.id
         input['symptom'] = request.POST['symptom']
         input['diagnosis'] = request.POST['diagnosis']
-        input['drgcode'] = request.POST['drgcode']
+        input['drgcode'] = request.POST['drg_code']
 
         medical_info = MedicalRecord.objects.create(
             patient_id 	= input['patient_id'],
             officer_id 	= input['officer_id'],
             symptom 	= input['symptom'],
             diagnosis 	= input['diagnosis'],
-            drg_code 	= input['drgcode'],
+            drg_code_id 	= input['drgcode'],
         )
 
         messages.success(request, 'Record Medical Information')
@@ -75,9 +75,11 @@ def add_medical_record(request, pid):
     else:
         patient_id = pid
         doctor_id = request.user.id
+        drg_codes = DrgCode.objects.all()
         data = {
             'patient_id' : patient_id,
             'doctor_id' : doctor_id,
+            'drg_codes' : drg_codes,
         }
         return render(request, 'record_medical_info.html', data)
 
@@ -167,3 +169,10 @@ def list_prescription(request, pid):
         'prescriptions' : prescriptions,
     }
     return render(request, 'list_prescription.html', data)
+
+# def add_drug_list(request):
+#     drug_list = DrugList.objects.create(
+#         description  = input['patient_id'],
+#     )
+#     messages.success(request, 'Add All Drug List')
+#     return redirect('/login/')
