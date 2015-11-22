@@ -10,7 +10,7 @@ from apps.appointment.models import ClinicTime, Appointment
 
 
 def make_appointment(request, pid):
-    if request.POST:
+    if request.POST['clinic_time_id']:
         input = {}
         input['patient_id'] = pid
         input['clinic_time_id'] = request.POST['clinic_time_id']
@@ -25,15 +25,23 @@ def make_appointment(request, pid):
         messages.success(request, 'Appoint Doctor successful')
         return redirect('/make_appointment/' + pid + '/')
 
-    else:
-        patients = Patient.objects.all()
-        clinics = ClinicTime.objects.all()
-        data = {
-            'patients' : patients,
-            'clinics' : clinics,
-            'patient_id' : pid,
-        }
+    elif request.POST['doctor_id']:
+
         return render(request, 'appoint_doctor.html', data)
+
+    elif request.POST['department_id']:
+
+        return render(request, 'appoint_doctor.html', data)
+
+    else:
+        # patients = Patient.objects.all()
+        # clinics = ClinicTime.objects.all()
+        # data = {
+        #     'patients' : patients,
+        #     'clinics' : clinics,
+        #     'patient_id' : pid,
+        # }
+        return render(request, 'search_doctor.html', data)
 
 
 def list_appointment(request, pid):

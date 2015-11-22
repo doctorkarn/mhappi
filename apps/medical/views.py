@@ -7,7 +7,7 @@ import json, random
 
 from apps.authentication.models import Patient, Officer
 from apps.appointment.models import ClinicTime, Appointment
-from apps.medical.models import MedicalRecord, PatientInfo, Prescritpion
+from apps.medical.models import MedicalRecord, PatientInfo, Prescritpion, DrugList, DrgCode
 
 
 def add_patient_information(request, pid):
@@ -167,3 +167,10 @@ def list_prescription(request, pid):
         'prescriptions' : prescriptions,
     }
     return render(request, 'list_prescription.html', data)
+
+# def add_drug_list(request):
+#     drug_list = DrugList.objects.create(
+#         description  = input['patient_id'],
+#     )
+#     messages.success(request, 'Add All Drug List')
+#     return redirect('/login/')

@@ -13,7 +13,7 @@ from django.core.exceptions import ObjectDoesNotExist
 import json
 import random
 
-from apps.authentication.models import Patient, Officer
+from apps.authentication.models import Patient, Officer, Department
 
 
 def login(request):
@@ -63,6 +63,7 @@ def login(request):
                                 request.session['user_role'] = 'staff'
                                 return HttpResponseRedirect('/home')
                             elif officer.position == 2:
+                                request.session['user_dept'] = officer.specialist.name
                                 request.session['user_role'] = 'doctor'
                                 return HttpResponseRedirect('/home')
                             elif officer.position == 3:
@@ -298,7 +299,11 @@ def add_officer(request):
         # return HttpResponse(json.dumps(input))
 
     else:
-        return render(request, 'add_officer.html')
+        departments = Department.objects.all()
+        data = {
+            'departments': departments,
+        }
+        return render(request, 'add_officer.html', data)
 
 
 def update_officer(request):

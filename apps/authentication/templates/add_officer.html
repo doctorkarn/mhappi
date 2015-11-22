@@ -44,9 +44,18 @@
                     <input type="text" class="form-control" id="position" name="position">
                     <p class="help-block">1 = เจ้าหน้าที่, 2 = แพทย์, 3 = พยาบาล, 4 = เภสัชกร</p>
                 </div>
-                <div class="form-group">
+                <!-- <div class="form-group">
                     <label class="control-label" for="specialist">ความเชี่ยวชาญ</label>
                     <input type="text" class="form-control" id="specialist" name="specialist">
+                    <p class="help-block">กรอกเฉพาะแพทย์</p>
+                </div> -->
+                <div class="form-group">
+                    <label class="control-label" for="specialist_id">ความเชี่ยวชาญ / แผนก</label>
+                    <select class="form-control" id="specialist_id" name="specialist_id" >
+                        {% for department in departments %}
+                        <option value="{{ department.id }}">{{ department.name }}</option>
+                        {% endfor %}
+                    </select>
                 </div>
                 <div class="form-group">
                     <label class="control-label" for="birthdate">วันเกิด</label>
