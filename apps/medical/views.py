@@ -60,6 +60,7 @@ def add_medical_record(request, pid):
         input['symptom'] = request.POST['symptom']
         input['diagnosis'] = request.POST['diagnosis']
         input['drgcode'] = request.POST['drg_code']
+        input['drug_list'] = request.POST['drug_list']
 
         medical_info = MedicalRecord.objects.create(
             patient_id 	= input['patient_id'],
@@ -68,18 +69,27 @@ def add_medical_record(request, pid):
             diagnosis 	= input['diagnosis'],
             drg_code_id 	= input['drgcode'],
         )
+        perscritpion = Prescritpion.objects.create(
+            patient_id  = input['patient_id'],
+            officer_id  = input['officer_id'],
+            drug_list   = input['drug_list'],
+        )
 
-        messages.success(request, 'Record Medical Information')
+        messages.success(request, 'Record Medical Information (and Prescritpion) for Patient ID:' + pid)
         return redirect('/list_patient/')
 
     else:
         patient_id = pid
         doctor_id = request.user.id
+        patient_info = PatientInfo.objects.filter(patient_id=pid).order_by('-created_at').first()
         drg_codes = DrgCode.objects.all()
+        drug_list = DrugList.objects.all()
         data = {
+            'patient_info' : patient_info,
             'patient_id' : patient_id,
             'doctor_id' : doctor_id,
             'drg_codes' : drg_codes,
+            'drug_list' : drug_list,
         }
         return render(request, 'record_medical_info.html', data)
 
@@ -165,6 +175,8 @@ def view_prescription(request):
 
 def list_prescription(request, pid):
     prescriptions = Prescritpion.objects.filter(patient_id=pid)
+    # for p in prescriptions:
+    #     d_list = 
     data = {
         'prescriptions' : prescriptions,
     }

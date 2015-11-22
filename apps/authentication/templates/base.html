@@ -65,9 +65,9 @@
         {% if messages %}
           {% for msg in messages %}
             {% if msg.level_tag == 'error' %}
-            <div class="alert alert-danger">
+            <div class="alert alert-danger" style="display:none">
             {% else %}
-            <div class="alert alert-{{msg.level_tag}}">
+            <div class="alert alert-{{msg.level_tag}}" style="display:none">
             {% endif %}
               [{{msg.level_tag}}] {{msg.message}}
             </div>
@@ -91,5 +91,14 @@
 
     <!-- Bootstrap core JS -->
     <script src="{% static 'js/bootstrap.min.js' %}"></script>
+<<<<<<< HEAD
+
+    <div id="fade" class="fade">
+    {% block popup %}{% endblock %}
+    </div>
+=======
+    <script src="{% static 'js/jquery.min.js' %}"></script>
+    {% block script %}{% endblock %}
+>>>>>>> 75846eb04ae65e338f05a8baefb25e1c00338699
   </body>
 </html>

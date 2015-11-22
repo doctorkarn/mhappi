@@ -1,3 +1,7 @@
+.cal-button-screen{
+	display: block;
+}
+
 .cal-button > tbody > tr > th{
 	width:111px;
 	height:41px;
@@ -8,6 +12,12 @@
 	height:78px;
 	text-align: center;
 }
+@media (max-width: 991px){
+	.cal-button-screen{
+		display: none;
+	}
+}
+
 .left-button, .left-button-disable{
 	width: 4.5em;
 	height: 4.5em;
@@ -117,19 +127,36 @@
 	cursor: default;
 }
 
+@media screen{
+	.calendar_time{
+		margin-top: 2em; 
+		margin-bottom:2em
+	}
+}
+@media (max-width: 991px){
+	.calendar_time{
+		margin-left: 10%;
+	}
+	.calendar_time > .row{
+		display: block;
+	}
+}
+
+.calendar_time > .row{
+	display: none;
+}
 .calendar_time input[type="radio"] {
     display:none;
 }
-
 .calendar_time input[type="radio"]:checked + label {
     background: url("../img/appointment/Checkbox_checked.svg") no-repeat;
 }
-
 .calendar_time input[type="radio"]:disabled + label {
 	color: #CACACA;
     background: url("../img/appointment/Checkbox_disabled.svg") no-repeat;
     cursor: default;
 }
+
 
 .cal-day > .day-selected{
 	width: 3em;

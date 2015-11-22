@@ -7,14 +7,12 @@
             <table class="table">
             	<tr>
                     <th>Drug List</th>
-            		<th></th>
+            		<th>Created at</th>
             	</tr>
             	{% for prescription in prescriptions %}
             	<tr>
                     <td>{{ prescription.drug_list }}</td>
-            		<td>
-            			<a class="btn btn-default" href="#">button</a>
-            		</td>
+            		<td>{{ prescription.created_at }}</td>
             	</tr>
             	{% endfor %}
             </table>
