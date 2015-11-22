@@ -67,6 +67,7 @@ def login(request):
                                 request.session['user_role'] = 'doctor'
                                 return HttpResponseRedirect('/home')
                             elif officer.position == 3:
+                                request.session['user_dept'] = officer.specialist.name
                                 request.session['user_role'] = 'nurse'
                                 return HttpResponseRedirect('/home')
                             elif officer.position == 4:
