@@ -59,14 +59,14 @@ def add_medical_record(request, pid):
         input['officer_id'] = request.user.id
         input['symptom'] = request.POST['symptom']
         input['diagnosis'] = request.POST['diagnosis']
-        input['drgcode'] = request.POST['drgcode']
+        input['drgcode'] = request.POST['drg_code']
 
         medical_info = MedicalRecord.objects.create(
             patient_id 	= input['patient_id'],
             officer_id 	= input['officer_id'],
             symptom 	= input['symptom'],
             diagnosis 	= input['diagnosis'],
-            drg_code 	= input['drgcode'],
+            drg_code_id 	= input['drgcode'],
         )
 
         messages.success(request, 'Record Medical Information')
@@ -75,9 +75,11 @@ def add_medical_record(request, pid):
     else:
         patient_id = pid
         doctor_id = request.user.id
+        drg_codes = DrgCode.objects.all()
         data = {
             'patient_id' : patient_id,
             'doctor_id' : doctor_id,
+            'drg_codes' : drg_codes,
         }
         return render(request, 'record_medical_info.html', data)
 
