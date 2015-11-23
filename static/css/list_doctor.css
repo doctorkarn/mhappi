@@ -20,3 +20,12 @@
 	font-size: 1.2em;
 
 }
+.button{
+	background-color:#59c9b1;
+	margin-top:10px;
+	color: white;
+	border-radius: 2.3px;
+	padding: 0.5em;
+	font-size: 20px;
+	font-family: SK-Text;
+}
