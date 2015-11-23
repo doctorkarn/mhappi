@@ -1,22 +1,28 @@
 .header{
+	color:white;
 	background-color: #59c9b1;
 	font-family: SK-Medium;
-	background-color: #59c9b1;
-	font-size: 1em;
 }
+.headText{
+	color: #897e86;
+	font-family: SK-Medium;
+	font-size: 2em;
 
+}
+.mediumText{
+	color: #897e86;
+	font-family: SK-Medium;
+	font-size: 1.6em;
+}
 .tableStyle{
 	 
-}
-.tableStyle>tbody>tr>td{
-	 border: 0px !important;
-	 border-radius: 20px;
 }
 .tableStyle>tbody>tr>td{
 	 border: 0px !important;
 }
 .tableStyle>tbody>tr>th{
 	 border: 0px !important;
+
 }
 .info{
 	color: black;
