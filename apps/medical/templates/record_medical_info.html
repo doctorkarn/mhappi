@@ -1,5 +1,7 @@
 {% extends "base.html" %}
 {% block main %}
+    {% load staticfiles %}
+    <link href="{% static 'css/record_medical_info.css' %}" rel="stylesheet" media="screen">
     <div id="login" class="row">   
         <div class="row">
             <div class="col-md-10 col-md-offset-1 navText">
@@ -10,8 +12,8 @@
                 <span>บันทึกประวัติการรักษา</span>
             </div>
         </div>
-        <div class="col-md-4 col-md-offset-4">
-            <h1>บันทึกการรักษา <br/> (สำหรับแพทย์)</h1>
+        <div class="col-md-4 col-md-offset-4" style="text-align:center">
+            <h1 class="patient-name">{{ patient.first_name }} {{ patient.last_name }}</h1>
             <div class="row">
                 <!-- Large modal -->
                 <button type="button" id="btn-patient-info" class="btn btn-default" data-toggle="modal" data-target="#PatientInfo">ข้อมูลผู้ป่วย</button>
@@ -117,20 +119,20 @@
             </div>
             <hr/>
             <h2>การตรวจสุขภาพล่าสุด</h2>
-            <p>ข้อมูลผู้ป่วยล่าสุด: {{ current_patient_info.information }} <br/>
-            บันทึกเมื่อ: {{ current_patient_info.created_at }} </p>
+            <p>{{ current_patient_info.information }} <br/>
+            ( บันทึกเมื่อ : {{ current_patient_info.created_at }} )</p>
             <hr/>
-            <form class="form-horizontal" name="RegisterForm" action="/add_medical_record/{{ patient_id }}/" method="post">
+            <form class="form-horizontal medical-form" name="RegisterForm" action="/add_medical_record/{{ patient_id }}/" method="post">
                 {% csrf_token %}
                 {% if next %}
                     <input type="hidden" name="next" value="{{ next }}" />
                 {% endif %}
-                <div class="form-group">
+                <div class="form-group hidden-form">
                     <label class="control-label" for="patient_id">Patient ID</label>
                     <input type="text" class="form-control" id="patient_id" name="patient_id" 
                         value="{{ patient_id }}" disabled="">
                 </div>
-                <div class="form-group">
+                <div class="form-group hidden-form">
                     <label class="control-label" for="officer_id">Doctor ID</label>
                     <input type="text" class="form-control" id="officer_id" name="officer_id" 
                         value="{{ doctor_id }}" disabled="">
@@ -153,29 +155,36 @@
                 </div>
                 <hr/>
 
+                <h2 style="text-align:center;margin-top:1em;">ข้อมูลรายการยา</h2>
                 <div class="form-group">
-                    <label class="control-label" for="drug_name">Drug Name (optional)</label>
+                    <label class="control-label" for="drug_name">ชื่อยา</label>
                     <select class="form-control" id="drug_name" name="drug_name" >
+                        <option value="0">กรุณาเลือกรายการยา</option>
                         {% for drug_item in drug_list %}
                         <option value="{{ drug_item.description }}">{{ drug_item.description }}</option>
                         {% endfor %}
                     </select>
                 </div>
                 <div class="form-group">
-                    <label class="control-label" for="drug_dose">Drug Dose (optional)</label>
-                    <input type="number" class="form-control" id="drug_dose" name="drug_dose" value="0">
+                    <label class="control-label" for="drug_dose">ปริมาณยา</label>
+                    <input type="number" class="form-control" id="drug_dose" name="drug_dose" value="1" min="1">
                 </div>
-                <div class="form-group">
-                    <button type="button" class="btn btn-default" id="add-drug-btn">Add Drug</button>
+                <div class="form-group" style="text-align:center">
+                    <button type="button" class="btn btn-default" id="add-drug-btn" disabled>เพิ่มรายการยา</button>
                 </div>
-                <div class="form-group">
+                <div class="form-group hidden-form">
                     <label class="control-label" for="drug_list">Drug List (optional)</label>
                     <input type="text" class="form-control" id="drug_list" name="drug_list" readonly="">
                 </div>
-
+                <hr id="drug_div_hr" style="display:none">
+                <div class="form-group" id="drug_div_title" style="display:none">
+                  <label class="control-label">รายการยา</label>
+                </div>
+                <div  class="form-group" id="drug_div">
+                </div>
                 <hr/>
                 <div class="form-group">
-                    <button type="submit" class="btn btn-default">Save</button>
+                    <button type="submit" class="col-md-4 col-md-offset-4 save-button">บันทึกการรักษา</button>
                 </div>
             </form>
         </div>
@@ -185,21 +194,71 @@
 {% block script %}
 <script type="text/javascript">
 
+var drugArray = new Array(0);
+var drugNameField = 0;
 
 $("#add-drug-btn").click(function(){
     var drug_name = $("#drug_name").val();
     var drug_dose = $("#drug_dose").val();
     var drug_item = drug_name + ' : ' + drug_dose;
 
-    var old_val = $("#drug_list").val();
-    if( old_val == '' ) {
-        $("#drug_list").val(old_val + drug_item);
-    } else {
-        $("#drug_list").val(old_val + ' , ' + drug_item);
-    }
+    drugArray[drugArray.length] = drug_item;
+    addDrugList();
 
     $("#drug_name").val(0);
-    $("#drug_dose").val(0);
+    $("#drug_dose").val(1);
+
+    drugNameField = 0;
+    document.getElementById("add-drug-btn").disabled = true;
 });
+
+$( "#drug_name" ).change(function() {
+    var str = "";
+    $( "#drug_name option:selected" ).each(function() {
+      str += $( this ).val() + "";
+    });
+    if(str !== "0") {
+      drubNameField = 1;
+      document.getElementById("add-drug-btn").disabled = false;
+    }
+    else {
+      drubNameField = 0;
+      document.getElementById("add-drug-btn").disabled = true;
+    }
+});
+
+function addDrugList(){
+  var text = "";
+  var val = "";
+  for(i = 0; i < drugArray.length; i++){
+    var drug = drugArray[i].split(':');
+    text+='<div id="druglist_'+i+'" type="button" class="btn label-green"><span onclick="deleteDrug('+i+');">X</span>'+drug[0]+' : '+drug[1]+'</div>';
+    if(i > 0) val = val + " , ";
+    val += drugArray[i]
+  }
+  document.getElementById('drug_div').innerHTML = text;
+  $("#drug_list").val(val);
+  if(val == ""){
+    $("#drug_div_title").css({'display':'none'});
+    $("#drug_div_hr").css({'display':'none'});
+  }
+  else{
+    $("#drug_div_title").css({'display':'block'});
+    $("#drug_div_hr").css({'display':'block'});
+  }
+}
+
+function deleteDrug(id){
+  var val = "";
+  var newDrugArray = new Array(0);
+  for(i = 0; i < drugArray.length; i++){
+      if(i !== id) newDrugArray[newDrugArray.length] = drugArray[i];
+  }
+
+  drugArray = newDrugArray;
+
+  addDrugList();
+
+}
 </script>
 {% endblock %}

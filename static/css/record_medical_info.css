@@ -1,0 +1,92 @@
+.btn-green{
+	color: black;
+	background: #59C9B2;
+	border-color: #49B59F;
+}
+.btn-green:hover{
+	color: black;
+	background: #49B59F;
+	border-color: #49B59F;
+}
+.medical-form{
+	text-align: left;
+}
+
+.label-green{
+	margin-right: 0.5em; 
+	margin-bottom: 0.5em;
+	color: white;
+	background: #59C9B2;
+	border-color: #49B59F;
+	cursor: default !important;
+}
+.label-green:hover{
+	color: white;
+}
+.label-green:active{
+	box-shadow: none !important;
+}
+.label-green > span{
+	float: left;
+	padding: 0.1em;
+    width: 1.45em;
+    height: 1.4em;
+    border-radius: 1.4em;
+	font-family: SK-Bold;
+	margin-left: 0em;
+	margin-right: 1em;
+	background-color: white;
+	color: #59C9B2;
+	cursor: pointer;
+}
+.save-button{
+	text-align: center;
+	border-radius: 0em !important;
+	border: 3px solid #59C9B2;
+	background-color: transparent;
+	padding: 0.5em;
+    font-family: SK-Text;
+    font-size: 1.2em;
+    color: #59C9B2;
+	margin-bottom: 2em;
+}
+.save-button-disable{
+	width: 100%;
+	text-align: center;
+	cursor: default !important;
+	border-radius: 0em !important;
+	border: 3px solid #CFCFCF;
+	background-color: transparent;
+	padding: 0.5em;
+    font-family: SK-Text;
+    font-size: 1.2em;
+    color: #CFCFCF;
+	margin-bottom: 2em;
+}
+.patient-name{
+	font-family: SK-Text;
+	margin-bottom: 0.6em;
+}
+.modal-header{
+	font-family: SK-Bold;
+	color: white;
+	border-bottom: 0px !important;
+	border-radius: 5px 5px 0px 0px;
+	background-color: #59C9B2;
+}
+.modal-body{
+	padding-top: 0px !important;
+	padding-left: 2em !important;
+	padding-right: 2em !important;
+	padding-bottom: 0em !important;
+}
+.modal-body > .row > table > tbody > tr > td{
+	text-align: left !important;
+	vertical-align: center !important;
+}
+.modal-body > .row > table{
+	margin-bottom: 0px !important;
+}
+h2{
+	font-family: SK-Bold;
+}
