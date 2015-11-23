@@ -17,17 +17,17 @@
             <table class="table tableStyle info" >
 
             	<tr>
-            		<th class="header topic" th class="header" style="border-top-left-radius:10px">ID</th>
-            		<th class="header topic">Name</th>
+            		<th class="header topic" th class="header" style="border-top-left-radius:10px">รหัสเจ้าหน้าที่</th>
+            		<th class="header topic">ชื่อ-นามสกุล</th>
             		<th class="header " th class="header" style="border-top-right-radius:10px"></th>
             	</tr>
             	{% for doctor in doctors %}
             	<tr>
             		<td>{{ doctor.hospital_id }}</td>
             		<td>{{ doctor.first_name }} {{ doctor.last_name }}</td>
-            		<td>
-                        <a class="btn btn-default" href="/make_clinic_time/{{ doctor.id }}/" style="border-radius: 5px;">make clinic time</a>
-            			<a class="btn btn-default" href="/list_clinic_time/{{ doctor.id }}/" style="border-radius: 5px;">list clinic time</a>
+            		<td style="text-align:right">
+                        <a class="btn btn-default" style="inline-block"  href="/make_clinic_time/{{ doctor.id }}/" style="border-radius: 5px;">แจ้งเวลาออกตรวจ</a>
+            			<a class="btn btn-default" style="inline-block"  href="/list_clinic_time/{{ doctor.id }}/" style="border-radius: 5px;">ดูเวลาออกตรวจ</a>
             		</td>
             	</tr>
             	{% endfor %}

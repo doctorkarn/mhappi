@@ -1,5 +1,8 @@
 {% extends "base.html" %}
-{% block main %}    
+{% block main %}
+{% load staticfiles %}
+<link href="{% static 'css/managePatient.css' %}" rel="stylesheet" media="screen">
+
     <div class="row">
         <div class="col-md-10 col-md-offset-1 navText">
             <a href="/home/" style="text-decoration:none"><span>Home</span></a>
@@ -9,33 +12,33 @@
     </div>
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
-            <h1>Patient Lists (all)</h1>
+            <h1 class="headText" style="text-align:center">Patient List</h1>
             <hr/>
-            <table class="table">
+            <table class="table tableStyle info">
             	<tr>
-            		<th>HN ID</th>
-            		<th>Name</th>
-            		<th></th>
+            		<th class="header" style="border-top-left-radius:10px">รหัสผู้ป่วย</th>
+            		<th class="header">ชื่อ-นามสกุล</th>
+            		<th class="header" style="border-top-right-radius:10px"></th>
             	</tr>
             	{% for patient in patients %}
             	<tr>
             		<td>{{ patient.hospital_id }}</td>
             		<td>{{ patient.first_name }} {{ patient.last_name }}</td>
-            		<td>
+            		<td style="text-align:right">
             			{% if request.session.user_role == 'staff' %}
-            			<a class="btn btn-default" href="/staff_make_appointment/{{ patient.id }}/">ทำการนัดหมาย</a>
-            			<a class="btn btn-default" href="/staff_list_appointment/{{ patient.id }}/">รายการนัดหมาย</a>
+            			<a class="btn btn-default" style="inline-block"  href="/staff_make_appointment/{{ patient.id }}/">ทำการนัดหมาย</a>
+            			<a class="btn btn-default" style="inline-block"  href="/staff_list_appointment/{{ patient.id }}/">รายการนัดหมาย</a>
             			{% endif %}
 						{% if request.session.user_role == 'doctor' %}
-            			<a class="btn btn-default" href="/add_medical_record/{{ patient.id }}/">บันทึกการรักษา</a>
-            			<a class="btn btn-default" href="/list_medical_record/{{ patient.id }}/">ประวัตืการรักษา</a>
+            			<a class="btn btn-default" style="inline-block" href="/add_medical_record/{{ patient.id }}/">บันทึกการรักษา</a>
+            			<a class="btn btn-default" style="inline-block" href="/list_medical_record/{{ patient.id }}/">ประวัตืการรักษา</a>
             			{% endif %}
             			{% if request.session.user_role == 'nurse' %}
-            			<a class="btn btn-default" href="/add_patient_information/{{ patient.id }}/">บันทึกข้อมูลผู้ป่วย</a>
-            			<a class="btn btn-default" href="/list_patient_information/{{ patient.id }}/">ข้อมูลผู้ป่วย</a>
+            			<a class="btn btn-default" style="inline-block"  href="/add_patient_information/{{ patient.id }}/">บันทึกข้อมูลผู้ป่วย</a>
+            			<a class="btn btn-default" style="inline-block"  href="/list_patient_information/{{ patient.id }}/">ข้อมูลผู้ป่วย</a>
             			{% endif %}
             			{% if request.session.user_role == 'pharmacist' %}
-            			<a class="btn btn-default" href="/list_prescription/{{ patient.id }}/">รายการใบสั่งยา</a>
+            			<a class="btn btn-default" style="inline-block"  href="/list_prescription/{{ patient.id }}/">รายการใบสั่งยา</a>
             			{% endif %}
             		</td>
             	</tr>
