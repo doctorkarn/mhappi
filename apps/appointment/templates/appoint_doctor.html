@@ -63,26 +63,58 @@
     </div>
     <div class="row">
         <div id="calendar_time" class="col-md-8 col-md-offset-2 calendar_time" style="margin-top: 2em; margin-bottom:2em">
-            <form name="appointClinicTimeM" action="/cancel_clinic_time/{{ doctor_id }}/#title" method="post">
+             <form class="form-horizontal" name="RegisterForm" action="/make_appointment/{{ patient_id }}/" method="post">
+                {% csrf_token %}
+                {% if next %}
+                    <input type="hidden" name="next" value="{{ next }}" />
+                {% endif %}
                 <div class="form-group hidden-form">
-                    <label class="control-label" for="clinic_time_m">Clinic Time Morning</label>
-                    <input type="text" class="form-control" id="clinic_time_m" name="clinic_time_m" >
-                    <p class="help-block">format: yyyy-mm-dd</p>
+                    <label class="control-label" for="patient_id">Patient ID</label>
+                    <input type="text" class="form-control" id="patient_id" name="patient_id" 
+                        value="{{ patient_id }}" disabled="">
+                </div>
+                <div class="form-group hidden-form">
+                    <div class="form-group">
+                        <input type="text" class="form-control" id="clinic_time_m" name="clinic_time_id" >
+                    </div>
+                </div>
+                <div class="form-group hidden-form">
+                    <label class="control-label" for="appointment_status">Appointment Status</label>
+                    <input type="text" class="form-control" id="appointment_status" name="appointment_status" value="1" disabled="">
+                    <p class="help-block">1 = active, 0 = inactive, -1 = cancelled</p>
                 </div>
                 <div class="col-md-4 col-md-offset-2">
-                    <button class="cancel-button-disable" id="cancel-m" href="#" onclick="setAppointClinicTimeM();" disabled>นัดหมายช่วงเช้า</button>
+                    <button type="submit" class="cancel-button-disable" id="cancel-m" href="#" onclick="setAppointClinicTimeM();" disabled>นัดหมายช่วงเช้า</button>
                 </div>
             </form>
-            <form name="appointClinicTimeA" action="/cancel_clinic_time/{{ doctor_id }}/#title" method="post">
+
+
+
+            <form class="form-horizontal" name="RegisterForm" action="/make_appointment/{{ patient_id }}/" method="post">
+                {% csrf_token %}
+                {% if next %}
+                    <input type="hidden" name="next" value="{{ next }}" />
+                {% endif %}
                 <div class="form-group hidden-form">
-                    <label class="control-label" for="clinic_time_a">Clinic Time Afternoon</label>
-                    <input type="text" class="form-control" id="clinic_time_a" name="clinic_time_a" >
-                    <p class="help-block">format: yyyy-mm-dd</p>
+                    <label class="control-label" for="patient_id">Patient ID</label>
+                    <input type="text" class="form-control" id="patient_id" name="patient_id" 
+                        value="{{ patient_id }}" disabled="">
+                </div>
+                <div class="form-group hidden-form">
+                    <div class="form-group">
+                        <input type="text" class="form-control" id="clinic_time_a" name="clinic_time_id" >
+                    </div>
+                </div>
+                <div class="form-group hidden-form">
+                    <label class="control-label" for="appointment_status">Appointment Status</label>
+                    <input type="text" class="form-control" id="appointment_status" name="appointment_status" value="1" disabled="">
+                    <p class="help-block">1 = active, 0 = inactive, -1 = cancelled</p>
                 </div>
                 <div class="col-md-4">
-                    <button class="cancel-button-disable" id="cancel-a" href="#" onclick="setAppointClinicTimeA();" disabled>นัดหมายช่วงบ่าย</button>
+                    <button type="submit" class="cancel-button-disable" id="cancel-a" href="#" onclick="setAppointClinicTimeA();" disabled>นัดหมายช่วงบ่าย</button>
                 </div>
             </form>
+
         </div>
         <div class="col-md-2 col-md-offset-5">
             <form class="form-horizontal" name="CancelClinicTime" action="/cancel_clinic_time/{{ doctor_id }}/#title" method="post">
