@@ -11,26 +11,63 @@
     </div>
     <div id="login" class="row">
         <div class="col-md-8 col-md-offset-2">
-            <h1>ประวัติการรักษา (patient {{ patient_id }})</h1>
+            <h1>ประวัติการรักษา ({{ patient.first_name }} {{ patient.last_name }})</h1>
             <hr/>
-            <table class="table">
-            	<tr>
-                    <th>Symptom</th>
-            		<th>Diagnosis</th>
-            		<th>DRG Code</th>
-            		<th></th>
-            	</tr>
-            	{% for medical_info in medical_infos %}
-            	<tr>
-                    <td>{{ medical_info.symptom }}</td>
-            		<td>{{ medical_info.diagnosis }}</td>
-            		<td>{{ medical_info.drg_code.id }}</td>
-            		<td>
-            			<a class="btn btn-default" href="#">button</a>
-            		</td>
-            	</tr>
-            	{% endfor %}
-            </table>
+
+            <div id="PatientInfo" class="row">
+              <h2>ข้อมูลผู้ป่วย</h2>
+              <table class="table">
+                <tr>
+                  <th>ข้อมูลผู้ป่วย</th>
+                  <th>บันทึกเมื่อ</th>
+                </tr>
+                {% for patient_info in patient_infos %}
+                <tr>
+                  <td>{{ patient_info.information }}</td>
+                  <td>{{ patient_info.created_at }}</td>
+                </tr>
+                {% endfor %}
+              </table>
+            </div>
+            <hr/>
+
+            <div id="MedicalInfo" class="row">
+              <h2>ประวัติการรักษา</h2>
+              <table class="table">
+                <tr>
+                  <th>อาการ</th>
+                  <th>วินิจฉัย</th>
+                  <th>รหัสโรค (DRG)</th>
+                  <th>บันทึกเมื่อ</th>
+                </tr>
+                {% for medical_info in medical_infos %}
+                <tr>
+                  <td>{{ medical_info.symptom }}</td>
+                  <td>{{ medical_info.diagnosis }}</td>
+                  <td>{{ medical_info.drg_code.description }}</td>
+                  <td>{{ medical_info.created_at }}</td>
+                </tr>
+                {% endfor %}
+              </table>
+            </div>
+            <hr/>
+
+            <div id="Prescription" class="row">
+              <h2>บันทึกการรับยา</h2>
+              <table class="table">
+                <tr>
+                  <th>รายการยา</th>
+                  <th>บันทึกเมื่อ</th>
+                </tr>
+                {% for prescription in prescriptions %}
+                <tr>
+                  <td>{{ prescription.drug_list }}</td>
+                  <td>{{ prescription.created_at }}</td>
+                </tr>
+                {% endfor %}
+              </table>
+            </div>
+            <hr/>
         </div>
     </div>
 {% endblock %}
