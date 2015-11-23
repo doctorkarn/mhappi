@@ -1,23 +1,26 @@
 {% extends "base.html" %}
 {% block main %}
+{% load staticfiles %}
+<link href="{% static 'css/list_appointment.css' %}" rel="stylesheet" media="screen">
     <div id="login" class="row">
         <div class="col-md-8 col-md-offset-2">
-            <h1>Appointment Lists (patient {{ patient_id }})</h1>
+            <h1 class="headText" style="text-align:center">ตารางรายการนัดหมาย (patient {{ patient_id }})</h1>
             <hr/>
-            <table class="table">
+            <table class="table tableStyle info" >
             	<tr>
-                    <th>Patient</th>
-            		<th>Doctor</th>
-            		<th>DateTime</th>
-            		<th></th>
+                    <th class="header topic" th class="header" style="border-top-left-radius:10px">ชื่อผู้ป่วย</th>
+            		<th class="header topic">ชื่อแพทยผู้รับผิดชอบ</th>
+            		<th class="header topic">เวลาและวันที่</th>
+            		<th class="header " th class="header" style="border-top-right-radius:10px"></th>
             	</tr>
             	{% for appointment in appointments %}
             	<tr>
                     <td>{{ appointment.patient.first_name }} {{ appointment.patient.first_name }}</td>
             		<td>dr. {{ appointment.clinic_time.officer.first_name }} {{ appointment.clinic_time.officer.first_name }}</td>
             		<td>{{ appointment.clinic_time.clinic_datetime }}</td>
-            		<td>
-            			<a class="btn btn-default" href="#">button</a>
+            		<td style="text-align:right">
+            			<a class="btn btn-default" style="inline-block"  href="#">ยกเลิกการนัดหมาย</a>
+                        <a class="btn btn-default" style="inline-block"  href="#">ดูการนัดหมาย</a>
             		</td>
             	</tr>
             	{% endfor %}
