@@ -29,9 +29,11 @@ def add_patient_information(request, pid):
     else:
         patient_id = pid
         nurse_id = request.user.id
+        patient = Patient.objects.filter(id=patient_id)
         data = {
             'patient_id' : patient_id,
             'nurse_id' : nurse_id,
+            'patient': patient
         }
         return render(request, 'record_patient_info.html', data)
 
