@@ -1,32 +1,62 @@
 {% extends "base.html" %}
 {% block main %}
+{% load staticfiles %}
+<link href="{% static 'css/appointment_table.css' %}" rel="stylesheet" media="screen">
+<style type="text/css">
+    .space{
+        margin-top: 10px;
+    }
+</style>
+
+
     <div id="login" class="row">
-        <div class="col-md-4 col-md-offset-4">
+        <div class="col-md-8 col-md-offset-2">
             <h1>Record Patient Information <br/> (for Nurse)</h1>
             <hr/>
-            <form class="form-horizontal" name="RegisterForm" action="/add_patient_information/{{ patient_id }}/" method="post">
+            <form class="form-inline" name="RegisterForm" action="/add_patient_information/{{ patient_id }}/" method="post">
                 {% csrf_token %}
                 {% if next %}
                     <input type="hidden" name="next" value="{{ next }}" />
                 {% endif %}
-                <div class="form-group">
-                    <label class="control-label" for="patient_id">Patient ID</label>
-                    <input type="text" class="form-control" id="patient_id" name="patient_id" 
-                        value="{{ patient_id }}" disabled="">
+                <div class="col-md-4">
+                    <img src="{% static 'avatar/' %}{{patient_id}}.jpg" style="height:200pt;width:150pt">
                 </div>
-                <div class="form-group">
-                    <label class="control-label" for="officer_id">Nurse ID</label>
-                    <input type="text" class="form-control" id="officer_id" name="officer_id" 
-                        value="{{ nurse_id }}" disabled="">
-                </div>
-                <div class="form-group">
-                    <label class="control-label" for="patient_info">Patient Information</label>
-                    <textarea class="form-control" id="patient_info" name="patient_info" ></textarea>
+                <div class="col-md-6">
+                    <h4>{{patient.first_name}} {{patient.last_name}}</h4>
+                    <div class="form-group row space">
+                        <label class="control-label" for="weight">น้ำหนัก</label>
+                        <input type="text" class="form-control" id="weight" name="weight" ></input>
+                        <label class="control-label" for="weight">กิโลกรัม</label>
+                    </div>
+                    <div class="form-group row space">
+                        <label class="control-label" for="height">ส่วนสูง</label>
+                        <input type="text" class="form-control" id="height" name="height" ></input>
+                        <label class="control-label" for="height">เซนติเมตร</label>
+                    </div>
+                    <div class="form-group row space">
+                        <label class="control-label" for="temperature">อุณหภูมิ</label>
+                        <input type="text" class="form-control" id="temperature" name="temperature" ></input>
+                        <label class="control-label" for="temperature">องศาสเซลเซียส</label>
+                    </div>
+                    <div class="form-group row space">
+                        <label class="control-label" for="presure">ความดันโลหิต</label>
+                        <input type="text" class="form-control" id="presure" name="presure" ></input>
+                        <label class="control-label" for="presure">มิลลิเมตรปรอท</label>
+                    </div>
+
+                     <div class="form-group row space">
+                        <label class="control-label" for="note">หมายเหตุ</label>
+                        <textarea class="form-control" id="note" name="note" ></textarea>
+                    </div>
+
+                    <div class="row space">
+                        <div class="col-md-4">
+                            <button type="submit" class="add-button">บันทึก</button>
+                        </div>
+                    </div>
                 </div>
 
-                <div class="form-group">
-                    <button type="submit" class="btn btn-default">Add</button>
-                </div>
+                
             </form>
         </div>
     </div>
