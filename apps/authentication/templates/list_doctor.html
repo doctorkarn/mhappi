@@ -1,14 +1,17 @@
 {% extends "base.html" %}
 {% block main %}
+{% load staticfiles %}
+<link href="{% static 'css/list_doctor.css' %}" rel="stylesheet" media="screen">
     <div id="login" class="row">
         <div class="col-md-8 col-md-offset-2">
-            <h1>Doctor Lists (all)</h1>
+        <div id="dateToday"></div>
             <hr/>
-            <table class="table">
+            <table class="table tableStyle info">
+
             	<tr>
-            		<th>ID</th>
-            		<th>Name</th>
-            		<th></th>
+            		<th class="header topic">ID</th>
+            		<th class="header topic">Name</th>
+            		<th class="header "></th>
             	</tr>
             	{% for doctor in doctors %}
             	<tr>
@@ -23,4 +26,13 @@
             </table>
         </div>
     </div>
+    <script type="text/javascript">
+    document.getElementById('dateToday').write("<b>" + day + "/" + month + "/" + year + "</b>");
+    var currentDate = new Date()
+    var day = currentDate.getDate()
+    var month = currentDate.getMonth() + 1
+    var year = currentDate.getFullYear()
+    
+    </script>
+
 {% endblock %}

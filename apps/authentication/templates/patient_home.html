@@ -11,10 +11,9 @@
             <p><img src="{% static 'avatar/' %}{{request.user.id}}.jpg" style="height:64px;"></p>
 
         </div> -->
-        <div class="frame col-md-12">
+<!--         <div class="frame col-md-12">
             <div class="contentFrame margin col-md-9 col-md-offset-3" style="text-align:center" >
                 <div class="pictureFrame col-md-3">
-                    <!-- <img src="{% static 'img/Logo-Green.svg' %}" /> -->
                     <p><img src="{% static 'avatar/' %}{{request.user.id}}.jpg" style="height:200pt;width:150pt"></p>
                 </div>
                 <div class="informationFrame col-md-7" style="display:inline-block">
@@ -41,13 +40,66 @@
 
 
         </div> 
+    </div> -->
+
+    <div class="row">
+        <div class="frame col-md-12">
+            <div class="contentFrame margin col-md-9 col-md-offset-3" style="text-align:center" >
+                <div class="pictureFrame ">
+                    <!-- <img src="{% static 'img/Logo-Green.svg' %}" /> -->
+                    <p><img src="{% static 'avatar/' %}{{request.user.id}}.jpg" style="height:100%;width:100%"></p>
+                </div>
+                <div class="informationFrame col-md-7" style="display:inline-block">
+                    <div class="name" style="text-align:left">
+                        <p>{{ request.session.user_info.prefix_name }}  {{ request.session.user_info.first_name }} {{ request.session.user_info.last_name }}</p>
+                    </div>
+                    <div class="info" style="text-align:left">
+                        <p>เลขประจำตัวผู้ป่วย {{ request.session.user_info.hospital_id }}</p>
+                    </div>
+
+                    <div class="info" style="text-align:left">
+                        <p>เบอร์โทรศัพท์ {{ request.session.user_info.phone }}
+                    </div>
+                    <div class="rectangle"style="text-align:center; margin-top:10%;">
+                        <a class="setColor" href="/update_profile/">แก้ไขข้อมูลส่วนตัว</a>
+                    </div>
+                </div>   
+            </div>
+
+
+        </div>    
     </div>
     <div class="row">
         <div class="line col-md-12" style="text-align:center;"  >
         </div>
         <div class="splitter col-md-6 col-md-offset-3" style="text-align:center;">
-            
+            <a href="/make_appointment/{{ request.user.id }}">
+                <div class="button" style="display:inline-block;text-align:center">
+                    <img src="{% static 'img/home/patient_appoint.svg' %}" style="width:100%;height:80% ;margin-top:30px;"> 
+                </div>
+            </a>
             <!-- <a class="btn btn-default btn-block" href="/make_appointment">Make Appointment</a> -->
+           
+            <a href="/list_appointment/{{ request.user.id }}">
+                <div class="button" style="display:inline-block">
+                    <img src="{% static 'img/home/patient_seeAppointment.svg' %}" style="width:96%;height:80%;margin-top:30px;">
+                </div>
+            </a>  
+            <a href="/list_medical_record/{{ request.user.id }}">
+                <div class="button" style="display:inline-block">
+                    <img src="{% static 'img/home/patient_seeHistory.svg' %}" style="width:80%;height:80%;margin-top:30px;">
+                </div>
+            </a>   
+                
+
+            
+        </div>
+    </div>
+<!-- 
+    <div class="row">
+        <div class="line col-md-12" style="text-align:center;"  >
+        </div>
+        <div class="splitter col-md-6 col-md-offset-3" style="text-align:center;">
             <a href="/make_appointment/{{ request.user.id }}">
                 <div class="button col-md-3" style="display:inline-block">
                     <img src="{% static 'img/home/patient_appoint.svg' %}" style="width:96%;margin-top:30px;">
@@ -64,7 +116,7 @@
                 </div>
             </a>   
         </div>
-    </div>
+    </div> -->
 {% endblock %}
             <!-- <a class="btn btn-default btn-block" href="/make_appointment/{{ request.user.id }}">Make Appointment</a>
             <a class="btn btn-default btn-block" href="/list_appointment/{{ request.user.id }}">List Appointment</a>
