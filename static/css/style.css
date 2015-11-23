@@ -193,7 +193,7 @@ html, body{
 .regis-bottom{
 	background-color: #fafdfc;
 	width: 100%;
-	padding: 30px 0px;
+	padding: 0px;
 	margin: 0px;
 	height: 65vh;
 	vertical-align: middle;
@@ -238,6 +238,14 @@ html, body{
     padding-left: 0px;
     margin-right: auto;
     margin-left: auto;
+}
+.wrapper{
+	margin-top: 50px;
+}
+@media (max-width: 991px){
+	.wrapper{
+		margin-left: 30px;
+	}
 }
 .content{
 	padding-bottom:80px;
