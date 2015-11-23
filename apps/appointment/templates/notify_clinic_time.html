@@ -9,7 +9,7 @@
             <span>แจ้งเวลาออกตรวจ</span>
         </div>
     </div>
-    <div class="row title">
+    <div class="row title" id="title">
         กรุณาเลือกวันที่ท่านสามารถทำการออกตรวจผู้ป่วย
     </div>
     <div class="row"  style="zoom:80%">
@@ -68,7 +68,7 @@
             <label class="checkboxTime col-md-3" for="time-afternoon" onclick="setCalendarTime('13:00','A');"><p>บ่าย (13.00 น. - 15.30 น.)</p></label>
         </div>
         <div class="col-md-2 col-md-offset-5">
-            <form class="form-horizontal" name="AddClinicForm" action="/make_clinic_time/{{ doctor_id }}/" method="post">
+            <form class="form-horizontal" name="AddClinicForm" action="/make_clinic_time/{{ doctor_id }}/#title" method="post">
                 {% csrf_token %}
                 {% if next %}
                     <input type="hidden" class="hidden-form" name="next" value="{{ next }}" />
@@ -101,10 +101,12 @@
         </div>
     </div>
     <script>
-        var docHour = [{% for clinic_time in clinic_times %}{{clinic_time.clinic_datetime.hour}}, {% endfor %}, 0];
-        var docDay = [{% for clinic_time in clinic_times %}{{clinic_time.clinic_datetime.day}}, {% endfor %}, 0];
-        var docMonth = [{% for clinic_time in clinic_times %}{{clinic_time.clinic_datetime.month}}, {% endfor %}, 0];
-        var docYear = [{% for clinic_time in clinic_times %}{{clinic_time.clinic_datetime.year}}, {% endfor %}, 0];
+
+        var docHour = [{% for clinic_time in clinic_times %}{{clinic_time.clinic_datetime.hour}}, {% endfor %} 0];
+        var docDay = [{% for clinic_time in clinic_times %}{{clinic_time.clinic_datetime.day}}, {% endfor %} 0];
+        var docMonth = [{% for clinic_time in clinic_times %}{{clinic_time.clinic_datetime.month}}, {% endfor %} 0];
+        var docYear = [{% for clinic_time in clinic_times %}{{clinic_time.clinic_datetime.year}}, {% endfor %} 0];
+
     </script>
     <script src="{% static 'js/calendar.js' %}"></script>
 {% endblock %}
