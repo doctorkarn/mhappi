@@ -29,9 +29,11 @@ def add_patient_information(request, pid):
     else:
         patient_id = pid
         nurse_id = request.user.id
+        patient = Patient.objects.filter(id=patient_id)
         data = {
             'patient_id' : patient_id,
             'nurse_id' : nurse_id,
+            'patient' : patient
         }
         return render(request, 'record_patient_info.html', data)
 
@@ -127,10 +129,10 @@ def view_medical_record(request):
 
 
 def list_medical_record(request, pid):
-    patient = Patient.objects.filter(id=pid)
+    patient = Patient.objects.get(id=pid)
     patient_infos = PatientInfo.objects.filter(patient_id=pid)
     medical_infos = MedicalRecord.objects.filter(patient_id=pid)
-    prescriptions = Prescrpition.objects.filter(patient_id=pid)
+    prescriptions = Prescritpion.objects.filter(patient_id=pid)
     data = {
         'patient' : patient,
         'patient_infos' : patient_infos,

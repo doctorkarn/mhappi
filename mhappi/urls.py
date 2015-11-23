@@ -29,6 +29,7 @@ urlpatterns = [
     url(r'^reset_password/$', auth_view.reset_password, name='reset_password'),
     url(r'^register/$', auth_view.register, name='register'),
     url(r'^update_profile/$', auth_view.update_profile, name='update_profile'),
+    url(r'^change_password/$', auth_view.change_password, name='change_password'),
     url(r'^home/$', auth_view.home, name='home'),
 
     url(r'^list_patient/', auth_view.list_patient, name='list_patient'),
