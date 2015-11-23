@@ -73,7 +73,7 @@ function calendar(monthSearch,yearSearch)
                         }
                         if(check && yearSearch == year) {
                             if(allDay) text += '<td id="date_'+dateText+'_all" class="cal-day-all" onclick="setCalendarDate(\''+dateText+'\',\'all\');"><div class="day-selected-choose"><div class="day-selected-left"></div><div class="day-selected-right"></div><div class="day-selected-text">'+i+'</div></div></div>';
-                            else if(docHour[index] < 13) text += '<td id="date_'+dateText+'_m" class="cal-day-morning" onclick="setCalendarDate(\''+dateText+'\',\'m\');"><div class="day-selected-choose"><div class="day-selected-left"></div><div class="day-selected-right" style="opacity:0"></div><div class="day-selected-text">'+i+'</div></div></div>';
+                            else if(docHour[index] < 6) text += '<td id="date_'+dateText+'_m" class="cal-day-morning" onclick="setCalendarDate(\''+dateText+'\',\'m\');"><div class="day-selected-choose"><div class="day-selected-left"></div><div class="day-selected-right" style="opacity:0"></div><div class="day-selected-text">'+i+'</div></div></div>';
                             else text += '<td id="date_'+dateText+'_a" class="cal-day-afternoon" onclick="setCalendarDate(\''+dateText+'\',\'a\');"><div class="day-selected-choose"><div class="day-selected-left" style="opacity:0"></div><div class="day-selected-right"></div><div class="day-selected-text">'+i+'</div></div></div>';
                         }
                         else text += '<td id="date_'+dateText+'_none" class="cal-day" onclick="setCalendarDate(\''+dateText+'\',\'none\');">'+i+'</td>';
