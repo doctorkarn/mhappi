@@ -1,0 +1,112 @@
+{% extends "base.html" %}
+{% block main %}
+    {% load staticfiles %}
+    <link href="{% static 'css/appointment_table.css' %}" rel="stylesheet" media="screen">
+    <div class="row">
+        <div class="col-md-10 col-md-offset-1 navText">
+            <a href="/home/" style="text-decoration:none"><span>Home</span></a>
+            <span class="next"> > </span>
+            <span>แจ้งเวลาออกตรวจ</span>
+        </div>
+    </div>
+    <div class="row title" id="title">
+        กรุณาเลือกวันที่ท่านสามารถทำการออกตรวจผู้ป่วย
+    </div>
+    <div class="row"  style="zoom:80%">
+        <div class="col-md-8 col-md-offset-2" style="padding-left:2em">
+            <div class="col-md-1 cal-button-screen">
+                <table class="cal-button">
+                    <tbody>
+                        <tr><td style="height:50px;"></td></tr>
+                        <tr><td></td></tr>
+                        <tr><td></td></tr>
+                        <tr><td></td></tr>
+                        <tr>
+                            <td>
+                                <div class="left-button-disable" id="left-button">
+                                        <div class="button-div" onclick="backMonth();">
+                                            <img src="{% static 'img/appointment/LeftButton.svg' %}"></img>
+                                        </div>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr><td></td></tr>
+                        <tr><td></td></tr>
+                    </tbody>
+                </table>
+            </div>
+            <div id="calendar" class="col-md-10 calendar-cover"></div>
+            <div class="col-md-1 cal-button-screen">
+                <table class="cal-button">
+                    <tbody>
+                        <tr><td style="height:50px;"></td></tr>
+                        <tr><td></td></tr>
+                        <tr><td></td></tr>
+                        <tr><td></td></tr>
+                        <tr>
+                            <td>
+                                <div class="right-button" id="right-button">
+                                    <div class="button-div" onclick="nextMonth();">
+                                        <img src="{% static 'img/appointment/RightButton.svg' %}"></img>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr><td></td></tr>
+                        <tr><td></td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div id="calendar_time" class="col-md-10 col-md-offset-2 calendar_time">
+            <input id="checkboxTimeM" type="radio" class="form-control" id="time-morning" name="time" value="9:00" disabled>
+            <label class="checkboxTime col-md-3 col-md-offset-2" for="time-morning" onclick="setCalendarTime('9:00','M');"><p>เช้า (9.00 น. - 11.30 น.)</p></label>
+            <div class="row"></div>
+            <input id="checkboxTimeA" type="radio" class="form-control" id="time-afternoon" name="time" value="13:00" disabled>
+            <label class="checkboxTime col-md-3" for="time-afternoon" onclick="setCalendarTime('13:00','A');"><p>บ่าย (13.00 น. - 15.30 น.)</p></label>
+        </div>
+        <div class="col-md-2 col-md-offset-5">
+            <form class="form-horizontal" name="AddClinicForm" action="/make_clinic_time/{{ doctor_id }}/#title" method="post">
+                {% csrf_token %}
+                {% if next %}
+                    <input type="hidden" class="hidden-form" name="next" value="{{ next }}" />
+                {% endif %}
+                <div class="form-group hidden-form">
+                    <label class="control-label" for="officer_id">Doctor ID</label>
+                    <input type="text" class="form-control" id="officer_id" name="officer_id" 
+                        value="{{ doctor_id }}" disabled="">
+                    <!-- <select class="form-control" id="officer_id" name="officer_id" >
+                        {% for doctor in doctors %}
+                        <option value="{{ doctor.id }}">{{ doctor.id }} - {{ doctor.first_name }} {{ doctor.last_name }}</option>
+                        {% endfor %}
+                    </select> -->
+                </div>
+                <div class="form-group hidden-form">
+                    <label class="control-label" for="clinic_time">Clinic Time</label>
+                    <input type="text" class="form-control" id="clinic_time" name="clinic_time" >
+                    <p class="help-block">format: yyyy-mm-dd</p>
+                </div>
+                <div class="form-group hidden-form">
+                    <label class="control-label" for="clinic_status">Clinic Status</label>
+                    <input type="text" class="form-control" id="clinic_status" name="clinic_status" value="1" disabled="">
+                    <p class="help-block">1 = active, 0 = inactive, -1 = cancelled</p>
+                </div>
+
+                <div class="form-group">
+                    <button type="submit" class="add-button-disable" id="add-button">เพิ่มเวลาออกตรวจ</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <script>
+
+        var docHour = [{% for clinic_time in clinic_times %}{{clinic_time.clinic_datetime.hour}}, {% endfor %} 0];
+        var docDay = [{% for clinic_time in clinic_times %}{{clinic_time.clinic_datetime.day}}, {% endfor %} 0];
+        var docMonth = [{% for clinic_time in clinic_times %}{{clinic_time.clinic_datetime.month}}, {% endfor %} 0];
+        var docYear = [{% for clinic_time in clinic_times %}{{clinic_time.clinic_datetime.year}}, {% endfor %} 0];
+
+    </script>
+    <script src="{% static 'js/calendar.js' %}"></script>
+{% endblock %}
