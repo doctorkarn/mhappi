@@ -10,7 +10,7 @@
                     <!-- <img src="{% static 'img/Logo-Green.svg' %}" /> -->
                     <p><img src="{% static 'avatar/' %}{{request.user.id}}.jpg" style="height:100%;width:100%"></p>
                 </div>
-                <div class="informationFrame col-md-7" style="display:inline-block">
+                <div class="informationFrame col-md-8" style="display:inline-block">
                     <div class="name" style="text-align:left">
                         <p>{{ request.session.user_info.prefix_name }}  {{ request.session.user_info.first_name }} {{ request.session.user_info.last_name }}</p>
                     </div>
@@ -23,7 +23,7 @@
                     <div class="info" style="text-align:left">
                         <p>เบอร์โทรศัพท์ {{ request.session.user_info.phone }}</p>
                     </div>
-                    <div class="rectangle"style="text-align:center; margin-top:10%;">
+                    <div class="rectangle" style="text-align:center; margin-top:10%;">
                         <a class="setColor" href="/update_profile/">แก้ไขข้อมูลส่วนตัว</a>
                     </div>
                     </div>

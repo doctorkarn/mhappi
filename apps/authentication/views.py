@@ -4,6 +4,7 @@ from django.template import RequestContext
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
+from django.contrib.auth.hashers import check_password
 from django.contrib.auth import login as auth_login
 from django.contrib.auth import logout as auth_logout
 from django.contrib.auth import authenticate
@@ -143,11 +144,24 @@ def change_password(request):
 
         user = User.objects.get(id=uid)
         
-        # if( check_password(input['old_password'], user.password) != False ):
-            
+        if( check_password(input['old_password'], user.password) == False ):
+            messages.error(request, 'Old Password is incorrect')
+            return HttpResponseRedirect('/change_password/')
+        elif( input['new_password'] != input['confirm_password'] ):
+            messages.error(request, 'Confirm Password is mismatch')
+            return HttpResponseRedirect('/change_password/')
+        else:
+            user.set_password(input['new_password'])
+            user.save()
+            messages.success(request, 'Change Password Successfully, Please Login Again.')
+            return HttpResponseRedirect('/login/')
             
     else:
-        return render(request, 'change_password.html')
+        user = User.objects.get(id=uid)
+        data = {
+            'user' : user,
+        }
+        return render(request, 'change_password.html', data)
 
 
 def update_profile(request):
