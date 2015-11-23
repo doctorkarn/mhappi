@@ -37,10 +37,15 @@
            Multiple lines will require custom code not provided by Bootstrap. -->
       <div class="masthead">
         <div class="text-muted">
-          <div class="logo">
-            <img src="{% static 'img/Logo-Green.svg' %}" />
-          </div> 
-          <p>MHAPPI</p> 
+          <a href="/home/">
+            <div class="logo" style="margin-bottom:0px;">
+              <img src="{% static 'img/Logo-Green.svg' %}" />
+            </div>
+          </a>
+          <a href="/home/" style="text-decoration:none;" style="margi-bottom:0px;">
+            <p  style="margin-top:0px;">MHAPPI</p>
+          </a>
+          
           <div class="logout">
             <a href="/logout/">ออกจากระบบ</a>
           </div>

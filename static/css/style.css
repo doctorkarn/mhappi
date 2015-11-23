@@ -52,7 +52,8 @@ html, body{
 		font-size: 14px !important;
 	}
 }
-.text-muted > p{
+
+.text-muted > a > p{
 	font-family: SK-Thin;
 	font-size: 1.8em;
 	line-height: 2em;
