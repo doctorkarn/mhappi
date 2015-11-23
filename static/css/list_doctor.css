@@ -1,7 +1,10 @@
 .header{
-
 	background-color: #59c9b1;
+	font-family: SK-Medium;
+	background-color: #59c9b1;
+	font-size: 1em;
 }
+
 .tableStyle{
 	 
 }
@@ -24,7 +27,7 @@
 .topic{
 	color: white;
 	font-family: SK-Medium;
-	font-size: 1.2em;
+	font-size: 1em;
 
 }
 .button{
