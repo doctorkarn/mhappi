@@ -1,12 +1,124 @@
 {% extends "base.html" %}
 {% block main %}
-    <div id="login" class="row">
+    <div id="login" class="row">   
+        <div class="row">
+            <div class="col-md-10 col-md-offset-1 navText">
+                <a href="/home/" style="text-decoration:none"><span>Home</span></a>
+                <span class="next"> > </span>
+                <a href="/list_patient/" style="text-decoration:none"><span>จัดการผู้ป่วย</span></a>
+                <span class="next"> > </span>
+                <span>บันทึกประวัติการรักษา</span>
+            </div>
+        </div>
         <div class="col-md-4 col-md-offset-4">
-            <h1>Record Medical Information <br/> (for Doctor)</h1>
+            <h1>บันทึกการรักษา <br/> (สำหรับแพทย์)</h1>
+            <div class="row">
+                <!-- Large modal -->
+                <button type="button" id="btn-patient-info" class="btn btn-default" data-toggle="modal" data-target="#PatientInfo">ข้อมูลผู้ป่วย</button>
+                <button type="button" id="btn-patient-info" class="btn btn-default" data-toggle="modal" data-target="#MedicalInfo">ประวัติการรักษา</button>
+                <button type="button" id="btn-patient-info" class="btn btn-default" data-toggle="modal" data-target="#Prescription">บันทึกการรับยา</button>
+
+                <div id="PatientInfo" class="modal fade" role="dialog" aria-labelledby="gridSystemModalLabel">
+                  <div class="modal-dialog modal-lg" role="document">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="gridSystemModalLabel">ข้อมูลผู้ป่วย ({{ patient.first_name }} {{ patient.last_name }})</h4>
+                      </div>
+                      <div class="modal-body">
+                        <div class="row">
+                          <table class="table">
+                            <tr>
+                              <th>ข้อมูลผู้ป่วย</th>
+                              <th>บันทึกเมื่อ</th>
+                            </tr>
+                            {% for patient_info in patient_infos %}
+                            <tr>
+                              <td>{{ patient_info.information }}</td>
+                              <td>{{ patient_info.created_at }}</td>
+                            </tr>
+                            {% endfor %}
+                          </table>
+                        </div>
+                      </div>
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        <!-- <button type="button" class="btn btn-primary">Save changes</button> -->
+                      </div>
+                    </div><!-- /.modal-content -->
+                  </div><!-- /.modal-dialog -->
+                </div><!-- /.modal -->
+
+                <div id="MedicalInfo" class="modal fade" role="dialog" aria-labelledby="gridSystemModalLabel">
+                  <div class="modal-dialog modal-lg" role="document">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="gridSystemModalLabel">ประวัติการรักษา ({{ patient.first_name }} {{ patient.last_name }})</h4>
+                      </div>
+                      <div class="modal-body">
+                        <div class="row">
+                          <table class="table">
+                            <tr>
+                              <th>อาการ</th>
+                              <th>วินิจฉัย</th>
+                              <th>รหัสโรค (DRG)</th>
+                              <th>บันทึกเมื่อ</th>
+                            </tr>
+                            {% for medical_info in medical_infos %}
+                            <tr>
+                              <td>{{ medical_info.symptom }}</td>
+                              <td>{{ medical_info.diagnosis }}</td>
+                              <td>{{ medical_info.drg_code.description }}</td>
+                              <td>{{ medical_info.created_at }}</td>
+                            </tr>
+                            {% endfor %}
+                          </table>
+                        </div>
+                      </div>
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        <!-- <button type="button" class="btn btn-primary">Save changes</button> -->
+                      </div>
+                    </div><!-- /.modal-content -->
+                  </div><!-- /.modal-dialog -->
+                </div><!-- /.modal -->
+
+                <div id="Prescription" class="modal fade" role="dialog" aria-labelledby="gridSystemModalLabel">
+                  <div class="modal-dialog modal-lg" role="document">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="gridSystemModalLabel">บันทึกการรับยา ({{ patient.first_name }} {{ patient.last_name }})</h4>
+                      </div>
+                      <div class="modal-body">
+                        <div class="row">
+                          <table class="table">
+                            <tr>
+                              <th>รายการยา</th>
+                              <th>บันทึกเมื่อ</th>
+                            </tr>
+                            {% for prescription in prescriptions %}
+                            <tr>
+                              <td>{{ prescription.drug_list }}</td>
+                              <td>{{ prescription.created_at }}</td>
+                            </tr>
+                            {% endfor %}
+                          </table>
+                        </div>
+                      </div>
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        <!-- <button type="button" class="btn btn-primary">Save changes</button> -->
+                      </div>
+                    </div><!-- /.modal-content -->
+                  </div><!-- /.modal-dialog -->
+                </div><!-- /.modal -->
+            </div>
             <hr/>
             <h2>การตรวจสุขภาพล่าสุด</h2>
-            <p>{{ patient_info.id }}: [{{ patient_info.created_at }}] <br/>
-             {{ patient_info.information }}</p>
+            <p>ข้อมูลผู้ป่วยล่าสุด: {{ current_patient_info.information }} <br/>
+            บันทึกเมื่อ: {{ current_patient_info.created_at }} </p>
             <hr/>
             <form class="form-horizontal" name="RegisterForm" action="/add_medical_record/{{ patient_id }}/" method="post">
                 {% csrf_token %}
@@ -45,7 +157,7 @@
                     <label class="control-label" for="drug_name">Drug Name (optional)</label>
                     <select class="form-control" id="drug_name" name="drug_name" >
                         {% for drug_item in drug_list %}
-                        <option value="{{ drug_item.id }}">{{ drug_item.description }}</option>
+                        <option value="{{ drug_item.description }}">{{ drug_item.description }}</option>
                         {% endfor %}
                     </select>
                 </div>
@@ -72,16 +184,18 @@
 
 {% block script %}
 <script type="text/javascript">
+
+
 $("#add-drug-btn").click(function(){
     var drug_name = $("#drug_name").val();
     var drug_dose = $("#drug_dose").val();
-    var drug_item = drug_name + ':' + drug_dose;
+    var drug_item = drug_name + ' : ' + drug_dose;
 
     var old_val = $("#drug_list").val();
     if( old_val == '' ) {
         $("#drug_list").val(old_val + drug_item);
     } else {
-        $("#drug_list").val(old_val + ',' + drug_item);
+        $("#drug_list").val(old_val + ' , ' + drug_item);
     }
 
     $("#drug_name").val(0);
