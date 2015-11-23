@@ -2,6 +2,7 @@
 {% block main %}
 {% load staticfiles %}
 <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}"/>
+<link rel="stylesheet" type="text/css" href="{% static 'css/signup.css' %}"/>
 <style>
     .row-100{
         width:100%;
@@ -24,8 +25,22 @@
 
     <div class="row row-100 regis-header">
         <div style="color:white;">
-            <h1 style="margin:0px;">ลงทะเบียนผู้ป่วย</h1>
-            <div>-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-</div>
+            <h1 style="margin:0px;font-family:SK-Text;">ลงทะเบียนผู้ป่วย</h1>
+            <div class="col-md-4 col-md-offset-4" style="margin-top:2em;padding-bottom:2em;">
+                <div class="node-active" id="state_01"></div>
+                <div class="line" id="state_01"></div>
+                <div class="node" id="state_02"></div>
+                <div class="line" id="state_02"></div>
+                <div class="node" id="state_03"></div>
+                <div class="line" id="state_03"></div>
+                <div class="node" id="state_04"></div>
+                <div class="line" id="state_04"></div>
+                <div class="node" id="state_05"></div>
+                <div class="line" id="state_05"></div>
+                <div class="node" id="state_06"></div>
+                <div class="line" id="state_06"></div>
+                <div class="node" id="state_07"></div>
+            </div>
         </div>
     </div>
 
