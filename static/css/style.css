@@ -258,11 +258,11 @@ html, body{
 	height: 80px;
 	border: none !important;
 	padding: 0px !important;
-	background: #fafafa; /* Old browsers */
-    background: -moz-linear-gradient(top, #fafafa 10%, #dadada 100%) ; /* FF3.6-15 */
-    background: -webkit-linear-gradient(top, #fafafa 10%,#dadada 100%) ; /* Chrome10-25,Safari5.1-6 */
-    background: linear-gradient(to bottom, #fafafa 10%,#dadada 100%) ; /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
-    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#fafafa', endColorstr='#dadada',GradientType=0 ) ; /* IE6-9 */
+	/*background: #fafafa; 
+    background: -moz-linear-gradient(top, #fafafa 10%, #dadada 100%) ;
+    background: -webkit-linear-gradient(top, #fafafa 10%,#dadada 100%) ;
+    background: linear-gradient(to bottom, #fafafa 10%,#dadada 100%) ;
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#fafafa', endColorstr='#dadada',GradientType=0 ) ;*/
 }
 .footer > .text{
 	border: none !important;
