@@ -141,6 +141,9 @@ def update_profile(request):
 
     if request.POST:
         input = {}
+        input['password'] = request.POST['password']
+        input['confirm_password'] = request.POST['confirm_password']
+
         input['first_name'] = request.POST['first_name']
         input['last_name'] = request.POST['last_name']
 
@@ -148,7 +151,16 @@ def update_profile(request):
         input['phone'] = request.POST['phone']
         input['email'] = request.POST['email']
 
-        user = User.objects.get(id=request.user.id)
+        user = User.objects.get(id=uid)
+        
+        if(input['password'] != ""):
+            if(input['password'] == input['confirm_password']):
+                user.set_password(input['password'])
+                user.save()
+            else:
+                messages.error(request, 'Confirm Password is not match.')
+                return HttpResponseRedirect('/update_profile/')
+
         user.email = input['email']
         user.save()
 
@@ -161,11 +173,13 @@ def update_profile(request):
         patient.save()
 
         messages.success(request, 'Update Profile successful')
-        return redirect('/update_profile/')
+        return redirect('/home/')
 
     else:
+        user = User.objects.get(id=uid)
         patient = Patient.objects.get(id=uid)
         data = {
+            'user' : user,
             'patient' : patient,
         }
         return render(request, 'update_profile.html', data)

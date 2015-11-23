@@ -127,11 +127,15 @@ def view_medical_record(request):
 
 
 def list_medical_record(request, pid):
+    patient = Patient.objects.filter(id=pid)
     patient_infos = PatientInfo.objects.filter(patient_id=pid)
     medical_infos = MedicalRecord.objects.filter(patient_id=pid)
+    prescriptions = Prescrpition.objects.filter(patient_id=pid)
     data = {
+        'patient' : patient,
         'patient_infos' : patient_infos,
         'medical_infos' : medical_infos,
+        'prescriptions' : prescriptions,
     }
     return render(request, 'list_medical_info.html', data)
 
