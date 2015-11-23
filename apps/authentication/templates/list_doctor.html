@@ -2,24 +2,32 @@
 {% block main %}
 {% load staticfiles %}
 <link href="{% static 'css/list_doctor.css' %}" rel="stylesheet" media="screen">
-    <div id="login" class="row">
+
+    <div class="row">
+        <div class="row">
+        <div class="col-md-10 col-md-offset-1 navText">
+            <a href="/home/" style="text-decoration:none"><span>Home</span></a>
+            <span class="next"> > </span>
+            <span>ดูรายการนัดหมาย</span>
+        </div>
+        </div>
         <div class="col-md-8 col-md-offset-2">
         <div id="dateToday"></div>
             <hr/>
-            <table class="table tableStyle info">
+            <table class="table tableStyle info" >
 
             	<tr>
-            		<th class="header topic">ID</th>
+            		<th class="header topic" th class="header" style="border-top-left-radius:10px">ID</th>
             		<th class="header topic">Name</th>
-            		<th class="header "></th>
+            		<th class="header " th class="header" style="border-top-right-radius:10px"></th>
             	</tr>
             	{% for doctor in doctors %}
             	<tr>
             		<td>{{ doctor.hospital_id }}</td>
             		<td>{{ doctor.first_name }} {{ doctor.last_name }}</td>
             		<td>
-                        <a class="btn btn-default" href="/make_clinic_time/{{ doctor.id }}/">make clinic time</a>
-            			<a class="btn btn-default" href="/list_clinic_time/{{ doctor.id }}/">list clinic time</a>
+                        <a class="btn btn-default" href="/make_clinic_time/{{ doctor.id }}/" style="border-radius: 5px;">make clinic time</a>
+            			<a class="btn btn-default" href="/list_clinic_time/{{ doctor.id }}/" style="border-radius: 5px;">list clinic time</a>
             		</td>
             	</tr>
             	{% endfor %}

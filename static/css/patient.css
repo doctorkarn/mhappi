@@ -47,18 +47,18 @@
 }
 .button{
 	height: 220px;
-	width: 23%;
+	width: 150px;
 	background-color: #59c9b1;
 	margin-left: 1%;
 }
 .lowFrame{
-	background-color: white;
+	/*background-color: white;*/
 }
 .contentFrame{
 	/*background-color: #f8f8f8;	*/
 }
 .rectangle{
-	width: 23%;
+	width:23%;
 	border:3px solid #59c9b1;
 	/*background-color: white;*/
 
@@ -67,12 +67,13 @@
 	border-top-width: 13pt;
 	color: #59c9b1;
 	font-family: SK-Medium;
-	font-size: 14pt;
+	font-size: 1em;
 
 }
 .pictureFrame{
 	width: 20%;
 	float: left;
+	
 }
 .informationFrame{
 	height: 200px;
