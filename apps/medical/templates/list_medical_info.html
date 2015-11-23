@@ -7,8 +7,10 @@
         <div class="col-md-10 col-md-offset-1 navText">
             <a href="/home/" style="text-decoration:none"><span>Home</span></a>
             <span class="next"> > </span>
+            {% if request.session.user_role != 'patient' %}
             <a href="/list_patient/" style="text-decoration:none"><span>จัดการผู้ป่วย</span></a>
             <span class="next"> > </span>
+            {% endif %}
             <span>ประวัติการรักษา</span>
         </div>
     </div>

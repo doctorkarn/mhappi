@@ -26,12 +26,13 @@
             		<td>{{ patient.first_name }} {{ patient.last_name }}</td>
             		<td style="text-align:right">
             			{% if request.session.user_role == 'staff' %}
-            			<a class="btn btn-default" style="inline-block"  href="/staff_make_appointment/{{ patient.id }}/">ทำการนัดหมาย</a>
-            			<a class="btn btn-default" style="inline-block"  href="/staff_list_appointment/{{ patient.id }}/">รายการนัดหมาย</a>
+            			<a class="btn btn-default" style="inline-block"  href="/make_appointment/{{ patient.id }}/">ทำการนัดหมาย</a>
+            			<a class="btn btn-default" style="inline-block"  href="/list_appointment/{{ patient.id }}/">รายการนัดหมาย</a>
             			{% endif %}
 						{% if request.session.user_role == 'doctor' %}
             			<a class="btn btn-default" style="inline-block" href="/add_medical_record/{{ patient.id }}/">บันทึกการรักษา</a>
-            			<a class="btn btn-default" style="inline-block" href="/list_medical_record/{{ patient.id }}/">ประวัตืการรักษา</a>
+            			<a class="btn btn-default" style="inline-block" href="/list_medical_record/{{ patient.id }}/">ประวัติการรักษา</a>
+            			<a class="btn btn-default" style="inline-block"  href="/make_appointment/{{ patient.id }}/">ทำการนัดหมาย</a>
             			{% endif %}
             			{% if request.session.user_role == 'nurse' %}
             			<a class="btn btn-default" style="inline-block"  href="/add_patient_information/{{ patient.id }}/">บันทึกข้อมูลผู้ป่วย</a>

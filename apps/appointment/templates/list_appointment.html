@@ -2,9 +2,20 @@
 {% block main %}
 {% load staticfiles %}
 <link href="{% static 'css/list_appointment.css' %}" rel="stylesheet" media="screen">
-    <div id="login" class="row">
+    <div class="row">
+        <div class="col-md-10 col-md-offset-1 navText">
+            <a href="/home/" style="text-decoration:none"><span>Home</span></a>
+            <span class="next"> > </span>
+            {% if request.session.user_role != 'patient' %}
+            <a href="/list_patient/" style="text-decoration:none"><span>จัดการผู้ป่วย</span></a>
+            <span class="next"> > </span>
+            {% endif %}
+            <span>ตารางรายการนัดหมาย</span>
+        </div>
+    </div>
+    <div class="row">
         <div class="col-md-8 col-md-offset-2">
-            <h1 class="headText" style="text-align:center">ตารางรายการนัดหมาย (patient {{ patient_id }})</h1>
+            <h1 class="headText" style="text-align:center">ตารางรายการนัดหมาย ({{ patient.first_name }} {{ patient.last_name }})</h1>
             <hr/>
             <table class="table tableStyle info" >
             	<tr>
@@ -19,12 +30,23 @@
             		<td>dr. {{ appointment.clinic_time.officer.first_name }} {{ appointment.clinic_time.officer.first_name }}</td>
             		<td>{{ appointment.clinic_time.clinic_datetime }}</td>
             		<td style="text-align:right">
-            			<a class="btn btn-default" style="inline-block"  href="#">ยกเลิกการนัดหมาย</a>
-                        <a class="btn btn-default" style="inline-block"  href="#">ดูการนัดหมาย</a>
+            			<a class="btn btn-default" style="inline-block" href="#" onclick="confirmDelete({{ patient_id }},{{ appointment.id }})">ยกเลิกการนัดหมาย</a>
+                        <a class="btn btn-default" style="inline-block" href="#">ดูการนัดหมาย</a>
             		</td>
             	</tr>
             	{% endfor %}
             </table>
         </div>
     </div>
+{% endblock %}
+
+{% block script %}
+<script type="text/javascript">
+function confirmDelete(pid,aid) {
+    var r = confirm('คุณแน่ใจหรือว่าจะยกเลิกการนัดหมายนี้');
+    if (r == true) {
+        window.location = "/cancel_appointment/" + pid + '/' + aid; 
+    }
+}
+</script>
 {% endblock %}

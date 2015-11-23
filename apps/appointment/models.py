@@ -6,6 +6,7 @@ class ClinicTime(models.Model):
 	officer = models.ForeignKey('authentication.Officer')
 	clinic_datetime = models.DateTimeField()
 	clinic_status = models.SmallIntegerField()
+	# clinic_count = models.IntegerField()
 	created_at = models.DateTimeField(auto_now_add = True)
 
 	def __str__(self):
