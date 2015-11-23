@@ -211,7 +211,10 @@ function setCalendarTime(time,type){
 function setCalendar(){
     var elem = document.getElementById("clinic_time");
     if(textDateNow != "" && textTimeNow != "") {
-        elem.value = textDateNow+" "+textTimeNow;
+        var dateSplit = textDateNow.split('-');
+        var m = parseInt(dateSplit[1]) + 1
+        var text = dateSplit[0] + "-" + m + "-" + dateSplit[2];
+        elem.value = text+" "+textTimeNow;
         document.getElementById("add-button").className = "add-button";
         document.getElementById("add-button").disabled = false;
     }
