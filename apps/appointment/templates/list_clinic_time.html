@@ -82,10 +82,10 @@
         </div>
     </div>
     <script>
-        var docHour = [{% for clinic_time in clinic_times %}{{clinic_time.clinic_datetime.hour}}, {% endfor %}, 9, 9, 14, 14, 0];
-        var docDay = [{% for clinic_time in clinic_times %}{{clinic_time.clinic_datetime.day}}, {% endfor %}, 23, 24, 24, 25, 0];
-        var docMonth = [{% for clinic_time in clinic_times %}{{clinic_time.clinic_datetime.month}}, {% endfor %}, 11, 11, 11, 11, 0];
-        var docYear = [{% for clinic_time in clinic_times %}{{clinic_time.clinic_datetime.year}}, {% endfor %}, 115, 115, 115, 115, 0];
+        var docHour = [{% for clinic_time in clinic_times %}{{clinic_time.clinic_datetime.hour}}, {% endfor %}, 0];
+        var docDay = [{% for clinic_time in clinic_times %}{{clinic_time.clinic_datetime.day}}, {% endfor %}, 0];
+        var docMonth = [{% for clinic_time in clinic_times %}{{clinic_time.clinic_datetime.month}}, {% endfor %}, 0];
+        var docYear = [{% for clinic_time in clinic_times %}{{clinic_time.clinic_datetime.year}}, {% endfor %}, 0];
     </script>
     <script src="{% static 'js/calendar-list.js' %}"></script>
 {% endblock %}
