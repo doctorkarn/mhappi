@@ -163,7 +163,15 @@ function setCalendarTime(time,type){
     var afternoonDisable = document.getElementById("checkboxTimeA").disabled;
     if(type=='M' && !mornigDisable) {
         var check = document.getElementById("checkboxTimeM").checked;
-        if(check) {document.getElementById("checkboxTimeM").checked = false; clearField();}
+        if(check) {
+            document.getElementById("checkboxTimeM").checked = false; clearField();
+            if(notifyNow == "a"){
+                document.getElementById("date_"+textDateNow+"_"+notifyNow).innerHTML = '<div class="day-selected-choose"><div class="day-selected-left" style="opacity:0"></div><div class="day-selected-right"></div><div class="day-selected-text">'+lastDay+'</div></div>';
+            }
+            else{
+                document.getElementById("date_"+textDateNow+"_"+notifyNow).innerHTML = '<div class="day-selected-choose"><div class="day-selected-left" style="opacity:0"></div><div class="day-selected-right" style="opacity:0"></div><div class="day-selected-text">'+lastDay+'</div></div>';
+            }
+        }
         else{
             document.getElementById("checkboxTimeM").checked = true;
             if(notifyNow == "none"){
@@ -178,7 +186,15 @@ function setCalendarTime(time,type){
     }
     else if(type=='A' && !afternoonDisable) {
         var check = document.getElementById("checkboxTimeA").checked;
-        if(check) {document.getElementById("checkboxTimeA").checked = false; clearField();}
+        if(check) {
+            document.getElementById("checkboxTimeA").checked = false; clearField();
+            if(notifyNow == "m"){
+                document.getElementById("date_"+textDateNow+"_"+notifyNow).innerHTML = '<div class="day-selected-choose"><div class="day-selected-left"></div><div class="day-selected-text">'+lastDay+'</div></div>';
+            }
+            else{
+                document.getElementById("date_"+textDateNow+"_"+notifyNow).innerHTML = '<div class="day-selected-choose"><div class="day-selected-left" style="opacity:0"></div><div class="day-selected-right" style="opacity:0"></div><div class="day-selected-text">'+lastDay+'</div></div>';
+            }
+        }
         else{
             document.getElementById("checkboxTimeA").checked = true;
             if(notifyNow == "none"){
