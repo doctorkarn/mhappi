@@ -273,7 +273,7 @@ html, body{
 	color: #bbb;
 }
 
-.fade{
+.fadee{
 	display: none;
 	width:100%;
 	height:100%;
@@ -283,3 +283,7 @@ html, body{
 	top:0px;
 	left:0px;
 }
+.hidden-form{
+	display: none;
+}
+button { outline: 0; }

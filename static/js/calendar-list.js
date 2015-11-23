@@ -223,8 +223,6 @@ function cancelAfternoon(){
 function clearField(){
     var elem = document.getElementById("clinic_time");
     elem.value = "";
-    document.getElementById("add-button").className = "add-button-disable";
-    document.getElementById("add-button").disabled = true;
 }
 
 function resetForm(){
