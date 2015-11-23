@@ -287,4 +287,27 @@ html, body{
 .hidden-form{
 	display: none;
 }
+.default-button{
+	width: 100%;
+	border-radius: 0em !important;
+	border: 3px solid #59C9B2;
+	background-color: transparent;
+	padding: 0.5em;
+    font-family: SK-Text;
+    font-size: 1.2em;
+    color: #59C9B2;
+	margin-bottom: 2em;
+}
+.default-button-disable{
+	cursor: default !important;
+	width: 100%;
+	border-radius: 0em !important;
+	border: 3px solid #CFCFCF;
+	background-color: transparent;
+	padding: 0.5em;
+    font-family: SK-Text;
+    font-size: 1.2em;
+    color: #CFCFCF;
+	margin-bottom: 2em;
+}
 button { outline: 0; }

@@ -116,15 +116,6 @@
             </form>
 
         </div>
-        <div class="col-md-2 col-md-offset-5">
-            <form class="form-horizontal" name="CancelClinicTime" action="/cancel_clinic_time/{{ doctor_id }}/#title" method="post">
-                <div class="form-group hidden-form">
-                    <label class="control-label" for="clinic_time">Clinic Time</label>
-                    <input type="text" class="form-control" id="clinic_time" name="clinic_time" >
-                    <p class="help-block">format: yyyy-mm-dd</p>
-                </div>
-            </form>
-        </div>
     </div>
     <script>
         var docHour = [{% for clinic in clinics %}{{clinic.clinic_datetime.hour}}, {% endfor %}, 0];
