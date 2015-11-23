@@ -6,9 +6,9 @@
     <div class="row">
     	<div class="frame col-md-12">
         	<div class="contentFrame margin col-md-9 col-md-offset-3" style="text-align:center" >
-        		<div class="pictureFrame col-md-3">
+        		<div class="pictureFrame">
                     <!-- <img src="{% static 'img/Logo-Green.svg' %}" /> -->
-                    <p><img src="{% static 'avatar/' %}{{request.user.id}}.jpg" style="height:200pt;"></p>
+                    <p><img src="{% static 'avatar/' %}{{request.user.id}}.jpg" style="height:100%;width:100%"></p>
                 </div>
                 <div class="informationFrame col-md-7" style="display:inline-block">
                     <div class="name" style="text-align:left">
@@ -21,12 +21,12 @@
                         <p>แผนก {{ request.session.user_dept }}</p>
                     </div>
                     <div class="info" style="text-align:left">
-                        <p>เบอร์โทรศัพท์ {{ request.session.user_info.phone }}
+                        <p>เบอร์โทรศัพท์ {{ request.session.user_info.phone }}</p>
                     </div>
-                </div>
-         		<div class="rectangle col-md-3"style="text-align:center; margin-top:10px;">
-        		 <a class="setColor" href="/update_profile/">แก้ไขข้อมูลส่วนตัว</a>
-        	</div>   
+                    <div class="rectangle"style="text-align:center; margin-top:10%;">
+                        <a class="setColor" href="/update_profile/">แก้ไขข้อมูลส่วนตัว</a>
+                    </div>
+                    </div>
          	</div>
 
 

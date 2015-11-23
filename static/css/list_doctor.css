@@ -1,0 +1,22 @@
+.header{
+
+	background-color: #59c9b1;
+}
+.tableStyle{
+	 
+}
+.tableStyle>tbody>tr>td{
+	 border: 0px !important;
+}
+.info{
+	color: #897e86;
+	font-family: SK-Medium;
+	font-size: 1.2em;
+
+}
+.topic{
+	color: white;
+	font-family: SK-Medium;
+	font-size: 1.2em;
+
+}

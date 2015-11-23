@@ -1,18 +1,44 @@
 .frame{
 	/*width: 100%;*/
-	height: 333px	;
-	background-color: #f8f8f8;
+	margin-bottom: 3em;
+	/*background-color: #f8f8f8;*/
 }
 .info{
 	color: #897e86;
 	font-family: SK-Medium;
-	font-size: 14pt;
+	font-size: 1.2em;
 
+}
+@media (max-width: 480px){
+	.info{
+		font-size: 0.6em;
+
+	}
+}
+
+@media (max-width: 880px){
+	.info{
+		font-size: 0.8em;
+
+	}
+}
+@media (max-width: 480px){
+	.name{
+		font-size: 0.6em;
+
+	}
+}
+
+@media (max-width: 880px){
+	.name{
+		font-size: 0.8em;
+
+	}
 }
 .name{
 	color: #897e86;
 	font-family: SK-Medium;
-	font-size: 16pt;
+	font-size: 1.6em;
 
 }
 .splitter{
@@ -23,19 +49,18 @@
 	height: 220px;
 	width: 150px;
 	background-color: #59c9b1;
-	margin-left: 16px;
+	margin-left: 1%;
 }
 .lowFrame{
-	height: 160px;
-	background-color: white;
+	/*background-color: white;*/
 }
 .contentFrame{
-	height: 267px;
-	background-color: #f8f8f8;	
+	/*background-color: #f8f8f8;	*/
 }
 .rectangle{
+	width:23%;
 	border:3px solid #59c9b1;
-	background-color: white;
+	/*background-color: white;*/
 
 }
 .setColor{
@@ -46,12 +71,13 @@
 
 }
 .pictureFrame{
-	height: 267px;
+	width: 20%;
+	float: left;
 	
 }
 .informationFrame{
 	height: 200px;
-	background-color: #f8f8f8;
+	/*background-color: #f8f8f8;*/
 }
 .margin{
 	margin-top: 33px;
