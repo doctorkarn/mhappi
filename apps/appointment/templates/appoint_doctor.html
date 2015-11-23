@@ -68,17 +68,17 @@
                 {% if next %}
                     <input type="hidden" name="next" value="{{ next }}" />
                 {% endif %}
-                <div class="form-group">
+                <div class="form-group hidden-form">
                     <label class="control-label" for="patient_id">Patient ID</label>
                     <input type="text" class="form-control" id="patient_id" name="patient_id" 
                         value="{{ patient_id }}" disabled="">
                 </div>
-                <div class="form-group">
+                <div class="form-group hidden-form">
                     <div class="form-group">
                         <input type="text" class="form-control" id="clinic_time_m" name="clinic_time_id" >
                     </div>
                 </div>
-                <div class="form-group">
+                <div class="form-group hidden-form">
                     <label class="control-label" for="appointment_status">Appointment Status</label>
                     <input type="text" class="form-control" id="appointment_status" name="appointment_status" value="1" disabled="">
                     <p class="help-block">1 = active, 0 = inactive, -1 = cancelled</p>
