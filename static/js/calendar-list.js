@@ -71,7 +71,13 @@ function calendar(monthSearch,yearSearch)
                                 if(docDay[dd] == i) { check = true; index = dd; }
                             }
                         }
-                        if(check && yearSearch == year) {
+
+                        if(check && yearSearch == year && patientAppoint) {
+                            if(allDay) text += '<td id="date_'+dateText+'_all" class="cal-day-all" onclick="setCalendarDateId(\''+dateText+'\',\'all\',[\''+docId[index-1]+'\',\''+docId[index]+'\']);"><div class="day-selected-choose"><div class="day-selected-left"></div><div class="day-selected-right"></div><div class="day-selected-text">'+i+'</div></div></div>';
+                            else if(docHour[index] < 13) text += '<td id="date_'+dateText+'_m" class="cal-day-morning" onclick="setCalendarDateId(\''+dateText+'\',\'m\',[\''+docId[index]+'\']);"><div class="day-selected-choose"><div class="day-selected-left"></div><div class="day-selected-right" style="opacity:0"></div><div class="day-selected-text">'+i+'</div></div></div>';
+                            else text += '<td id="date_'+dateText+'_a" class="cal-day-afternoon" onclick="setCalendarDateId(\''+dateText+'\',\'a\',[\''+docId[index]+'\']);"><div class="day-selected-choose"><div class="day-selected-left" style="opacity:0"></div><div class="day-selected-right"></div><div class="day-selected-text">'+i+'</div></div></div>';
+                        }
+                        else if(check && yearSearch == year) {
                             if(allDay) text += '<td id="date_'+dateText+'_all" class="cal-day-all" onclick="setCalendarDate(\''+dateText+'\',\'all\');"><div class="day-selected-choose"><div class="day-selected-left"></div><div class="day-selected-right"></div><div class="day-selected-text">'+i+'</div></div></div>';
                             else if(docHour[index] < 13) text += '<td id="date_'+dateText+'_m" class="cal-day-morning" onclick="setCalendarDate(\''+dateText+'\',\'m\');"><div class="day-selected-choose"><div class="day-selected-left"></div><div class="day-selected-right" style="opacity:0"></div><div class="day-selected-text">'+i+'</div></div></div>';
                             else text += '<td id="date_'+dateText+'_a" class="cal-day-afternoon" onclick="setCalendarDate(\''+dateText+'\',\'a\');"><div class="day-selected-choose"><div class="day-selected-left" style="opacity:0"></div><div class="day-selected-right"></div><div class="day-selected-text">'+i+'</div></div></div>';
@@ -124,6 +130,7 @@ var notifyType = "";
 var textDateNow = "";
 var notifyNow = "";
 var textTimeNow = "";
+var textClinicId;
 
 function setCalendarDate(date,notify){
 
@@ -166,6 +173,60 @@ function setCalendarDate(date,notify){
         }
     }
     textTimeNow = "";
+}
+
+function setCalendarDateId(date,notify,id){
+
+    resetAppointForm();
+
+    var day = date.split('-')[2];
+    var lastDay = textDateNow.split('-')[2];
+
+    if(textDateNow == date) {
+        if(document.getElementById("date_"+textDateNow+"_"+notifyNow) !== null){
+            if(notifyNow == "m") document.getElementById("date_"+textDateNow+"_"+notifyNow).className = "cal-day-morning";
+            else if(notifyNow == "a") document.getElementById("date_"+textDateNow+"_"+notifyNow).className = "cal-day-afternoon";
+            else if(notifyNow == "all") document.getElementById("date_"+textDateNow+"_"+notifyNow).className = "cal-day-all";
+        }
+        textDateNow = "";
+        textClinicId = "";
+    }
+    else {
+
+        if(document.getElementById("date_"+textDateNow+"_"+notifyNow) !== null){
+            if(notifyNow == "m") document.getElementById("date_"+textDateNow+"_"+notifyNow).className = "cal-day-morning";
+            else if(notifyNow == "a") document.getElementById("date_"+textDateNow+"_"+notifyNow).className = "cal-day-afternoon";
+            else if(notifyNow == "all") document.getElementById("date_"+textDateNow+"_"+notifyNow).className = "cal-day-all";
+        }
+
+        textDateNow = date;
+        notifyNow = notify;
+        textClinicId = id;
+
+        if(patientAppoint){
+            if(notifyNow == "m") setAppointClinicTimeM(textClinicId[0]);
+            else if(notifyNow == "a") setAppointClinicTimeA(textClinicId[0]);
+            else if(notifyNow == "all") {
+                setAppointClinicTimeM(textClinicId[0]);
+                setAppointClinicTimeA(textClinicId[1]);
+            }
+        }
+
+        if(notifyNow == "m") {
+            document.getElementById("date_"+textDateNow+"_"+notifyNow).className = "cal-day-morning-select";
+            showCancelMorning();
+        }
+        else if(notifyNow == "a") {
+            document.getElementById("date_"+textDateNow+"_"+notifyNow).className = "cal-day-afternoon-select";
+            showCancelAfternoon();
+        }
+        else if(notifyNow == "all") {
+            document.getElementById("date_"+textDateNow+"_"+notifyNow).className = "cal-day-all-select";
+            showCancelMorning();
+            showCancelAfternoon();
+        }
+    }
+
 }
 
 var currentDate = new Date();
@@ -228,8 +289,26 @@ function clearField(){
 function resetForm(){
     hideCancelMorning();
     hideCancelAfternoon();
-
     clearField();           
+}
+
+function resetAppointForm(){
+    hideCancelMorning();
+    hideCancelAfternoon();
+    var elem_m = document.getElementById("clinic_time_m");
+    elem_m.value = "";
+    var elem_a = document.getElementById("clinic_time_a");
+    elem_a.value = "";
+}
+
+function setAppointClinicTimeM(id){    
+    var elem = document.getElementById("clinic_time_m");
+    elem.value = id;
+}
+
+function setAppointClinicTimeA(id){    
+    var elem = document.getElementById("clinic_time_a");
+    elem.value = id;
 }
 
 function showCancelMorning(){
@@ -252,5 +331,8 @@ function hideCancelAfternoon(){
     document.getElementById("cancel-a").disabled = true;
 }
 
-calendar(currentMonth,currentYear);
-document.getElementById("add-button").disabled = true;
+var patientAppoint = false;
+
+function setPatientAppoint(check){
+    patientAppoint = check;
+}

@@ -31,9 +31,9 @@ urlpatterns = [
     url(r'^update_profile/$', auth_view.update_profile, name='update_profile'),
     url(r'^change_password/$', auth_view.change_password, name='change_password'),
     url(r'^home/$', auth_view.home, name='home'),
-
     url(r'^list_patient/', auth_view.list_patient, name='list_patient'),
     url(r'^list_doctor/', auth_view.list_doctor, name='list_doctor'),
+
     url(r'^list_officer/$', auth_view.list_officer, name='list_officer'),
     url(r'^add_officer/$', auth_view.add_officer, name='add_officer'),
     url(r'^update_officer/$', auth_view.update_officer, name='update_officer'),
@@ -41,6 +41,7 @@ urlpatterns = [
 
     # Appointment
     # url(r'^make_appointment/$', appo_view.make_appointment, name='make_appointment'),
+    url(r'^staff_make_appointment/([0-9]+)/$', appo_view.staff_make_appointment, name='staff_make_appointment'),
     url(r'^make_appointment/([0-9]+)/$', appo_view.make_appointment, name='make_appointment'),
     # url(r'^list_appointment/$', appo_view.list_appointment, name='list_appointment'),
     url(r'^list_appointment/([0-9]+)/$', appo_view.list_appointment, name='list_appointment'),
@@ -48,11 +49,12 @@ urlpatterns = [
     url(r'^cancel_appointment/([0-9]+)/$', appo_view.cancel_appointment, name='cancel_appointment'),
 
     # url(r'^make_clinic_time/$', appo_view.make_clinic_time, name='make_clinic_time'),
+    url(r'^staff_make_clinic_time/([0-9]+)/$', appo_view.staff_make_clinic_time, name='staff_make_clinic_time'),
     url(r'^make_clinic_time/([0-9]+)/$', appo_view.make_clinic_time, name='make_clinic_time'),
     # url(r'^list_clinic_time/$', appo_view.list_clinic_time, name='list_clinic_time'),
     url(r'^list_clinic_time/([0-9]+)/$', appo_view.list_clinic_time, name='list_clinic_time'),
     # url(r'^view_clinic_time/$', appo_view.view_clinic_time, name='view_clinic_time'),
-    # url(r'^cancel_clinic_time/$', appo_view.cancel_clinic_time, name='cancel_clinic_time'),
+    url(r'^cancel_clinic_time/([0-9]+)/$', appo_view.cancel_clinic_time, name='cancel_clinic_time'),
 
 
     # Medical

@@ -17,9 +17,9 @@ def make_appointment(request, pid):
         input['appointment_status'] = 1
 
         appointment = Appointment.objects.create(
-            patient_id 			= input['patient_id'],
-            clinic_time_id 		= input['clinic_time_id'],
-            appointment_status 	= input['appointment_status'],
+            patient_id          = input['patient_id'],
+            clinic_time_id      = input['clinic_time_id'],
+            appointment_status  = input['appointment_status'],
         )
 
         messages.success(request, 'Appoint Doctor successful')
@@ -42,6 +42,51 @@ def make_appointment(request, pid):
             'clinics' : clinics,
         }
         return render(request, 'appoint_doctor.html', data)
+
+    else:
+        doctors = Officer.objects.filter(position=2)
+        departments = Department.objects.all()
+        data = {
+            'patient_id' : pid,
+            'doctors' : doctors,
+            'departments' : departments,
+        }
+        return render(request, 'search_doctor.html', data)
+
+
+def staff_make_appointment(request, pid):
+    if request.POST.get('clinic_time_id'):
+        input = {}
+        input['patient_id'] = pid
+        input['clinic_time_id'] = request.POST['clinic_time_id']
+        input['appointment_status'] = 1
+
+        appointment = Appointment.objects.create(
+            patient_id 			= input['patient_id'],
+            clinic_time_id 		= input['clinic_time_id'],
+            appointment_status 	= input['appointment_status'],
+        )
+
+        messages.success(request, 'Appoint Doctor successful')
+        return redirect('/list_appointment/' + pid + '/')
+
+    elif request.POST.get('doctor_id'):
+        did = request.POST['doctor_id']
+        clinics = ClinicTime.objects.filter(officer_id=did)
+        data = {
+            'patient_id' : pid,
+            'clinics' : clinics,
+        }
+        return render(request, 'staff_appoint_doctor.html', data)
+
+    elif request.POST.get('department_id'):
+        did = request.POST['department_id']
+        clinics = ClinicTime.objects.filter(officer__specialist_id=did)
+        data = {
+            'patient_id' : pid,
+            'clinics' : clinics,
+        }
+        return render(request, 'staff_appoint_doctor.html', data)
 
     else:
         doctors = Officer.objects.filter(position=2)
@@ -125,6 +170,34 @@ def make_clinic_time(request, did):
             'clinic_times' : clinic_times
         }
         return render(request, 'notify_clinic_time.html', data)
+
+
+def staff_make_clinic_time(request, did):
+    if request.POST:
+        input = {}
+        input['officer_id'] = did
+        input['clinic_time'] = request.POST['clinic_time']
+        input['clinic_status'] = 1
+
+        clinic_time = ClinicTime.objects.create(
+            officer_id          = input['officer_id'],
+            clinic_datetime     = input['clinic_time'],
+            clinic_status       = input['clinic_status'],
+        )
+
+        messages.success(request, 'Make Clinic Time successful')
+        return redirect('/make_clinic_time/' + did + '/')
+
+    else:
+        # doctors = Officer.objects.all()
+        doctors = Officer.objects.filter(position=2)
+        clinic_times = ClinicTime.objects.filter(officer_id=did) #marrtan edit
+        data = {
+            'doctors' : doctors,
+            'doctor_id' : did,
+            'clinic_times' : clinic_times
+        }
+        return render(request, 'staff_notify_clinic_time.html', data)
 
 
 def list_clinic_time(request, did):

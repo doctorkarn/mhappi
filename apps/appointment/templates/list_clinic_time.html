@@ -89,6 +89,9 @@
         var docYear = [{% for clinic_time in clinic_times %}{{clinic_time.clinic_datetime.year}}, {% endfor %}, 0];
     </script>
     <script src="{% static 'js/calendar-list.js' %}"></script>
+    <script type="text/javascript">
+        calendar(currentMonth,currentYear);
+    </script>
 {% endblock %}
 {% block popup %}
     {% load staticfiles %}
