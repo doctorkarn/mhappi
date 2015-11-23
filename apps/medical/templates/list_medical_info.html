@@ -1,5 +1,8 @@
 {% extends "base.html" %}
 {% block main %}
+{% load staticfiles %}
+<link href="{% static 'css/medicalRecord.css' %}" rel="stylesheet" media="screen">
+
     <div class="row">
         <div class="col-md-10 col-md-offset-1 navText">
             <a href="/home/" style="text-decoration:none"><span>Home</span></a>
@@ -11,15 +14,13 @@
     </div>
     <div id="login" class="row">
         <div class="col-md-8 col-md-offset-2">
-            <h1>ประวัติการรักษา ({{ patient.first_name }} {{ patient.last_name }})</h1>
-            <hr/>
-
-            <div id="PatientInfo" class="row">
-              <h2>ข้อมูลผู้ป่วย</h2>
-              <table class="table">
+            <div class="headText" style="text-align:center">ประวัติการรักษา ({{ patient.first_name }} {{ patient.last_name }})</div>
+            <div class="row">
+              <h2 class="mediumText">  ข้อมูลผู้ป่วย</h2>
+              <table class="table tableStyle info">
                 <tr>
-                  <th>ข้อมูลผู้ป่วย</th>
-                  <th>บันทึกเมื่อ</th>
+                  <th class="header" style="border-top-left-radius:10px">ข้อมูลผู้ป่วย</th>
+                  <th class="header" style="border-top-right-radius:10px">บันทึกเมื่อ</th>
                 </tr>
                 {% for patient_info in patient_infos %}
                 <tr>
@@ -31,14 +32,14 @@
             </div>
             <hr/>
 
-            <div id="MedicalInfo" class="row">
-              <h2>ประวัติการรักษา</h2>
-              <table class="table">
+            <div class="row">
+              <h2 class="mediumText">ประวัติการรักษา</h2>
+              <table class="table tableStyle info">
                 <tr>
-                  <th>อาการ</th>
-                  <th>วินิจฉัย</th>
-                  <th>รหัสโรค (DRG)</th>
-                  <th>บันทึกเมื่อ</th>
+                  <th class="header" style="border-top-left-radius:10px">อาการ</th>
+                  <th class="header">วินิจฉัย</th>
+                  <th class="header">รหัสโรค (DRG)</th>
+                  <th class="header" style="border-top-right-radius:10px">บันทึกเมื่อ</th>
                 </tr>
                 {% for medical_info in medical_infos %}
                 <tr>
@@ -52,12 +53,12 @@
             </div>
             <hr/>
 
-            <div id="Prescription" class="row">
-              <h2>บันทึกการรับยา</h2>
-              <table class="table">
+            <div class="row">
+              <h2 class="mediumText">บันทึกการรับยา</h2>
+              <table class="table tableStyle info">
                 <tr>
-                  <th>รายการยา</th>
-                  <th>บันทึกเมื่อ</th>
+                  <th class="header" style="border-top-left-radius:10px">รายการยา</th>
+                  <th class="header" style="border-top-right-radius:10px">บันทึกเมื่อ</th>
                 </tr>
                 {% for prescription in prescriptions %}
                 <tr>
