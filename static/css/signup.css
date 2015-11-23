@@ -20,3 +20,22 @@
 	float: left;
 	margin-top: 0.7em;
 }
+.button-cover{
+	position: absolute;
+	bottom: 10em;
+}
+h3{
+	margin-top: 2em;
+	font-family: SK-Text;
+}
+h4{
+	font-family: SK-Text;
+	color: #bbb;
+}
+input {
+	text-align: center;
+}
+.sum_name{
+	font-size: 1.4em;
+	font-family: SK-Medium;
+}

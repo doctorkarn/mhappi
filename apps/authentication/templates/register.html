@@ -1,4 +1,9 @@
 {% extends "base.html" %}
+{% block loginBg %}
+.logout{
+    display: none !important;
+}
+{% endblock %}
 {% block main %}
 {% load staticfiles %}
 <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}"/>
@@ -7,11 +12,12 @@
     .row-100{
         width:100%;
         margin: 0px;
+        margin-top: -5.1em;
     }
     #page_01{
         display: block;
     }
-    #page_02,#page_03,#page_04,#page_05,#page_06{
+    #page_02,#page_03,#page_04,#page_05,#page_06,#page_07,#page_08{
         display: none;
     }
 
@@ -25,7 +31,7 @@
 
     <div class="row row-100 regis-header">
         <div style="color:white;">
-            <h1 style="margin:0px;font-family:SK-Text;">ลงทะเบียนผู้ป่วย</h1>
+            <h1 style="margin:10px;font-family:SK-Text;">ลงทะเบียนผู้ป่วย</h1>
             <div class="col-md-4 col-md-offset-4" style="margin-top:2em;padding-bottom:2em;">
                 <div class="node-active" id="state_01"></div>
                 <div class="line" id="state_01"></div>
@@ -44,87 +50,84 @@
         </div>
     </div>
 
-    <div id="page_01" class="row row-100 regis-bottom" align="center">
-        <div class="col-md-8 col-md-offset-2 regis-bottom">
-            <h3 class="row" style="color: #948d94;">กรุณาระบุเพศ</h3>
+    <div id="page_01" class="regis-bottom" align="center">
+        <div class="col-md-12">
+            <h3 class="row" style="color: #948d94;margin-top:2.5em;">กรุณาระบุเพศ</h3>
             <div class="row" style="height:100px; margin-top:30px;">
                 <div class="col-md-4 col-md-offset-4">
                     <div class="row gender-radio">
-                        <div class="col-md-3 col-md-offset-3" style="height:100px; padding:5px;">
-                            <input type="radio" class="form-control" id="gender-male" name="gender" value="1" checked>
+                        <div class="col-md-3 col-md-offset-2" style="height:100px; padding:5px;">
+                            <input type="radio" class="form-control" id="gender-male" name="gender" value="1">
                             <label class="round-btn" for="gender-male">
-                                LEFT
+                                ชาย
                             </label>
                         </div>
-                        <div class="col-md-3" style="height:100px; padding:5px;">
+                        <div class="col-md-3 col-md-offset-2" style="height:100px; padding:5px;">
                             <input type="radio" class="form-control" id="gender-female" name="gender" value="2">
                             <label class="round-btn" for="gender-female">
-                                RIGHT
+                                หญิง
                             </label>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="row">
-                <div class="col-md-2 col-md-offset-5 next-btn" onclick="nextpage();">
-                    ถัดไป
-                </div>
+        </div>
+        <div class="row button-cover col-md-4 col-md-offset-4">
+            <div class="col-md-6 col-md-offset-3 next-btn" onclick="nextpage();">
+                ถัดไป
             </div>
         </div>
     </div>
-    <div id="page_02" class="row row-100 regis-bottom" align="center">
-        <div class="col-md-8 col-md-offset-2" align="center">
+    <div id="page_02" class="regis-bottom" align="center">
+        <div class="col-md-4 col-md-offset-4">
             <h3 class="row" style="color: #948d94;">กรุณากรอกชื่อ-นามสกุล</h3>
             <div class="row" style="margin-top:35px;" align="center">
                 <div class="form-group text-input">
-                    <input type="text" class="form-control login-form-text" id="prefix_name" name="prefix_name" placeholder="คำนำหน้าชื่อ">
+                    <input id="info_prefix" type="text" class="form-control login-form-text" id="prefix_name" name="prefix_name" placeholder="คำนำหน้าชื่อ">
                 </div>
             </div>
-            <div class="row" style="margin-top:5px;" align="center">
+            <div class="row" align="center">
                 <div class="form-group text-input">
-                    <input type="text" class="form-control  login-form-text" id="first_name" name="first_name" placeholder="ชื่อ">
+                    <input id="info_name" type="text" class="form-control  login-form-text" id="first_name" name="first_name" placeholder="ชื่อ">
                 </div>
             </div>
-            <div class="row" style="margin-top:5px;" align="center">
+            <div class="row" align="center">
                 <div class="form-group text-input">
-                    <input type="text" class="form-control  login-form-text" id="last_name" name="last_name" placeholder="นามสกุล">
-                </div>
-            </div>
-            <div class="row" style="margin-top:30px;" align="center">
-                    <div class="col-md-3 col-md-offset-1 next-btn" onclick="prevpage();">
-                        ย้อนกลับ
-                    </div>
-                    <div class="col-md-3 col-md-offset-4 next-btn" onclick="nextpage();">
-                        ถัดไป
-                    </div>
+                    <input id="info_lastname" type="text" class="form-control  login-form-text" id="last_name" name="last_name" placeholder="นามสกุล">
                 </div>
             </div>
         </div>
+        <div class="row button-cover col-md-6 col-md-offset-3">
+                <div class="col-md-4 col-md-offset-2 next-btn" onclick="prevpage();">
+                    ย้อนกลับ
+                </div>
+                <div class="col-md-4 next-btn" onclick="nextpage();" style="margin-left:2em">
+                    ถัดไป
+                </div>
+        </div>
     </div>
 
-    <div id="page_03" class="row row-100 regis-bottom" align="center">
-        <div class="col-md-8 col-md-offset-2" align="center">
+    <div id="page_03" class="regis-bottom" align="center">
+        <div class="col-md-4 col-md-offset-4">
             <h3 class="row" style="color: #948d94;">กรุณากรอกเลขบัตรประจำตัวประชาชน</h3>
             <div class="row" style="margin-top:35px;" align="center">
                 <div class="form-group text-input">
-                    <input type="text" class="form-control login-form-text" id="national_id" name="national_id" placeholder="ex. 1129900935123">
-                </div>
-            </div>
-            
-            <div class="row" style="margin-top:30px;" align="center">
-                    <div class="col-md-3 col-md-offset-1 next-btn" onclick="prevpage();">
-                        ย้อนกลับ
-                    </div>
-                    <div class="col-md-3 col-md-offset-4 next-btn" onclick="nextpage();">
-                        ถัดไป
-                    </div>
+                    <input id="info_idno" type="text" class="form-control login-form-text" id="national_id" name="national_id" placeholder="ex. 1129900935123" maxlength="13">
                 </div>
             </div>
         </div>
+        <div class="row button-cover col-md-6 col-md-offset-3">
+                <div class="col-md-4 col-md-offset-2 next-btn" onclick="prevpage();">
+                    ย้อนกลับ
+                </div>
+                <div class="col-md-4 next-btn" onclick="nextpage();" style="margin-left:2em">
+                    ถัดไป
+                </div>
+        </div>
     </div>
 
-    <div id="page_04" class="row row-100 regis-bottom" align="center">
-        <div class="col-md-8 col-md-offset-2" align="center">
+    <div id="page_04" class="regis-bottom" align="center">
+        <div class="col-md-6 col-md-offset-3">
             <h3 class="row" style="color: #948d94;">กรุณากรอกที่อยู่ของคุณ</h3>
             <div class="row" style="margin-top:35px;" align="center">
                 <div class="col-md-2">
@@ -132,7 +135,7 @@
                 </div>
                 <div class="col-md-4">
                     <div class="form-group text-input">
-                        <input type="text" class="form-control login-form-text" id="home_id" name="home_id">
+                        <input id="info_address1" type="text" class="form-control login-form-text" id="home_id" name="home_id">
                     </div>
                 </div>
 
@@ -141,18 +144,18 @@
                 </div>
                 <div class="col-md-4">
                     <div class="form-group text-input">
-                        <input type="text" class="form-control login-form-text" id="road" name="road">
+                        <input id="info_address2" type="text" class="form-control login-form-text" id="road" name="road">
                     </div>
                 </div>
             </div>
             
-            <div class="row" style="margin-top:35px;" align="center">
+            <div class="row" align="center">
                 <div class="col-md-2">
                     แขวง/ตำบล
                 </div>
                 <div class="col-md-4">
                     <div class="form-group text-input">
-                        <input type="text" class="form-control login-form-text" id="tambol" name="tambol">
+                        <input  id="info_address3" type="text" class="form-control login-form-text" id="tambol" name="tambol">
                     </div>
                 </div>
 
@@ -161,18 +164,18 @@
                 </div>
                 <div class="col-md-4">
                     <div class="form-group text-input">
-                        <input type="text" class="form-control login-form-text" id="amphur" name="amphur">
+                        <input  id="info_address4" type="text" class="form-control login-form-text" id="amphur" name="amphur">
                     </div>
                 </div>
             </div>
 
-            <div class="row" style="margin-top:35px;" align="center">
+            <div class="row" align="center">
                 <div class="col-md-2">
                     จังหวัด
                 </div>
                 <div class="col-md-4">
                     <div class="form-group text-input">
-                        <input type="text" class="form-control login-form-text" id="province" name="province">
+                        <input  id="info_address5" type="text" class="form-control login-form-text" id="province" name="province">
                     </div>
                 </div>
 
@@ -181,39 +184,35 @@
                 </div>
                 <div class="col-md-4">
                     <div class="form-group text-input">
-                        <input type="text" class="form-control login-form-text" id="postcode" name="postcode">
-                    </div>
-                </div>
-            </div>
-
-            <div class="row" style="margin-top:30px;" align="center">
-                    <div class="col-md-3 col-md-offset-1 next-btn" onclick="prevpage();">
-                        ย้อนกลับ
-                    </div>
-                    <div class="col-md-3 col-md-offset-4 next-btn" onclick="nextpage();">
-                        ถัดไป
+                        <input  id="info_address6" type="text" class="form-control login-form-text" id="postcode" name="postcode">
                     </div>
                 </div>
             </div>
         </div>
+        <div class="row button-cover col-md-6 col-md-offset-3">
+                <div class="col-md-4 col-md-offset-2 next-btn" onclick="prevpage();">
+                    ย้อนกลับ
+                </div>
+                <div class="col-md-4 next-btn" onclick="nextpage();" style="margin-left:2em">
+                    ถัดไป
+                </div>
+        </div>
     </div>
 
-    <div id="page_05" class="row row-100 regis-bottom" align="center">
-        <div class="col-md-8 col-md-offset-2" align="center">
+    <div id="page_05" class="regis-bottom" align="center">
+        <div class="col-md-2 col-md-offset-5">
             <h3 class="row" style="color: #948d94;">กรุณาระบุวันเกิด</h3>
-            <div class="row" style="margin-top:35px;" align="center">
-                <div class="col-md-1">วันที่</div>
-                <div class="col-md-3">
-                    <div class="form-group text-input">
-                        <input type="text" class="form-control login-form-text" id="date" name="date">
-                    </div>
+            <div class="row" align="center">
+                <div class="form-group text-input" style="padding:0px;margin-top:30px;margin-left:0px;margin-right:0px">
+                    <input maxlength="2" id="info_day" style="text-align:left;width:100%" type="text" class="form-control login-form-text" id="date" name="date" placeholder="วันที่">
                 </div>
-
-                <div class="col-md-1">เดือน</div>
-                <div class="col-md-3">
-                    <select name="month">
+            </div>
+            <div class="row"  style="text-align:left">
+                <div class="form-group" style="margin-left:0px;margin-right:0px">
+                    <select id="info_month" class="form-control login-form-text" name="month" style="width:100%;">
+                        <option value="">กรุณาระบุเดือน</option>
                         <option value="1">มกราคม</option>
-                        <option value="2">กุมภาพนธ์</option>
+                        <option value="2">กุมภาพันธ์</option>
                         <option value="3">มีนาคม</option>
                         <option value="4">เมษายน</option>
                         <option value="5">พฤษภาคม</option>
@@ -226,64 +225,134 @@
                         <option value="12">ธันวาคม</option>
                     </select>
                 </div>
-
-                <div class="col-md-1">พ.ศ.</div>
-                <div class="col-md-3">
-                    <div class="form-group text-input">
-                        <input type="text" class="form-control login-form-text" id="year" name="year">
-                    </div>
-                </div>
             </div>
-            
-            <div class="row" style="margin-top:30px;" align="center">
-                    <div class="col-md-3 col-md-offset-1 next-btn" onclick="prevpage();">
-                        ย้อนกลับ
-                    </div>
-                    <div class="col-md-3 col-md-offset-4 next-btn" onclick="nextpage();">
-                        ถัดไป
-                    </div>
+            <div class="row" align="center">
+                <div class="form-group text-input" style="margin:0px" style="margin-left:0px;margin-right:0px">
+                    <input id="info_year" style="text-align:left;width:100%" type="text" class="form-control login-form-text" id="year" name="year"  placeholder="ปี พ.ศ.">
                 </div>
             </div>
         </div>
+        <div class="row button-cover col-md-6 col-md-offset-3">
+                <div class="col-md-4 col-md-offset-2 next-btn" onclick="prevpage();">
+                    ย้อนกลับ
+                </div>
+                <div class="col-md-4 next-btn" onclick="nextpage();" style="margin-left:2em">
+                    ถัดไป
+                </div>
+        </div>
     </div>
 
-    <div id="page_06" class="row row-100 regis-bottom" align="center">
-        <div class="col-md-8 col-md-offset-2" align="center">
+    <div id="page_06" class="regis-bottom" align="center">
+        <div class="col-md-4 col-md-offset-4">
             <h3 class="row" style="color: #948d94;">กรุณากรอกเบอร์โทรศัพท์และอีเมล</h3>
             <div class="row" style="margin-top:35px;" align="center">
                 <div class="form-group text-input">
-                    <input type="text" class="form-control login-form-text" id="phone" name="phone" placeholder="เบอร์โทรศัพท์">
+                    <input id="info_tel" type="text" class="form-control login-form-text" id="phone" name="phone" placeholder="เบอร์โทรศัพท์" maxlength="10">
                 </div>
             </div>
-            <div class="row" style="margin-top:5px;" align="center">
+            <div class="row" align="center">
                 <div class="form-group text-input">
-                    <input type="text" class="form-control  login-form-text" id="email" name="email" placeholder="อีเมล">
+                    <input id="info_email" type="text" class="form-control  login-form-text" id="email" name="email" placeholder="อีเมล">
                 </div>
             </div>
-            <div class="row" style="margin-top:30px;" align="center">
-                    <div class="col-md-3 col-md-offset-1 next-btn" onclick="prevpage();">
-                        ย้อนกลับ
-                    </div>
-                    <div class="col-md-3 col-md-offset-4 next-btn" onclick="nextpage();">
-                        ถัดไป
-                    </div>
+        </div>
+        <div class="row button-cover col-md-6 col-md-offset-3">
+                <div class="col-md-4 col-md-offset-2 next-btn" onclick="prevpage();">
+                    ย้อนกลับ
                 </div>
+                <div class="col-md-4 next-btn" onclick="nextpage();" style="margin-left:2em">
+                    ถัดไป
+                </div>
+        </div>
+    </div>
+
+    <div id="page_07" class="regis-bottom" align="center">
+        <div class="col-md-4 col-md-offset-4">
+            <h3 class="row" style="color: #948d94;">กรุณาตรวจสอบข้อมูลก่อนยืนยัน</h3>
+            <div class="row" style="margin-top:20px;font-family:SK-Text;font-size:1.1em;" id="info">
+                
             </div>
+        </div>
+        <div class="row button-cover col-md-6 col-md-offset-3">
+                <div class="col-md-4 col-md-offset-2 next-btn" onclick="prevpage();">
+                    ย้อนกลับ
+                </div>
+                <div class="col-md-4 next-btn-disable" id="confirm" onclick="confirmInfo();" style="margin-left:2em">
+                    ยืนยันการสมัคร
+                </div>
+        </div>
+    </div>
+
+        <div id="page_08" class="regis-bottom" align="center">
+        <div class="col-md-6 col-md-offset-3" style="margin-top:4em">
+            <br>
+            <h3 class="row" style="color: #948d94;">ลงทะเบียนเรียบร้อย</h3>
+            <h4>กรุณายืนยันการลงทะเบียนและรับรหัสผ่านทางอีเมลของท่าน</h4>
+            <div class="row" style="margin-top:20px;font-family:SK-Text;font-size:1.1em;" id="info">
+                
+            </div>
+        </div>
+        <div class="row button-cover col-md-6 col-md-offset-3">
+            <a href="/home/">
+                <div class="col-md-6 col-md-offset-3 next-btn" onclick="nextpage();">
+                    กลับสู่หน้าหลัก
+                </div>
+            </a>
         </div>
     </div>
 
 
     <script type="text/javascript">
         var page_now = 1;
+        var confirm = false;
         function nextpage(){
             document.getElementById('page_0'+page_now).style.display = "none"
+            document.getElementById('state_0'+page_now).className = "node"
             page_now++;
             document.getElementById('page_0'+page_now).style.display = "block";
+            document.getElementById('state_0'+page_now).className = "node-active"
+            if(page_now == 7) getInfo();
         }
         function prevpage(){
             document.getElementById('page_0'+page_now).style.display = "none"
+            document.getElementById('state_0'+page_now).className = "node"
             page_now--;
             document.getElementById('page_0'+page_now).style.display = "block";
+            document.getElementById('state_0'+page_now).className = "node-active"
+        }
+        function getInfo(){
+            var text = "";
+            text += "<div class='sum_name'>คุณ"+$('#info_name').val()+" "+$('#info_lastname').val()+"</div>";
+            text += "เลขบัตรประจำตัวประชาชน " + $('#info_idno').val()+"<br><br>";
+            var checkText = $('#info_address5').val().split("กรุงเทพ")[1];
+            if(checkText != undefined){
+                text += "บ้านเลขที่ "+$('#info_address1').val()+" ถนน"+$('#info_address2').val()+" แขวง"+$('#info_address3').val()+"<br>เขต"+$('#info_address4').val()+" จังหวัด"+$('#info_address5').val()+" "+$('#info_address6').val()+"<br>";
+            }
+            else{
+                text += "บ้านเลขที่ "+$('#info_address1').val()+" ถนน"+$('#info_address2').val()+" ตำบล"+$('#info_address3').val()+"<br>อำเภอ"+$('#info_address4').val()+" จังหวัด"+$('#info_address5').val()+" "+$('#info_address6').val()+"<br>";
+            }
+            text += "วันเกิด "+$('#info_day').val()+"/"+$('#info_month').val()+"/"+$('#info_year').val()+"<br>";
+            text += "เบอร์โทรศัพท์ " + $('#info_tel').val()+"<br>";
+            text += "อีเมล " + $('#info_email').val();
+
+            document.getElementById("info").innerHTML = text;
+            if($('#info_name').val() == "" || $('#info_lastname').val() == "" || $('#info_idno').val() == "" || $('#info_address1').val() == "" || $('#info_address2').val() == "" || $('#info_address3').val() == "" || $('#info_address4').val() == "" || $('#info_address5').val() == "" || $('#info_address6').val() == "" || $('#info_day').val() == "" || $('#info_month').val() == "" || $('#info_year').val() == "" || $('#info_tel').val() == "" || $('#info_email').val() == ""){
+                document.getElementById('confirm').className = "col-md-4 next-btn-disable";
+                confirm = false;
+            }
+            else{
+                document.getElementById('confirm').className = "col-md-4 next-btn";
+                confirm = true;
+            }
+        }
+        function confirmInfo(){
+            if(confirm){
+                document.getElementById('page_0'+page_now).style.display = "none"
+                document.getElementById('state_0'+page_now).className = "node"
+                page_now++;
+                document.getElementById('page_0'+page_now).style.display = "block";
+                document.getElementById('state_0'+page_now).className = "node-active"
+            }
         }
     </script>
 

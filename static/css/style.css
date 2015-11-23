@@ -186,17 +186,16 @@ html, body{
 	background: linear-gradient(to bottom, #45ab96 0%,#89c9bb 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
 	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#45ab96', endColorstr='#89c9bb',GradientType=0 ); /* IE6-9 */
 	width: 100%;
-	height: 46vh;
+	height: 18em;
 	padding: 80px 0px;
 	margin: 0px;
 	text-align: center;
 }
 .regis-bottom{
-	background-color: #fafdfc;
 	width: 100%;
 	padding: 0px;
 	margin: 0px;
-	height: 65vh;
+	height: 10em;
 	vertical-align: middle;
 	text-align: center;
 }
@@ -208,6 +207,9 @@ html, body{
 	border-radius: 100px;
 	display: inline-block;
 	line-height: 100px;
+	color: #59c9b1;
+	font-size: 1.5em;
+	font-family: SK-Text;
 	/*color: #948d94;*/
 }
 
@@ -217,14 +219,22 @@ html, body{
 	line-height: 40px;
 	color: #59c9b1;
 	border: 2px solid #59c9b1;
+	cursor: pointer;
 }
-
+.next-btn-disable{
+	margin-top:50px;
+	height: 40px;
+	line-height: 40px;
+	color: #cfcfcf;
+	border: 2px solid #cfcfcf;
+}
 .gender-radio input[type="radio"] {
     display:none;
 }
 
 .gender-radio input[type="radio"]:checked + label {
-    background-color:#bbb;
+    background-color:#59c9b1;
+    color: white;
 }
 
 .text-input{
