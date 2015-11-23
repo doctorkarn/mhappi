@@ -6,14 +6,13 @@
         <div class="col-md-10 col-md-offset-1 navText">
             <a href="/home/" style="text-decoration:none"><span>Home</span></a>
             <span class="next"> > </span>
-            <a href="/make_appointment/" style="text-decoration:none"><span>นัดหมายแพทย์</span></a>
+            <a href="/make_appointment/{{ patient_id }}/" style="text-decoration:none"><span>นัดหมายแพทย์</span></a>
             <span class="next"> > </span>
             <span>ผลการค้นหา</span>
         </div>
     </div>
     <div class="row title" style="font-size:1.3em;">
-        
-        ท่านสามารถยกเลิกวันออกตรวจที่ท่านต้องการได้<br>โดยเลือกวันที่ท่านต้องการยกเลิกการออกตรวจผู้ป่วย
+        กรุณาเลือกวันที่ท่านต้องการทำการนัดหมายแพทย์
     </div>
     <div class="row"  style="zoom:80%">
         <div class="col-md-8 col-md-offset-2" style="padding-left:2em">
@@ -64,33 +63,49 @@
     </div>
     <div class="row">
         <div id="calendar_time" class="col-md-8 col-md-offset-2 calendar_time" style="margin-top: 2em; margin-bottom:2em">
-            <div class="col-md-3 col-md-offset-2">
-                <button class="cancel-button-disable" id="cancel-m" href="#" onclick="cancelMorning();" disabled>ยกเลิกช่วงเช้า</button>
-            </div>
-            <div class="col-md-3 col-md-offset-2 ">
-                <button class="cancel-button-disable" id="cancel-a" href="#" onclick="cancelAfternoon();" disabled>ยกเลิกช่วงบ่าย</button>
-            </div>
+            <form name="appointClinicTimeM" action="/cancel_clinic_time/{{ doctor_id }}/#title" method="post">
+                <div class="form-group hidden-form">
+                    <label class="control-label" for="clinic_time_m">Clinic Time Morning</label>
+                    <input type="text" class="form-control" id="clinic_time_m" name="clinic_time_m" >
+                    <p class="help-block">format: yyyy-mm-dd</p>
+                </div>
+                <div class="col-md-4 col-md-offset-2">
+                    <button class="cancel-button-disable" id="cancel-m" href="#" onclick="setAppointClinicTimeM();" disabled>นัดหมายช่วงเช้า</button>
+                </div>
+            </form>
+            <form name="appointClinicTimeA" action="/cancel_clinic_time/{{ doctor_id }}/#title" method="post">
+                <div class="form-group hidden-form">
+                    <label class="control-label" for="clinic_time_a">Clinic Time Afternoon</label>
+                    <input type="text" class="form-control" id="clinic_time_a" name="clinic_time_a" >
+                    <p class="help-block">format: yyyy-mm-dd</p>
+                </div>
+                <div class="col-md-4">
+                    <button class="cancel-button-disable" id="cancel-a" href="#" onclick="setAppointClinicTimeA();" disabled>นัดหมายช่วงบ่าย</button>
+                </div>
+            </form>
         </div>
         <div class="col-md-2 col-md-offset-5">
             <form class="form-horizontal" name="CancelClinicTime" action="/cancel_clinic_time/{{ doctor_id }}/#title" method="post">
-                <div class="form-group">
+                <div class="form-group hidden-form">
                     <label class="control-label" for="clinic_time">Clinic Time</label>
                     <input type="text" class="form-control" id="clinic_time" name="clinic_time" >
                     <p class="help-block">format: yyyy-mm-dd</p>
-                </div>
-                <div class="form-group">
-                    <button type="submit" class="cancel-button-disable">ยกเลิกเวลาออกตรวจ</button>
                 </div>
             </form>
         </div>
     </div>
     <script>
-        var docHour = [{% for clinic_time in clinic_times %}{{clinic_time.clinic_datetime.hour}}, {% endfor %}, 0];
-        var docDay = [{% for clinic_time in clinic_times %}{{clinic_time.clinic_datetime.day}}, {% endfor %}, 0];
-        var docMonth = [{% for clinic_time in clinic_times %}{{clinic_time.clinic_datetime.month}}, {% endfor %}, 0];
-        var docYear = [{% for clinic_time in clinic_times %}{{clinic_time.clinic_datetime.year}}, {% endfor %}, 0];
+        var docHour = [{% for clinic in clinics %}{{clinic.clinic_datetime.hour}}, {% endfor %}, 0];
+        var docDay = [{% for clinic in clinics %}{{clinic.clinic_datetime.day}}, {% endfor %}, 0];
+        var docMonth = [{% for clinic in clinics %}{{clinic.clinic_datetime.month}}, {% endfor %}, 0];
+        var docYear = [{% for clinic in clinics %}{{clinic.clinic_datetime.year}}, {% endfor %}, 0];
+        var docId = [{% for clinic in clinics %}{{clinic.id}}, {% endfor %}, 0];
     </script>
     <script src="{% static 'js/calendar-list.js' %}"></script>
+    <script>
+        setPatientAppoint(true);
+        calendar(currentMonth,currentYear);
+    </script>
 {% endblock %}
 {% block popup %}
     {% load staticfiles %}
