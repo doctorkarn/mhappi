@@ -23,20 +23,19 @@
             		<td>{{ patient.first_name }} {{ patient.last_name }}</td>
             		<td>
             			{% if request.session.user_role == 'staff' %}
-            			<a class="btn btn-default" href="/make_appointment/{{ patient.id }}/">make appointment</a>
-            			<a class="btn btn-default" href="/list_appointment/{{ patient.id }}/">list appointment</a>
-            			<a class="btn btn-default" href="/cancel_appointment/{{ patient.id }}/">cancel appointment</a>
+            			<a class="btn btn-default" href="/make_appointment/{{ patient.id }}/">ทำการนัดหมาย</a>
+            			<a class="btn btn-default" href="/list_appointment/{{ patient.id }}/">รายการนัดหมาย</a>
             			{% endif %}
 						{% if request.session.user_role == 'doctor' %}
-            			<a class="btn btn-default" href="/add_medical_record/{{ patient.id }}/">create medical record</a>
-            			<a class="btn btn-default" href="/list_medical_record/{{ patient.id }}/">list medical record</a>
+            			<a class="btn btn-default" href="/add_medical_record/{{ patient.id }}/">บันทึกการรักษา</a>
+            			<a class="btn btn-default" href="/list_medical_record/{{ patient.id }}/">ประวัตืการรักษา</a>
             			{% endif %}
             			{% if request.session.user_role == 'nurse' %}
-            			<a class="btn btn-default" href="/add_patient_information/{{ patient.id }}/">create patient info.</a>
-            			<a class="btn btn-default" href="/list_patient_information/{{ patient.id }}/">list patient info.</a>
+            			<a class="btn btn-default" href="/add_patient_information/{{ patient.id }}/">บันทึกข้อมูลผู้ป่วย</a>
+            			<a class="btn btn-default" href="/list_patient_information/{{ patient.id }}/">ข้อมูลผู้ป่วย</a>
             			{% endif %}
             			{% if request.session.user_role == 'pharmacist' %}
-            			<a class="btn btn-default" href="/list_prescription/{{ patient.id }}/">list prescription</a>
+            			<a class="btn btn-default" href="/list_prescription/{{ patient.id }}/">รายการใบสั่งยา</a>
             			{% endif %}
             		</td>
             	</tr>
