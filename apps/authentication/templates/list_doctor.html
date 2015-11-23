@@ -2,7 +2,15 @@
 {% block main %}
 {% load staticfiles %}
 <link href="{% static 'css/list_doctor.css' %}" rel="stylesheet" media="screen">
-    <div id="login" class="row">
+
+    <div class="row">
+        <div class="row">
+        <div class="col-md-10 col-md-offset-1 navText">
+            <a href="/home/" style="text-decoration:none"><span>Home</span></a>
+            <span class="next"> > </span>
+            <span>ดูรายการนัดหมาย</span>
+        </div>
+        </div>
         <div class="col-md-8 col-md-offset-2">
         <div id="dateToday"></div>
             <hr/>
