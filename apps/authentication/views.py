@@ -132,7 +132,22 @@ def reset_password(request):
 
 
 def change_password(request):
-    return "Under Construction ....."
+    logged_in = request.user.is_authenticated
+    uid = request.user.id
+
+    if request.POST:
+        input = {}
+        input['old_password'] = request.POST['old_password']
+        input['new_password'] = request.POST['new_password']
+        input['confirm_password'] = request.POST['confirm_password']
+
+        user = User.objects.get(id=uid)
+        
+        # if( check_password(input['old_password'], user.password) != False ):
+            
+            
+    else:
+        return render(request, 'change_password.html')
 
 
 def update_profile(request):
@@ -141,46 +156,40 @@ def update_profile(request):
 
     if request.POST:
         input = {}
-        input['password'] = request.POST['password']
-        input['confirm_password'] = request.POST['confirm_password']
-
         input['first_name'] = request.POST['first_name']
         input['last_name'] = request.POST['last_name']
-
         input['address'] = request.POST['address']
         input['phone'] = request.POST['phone']
         input['email'] = request.POST['email']
 
         user = User.objects.get(id=uid)
-        
-        if(input['password'] != ""):
-            if(input['password'] == input['confirm_password']):
-                user.set_password(input['password'])
-                user.save()
-            else:
-                messages.error(request, 'Confirm Password is not match.')
-                return HttpResponseRedirect('/update_profile/')
-
         user.email = input['email']
         user.save()
 
-        patient = Patient.objects.get(id=uid)
-        patient.first_name  = input['first_name']
-        patient.last_name  = input['last_name']
-        patient.address  = input['address']
-        patient.phone  = input['phone']
-        patient.email  = input['email']
-        patient.save()
+        try:
+            profile = Patient.objects.get(id=uid)
+        except ObjectDoesNotExist:
+            profile = Officer.objects.get(id=uid)
+
+        profile.first_name  = input['first_name']
+        profile.last_name  = input['last_name']
+        profile.address  = input['address']
+        profile.phone  = input['phone']
+        profile.email  = input['email']
+        profile.save()
 
         messages.success(request, 'Update Profile successful')
         return redirect('/home/')
 
     else:
         user = User.objects.get(id=uid)
-        patient = Patient.objects.get(id=uid)
+        try:
+            profile = Patient.objects.get(id=uid)
+        except ObjectDoesNotExist:
+            profile = Officer.objects.get(id=uid)
         data = {
             'user' : user,
-            'patient' : patient,
+            'profile' : profile,
         }
         return render(request, 'update_profile.html', data)
 
