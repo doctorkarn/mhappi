@@ -11,7 +11,9 @@
             	</tr>
             	{% for prescription in prescriptions %}
             	<tr>
-                    <td>{{ prescription.drug_list }}</td>
+                    <td>{% for item in prescription.list %}
+                        {{ item }}<br/>
+                    {% endfor %}</td>
             		<td>{{ prescription.created_at }}</td>
             	</tr>
             	{% endfor %}

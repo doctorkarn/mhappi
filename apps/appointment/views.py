@@ -113,7 +113,7 @@ def make_clinic_time(request, did):
         )
 
         messages.success(request, 'Make Clinic Time successful')
-        return redirect('/make_clinic_time/' + did + '/')
+        return redirect('/list_clinic_time/' + did + '/')
 
     else:
         # doctors = Officer.objects.all()
