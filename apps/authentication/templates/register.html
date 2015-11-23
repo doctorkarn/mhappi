@@ -351,7 +351,8 @@
                 document.getElementById('state_0'+page_now).className = "node"
                 page_now++;
                 document.getElementById('page_0'+page_now).style.display = "block";
-                document.getElementById('state_0'+page_now).className = "node-active"
+                for(i = 1; i <= 7; i++)
+                document.getElementById('state_0'+i).className = "node-active"
             }
         }
     </script>
