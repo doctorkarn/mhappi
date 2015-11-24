@@ -10,9 +10,9 @@ from django.contrib.auth import logout as auth_logout
 from django.contrib.auth import authenticate
 from django.core.mail import send_mail
 from django.core.exceptions import ObjectDoesNotExist
+from django.utils import timezone
 
-import json
-import random
+import json, random, string
 
 from apps.authentication.models import Patient, Officer, Department
 
@@ -231,23 +231,54 @@ def home(request):
 def register(request):
     if request.POST:
         input = {}
-        input['username'] = request.POST['username']
-        input['password'] = request.POST['password']
-        input['confirm_password'] = request.POST['confirm_password']
-
-        input['hospital_id'] = "58xxxxx" + str(random.randint(0,9))
         input['national_id'] = request.POST['national_id']
-        input['first_name'] = request.POST['first_name']
-        input['last_name'] = request.POST['last_name']
-        input['gender'] = request.POST['gender']
-        input['birthdate'] = '2000-01-01'
-        input['address'] = request.POST['address']
-        input['phone'] = request.POST['phone']
+        input['username'] = input['national_id']
+        input['password'] = ''.join(random.choice(string.ascii_uppercase + string.digits) for _ in range(8))
         input['email'] = request.POST['email']
+        input['phone'] = request.POST['phone']
 
         user = User.objects.create_user(
             input['username'], input['email'], input['password']
         )
+
+        if user.id < 10:
+            user.digit_id = "00000" + str(user.id)
+        elif user.id < 100:
+            user.digit_id = "0000" + str(user.id)
+        elif user.id < 1000:
+            user.digit_id = "000" + str(user.id)
+        elif user.id < 10000:
+            user.digit_id = "00" + str(user.id)
+        elif user.id < 100000:
+            user.digit_id = "0" + str(user.id)
+        else:
+            user.digit_id = str(user.id)
+
+        input['hospital_id'] = str((timezone.now().year+543)%100) + user.digit_id + str(random.randint(0,9)) + str(random.randint(0,9))
+        
+        user.username = input['hospital_id']
+        user.save()
+
+        input['prefix_name'] = request.POST['prefix_name']
+        input['first_name'] = request.POST['first_name']
+        input['last_name'] = request.POST['last_name']
+        input['gender'] = request.POST['gender']
+
+        input['day'] = request.POST['day']
+        input['month'] = request.POST['month']
+        input['year'] = request.POST['year']
+        if( int(input['day']) < 10 ):
+            input['day'] = '0' + str(input['day'])
+        if( int(input['month']) < 10 ):
+            input['month'] = '0' + str(input['month'])
+
+        input['home_id'] = request.POST['home_id']
+        input['road'] = request.POST['road']
+        input['tambol'] = request.POST['tambol']
+        input['amphur'] = request.POST['amphur']
+        input['province'] = request.POST['province']
+        input['postcode'] = request.POST['postcode']
+        
 
         patient = Patient.objects.create(
         	id 			= user.id,
@@ -257,18 +288,33 @@ def register(request):
         	first_name 	= input['first_name'],
         	last_name 	= input['last_name'],
         	gender 		= input['gender'],
-        	birthdate 	= input['birthdate'],
-        	address 	= input['address'],
+        	birthdate 	= input['year'] + '-' + input['month'] + '-' + input['day'],
+        	address 	= input['home_id'] + ' ' + input['road'] + ' ' + input['tambol'] + ' ' + input['amphur'] + ' ' + input['province'] + ' ' + input['postcode'],
         	phone 		= input['phone'],
         	email 		= input['email'],
         )
 
-        messages.success(request, 'Register successful')
-        return HttpResponseRedirect('/login')
-        # return HttpResponse(json.dumps(input))
+        to_email = input['email']
+        email_subject = 'ยืนยันการลงทะเบียนผู้ป่วยระบบ MHAPPI '
+        email_message = "เรียน คุณ" + input['first_name'] + " " + input['last_name'] + "\n"
+        email_message += "ท่านได้ทำการลงทะเียนผู้ป่วยระบบ MHAPPI \n โดยมีข้อมูลการเข้าสู่ระบบ ดังต่อไปนี้ : \n\n"
+        email_message += "username : " + input['username'] + "\n"
+        email_message += "password : " + input['password'] + "\n\n"
+        email_message += "โดยท่าสามารถเข้าใช้งานระบบของเราได้ที่ {{ URL }} \n"
+        email_message += "ขอบคุณที่ใช้บริการของเราค่ะ MHAPPI "
+        mail_success = send_mail(email_subject, email_message, 'mhappi@karnlab.com', [to_email])
+
+        # messages.success(request, 'Register successful')
+        # return HttpResponseRedirect('/login')
+        return render(request, 'success.html')
 
     else:
-        return render(request, 'register.html')
+        data = {
+            'day_range' : range(1,32),
+            'month_range' : range(1,13),
+            'year_range' : range(1900,timezone.now().year),
+        }
+        return render(request, 'register.html', data)
 
 
 def list_patient(request):
@@ -300,7 +346,18 @@ def add_officer(request):
         input['password'] = request.POST['password']
         input['confirm_password'] = request.POST['confirm_password']
 
-        input['hospital_id'] = "MDxxxxx" + str(random.randint(0,9)) + str(random.randint(0,9))
+        if user.id < 10:
+            user.digit_id = "00000" + user.id
+        if user.id < 100:
+            user.digit_id = "0000" + user.id
+        if user.id < 1000:
+            user.digit_id = "000" + user.id
+        if user.id < 10000:
+            user.digit_id = "00" + user.id
+        if user.id < 100000:
+            user.digit_id = "0" + user.id
+
+        input['hospital_id'] = "MD" + user.digit_id + str(random.randint(0,9)) + str(random.randint(0,9))
         input['national_id'] = request.POST['national_id']
         input['first_name'] = request.POST['first_name']
         input['last_name'] = request.POST['last_name']

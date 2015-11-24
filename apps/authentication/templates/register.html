@@ -206,7 +206,13 @@
             <h3 class="row" style="color: #948d94;">กรุณาระบุวันเกิด</h3>
             <div class="row" align="center">
                 <div class="form-group text-input" style="padding:0px;margin-top:30px;margin-left:0px;margin-right:0px">
-                    <input maxlength="2" id="info_day" style="text-align:left;width:100%" type="text" class="form-control login-form-text" id="date" name="date" placeholder="วันที่">
+                    <!-- <input maxlength="2" id="info_day" style="text-align:left;width:100%" type="text" class="form-control login-form-text" id="date" name="date" placeholder="วันที่"> -->
+                    <select id="info_day" class="form-control login-form-text" name="day" style="width:100%;">
+                        <option value="">กรุณาระบุวัน</option>
+                        {% for i in day_range %}
+                        <option value="{{ i }}">{{ i }}</option>
+                        {% endfor %}
+                    </select>
                 </div>
             </div>
             <div class="row"  style="text-align:left">
@@ -230,7 +236,13 @@
             </div>
             <div class="row" align="center">
                 <div class="form-group text-input" style="margin:0px" style="margin-left:0px;margin-right:0px">
-                    <input id="info_year" style="text-align:left;width:100%" type="text" class="form-control login-form-text" id="year" name="year"  placeholder="ปี พ.ศ.">
+                    <!-- <input id="info_year" style="text-align:left;width:100%" type="text" class="form-control login-form-text" id="year" name="year"  placeholder="ปี พ.ศ."> -->
+                    <select id="info_year" class="form-control login-form-text" name="year" style="width:100%;">
+                        <option value="">กรุณาระบุปี (ค.ศ.)</option>
+                        {% for i in year_range %}
+                        <option value="{{ i }}">{{ i }}</option>
+                        {% endfor %}
+                    </select>
                 </div>
             </div>
         </div>
@@ -279,9 +291,12 @@
                 <div class="col-md-4 col-md-offset-2 next-btn" onclick="prevpage();">
                     ย้อนกลับ
                 </div>
-                <div class="col-md-4 next-btn-disable" id="confirm" onclick="confirmInfo();" style="margin-left:0.5em">
-                    ยืนยันการสมัคร
+                <div class="col-md-4 next-btn-disable" style="margin-left:0.5em">
+                    <button class="btn btn-link" type="submit">ยืนยันการสมัคร</button>
                 </div>
+                <!-- <div class="col-md-4 next-btn-disable" id="confirm" onclick="confirmInfo();" style="margin-left:0.5em">
+                    ยืนยันการสมัคร
+                </div> -->
         </div>
     </div>
 
@@ -289,7 +304,7 @@
         <div class="col-md-6 col-md-offset-3" style="margin-top:4em">
             <br>
             <h3 class="row" style="color: #948d94;">ลงทะเบียนเรียบร้อย</h3>
-            <h4>กรุณายืนยันการลงทะเบียนและรับรหัสผ่านทางอีเมลของท่าน</h4>
+            <h4 style="display:none;">กรุณายืนยันการลงทะเบียนและรับรหัสผ่านทางอีเมลของท่าน</h4>
             <div class="row" style="margin-top:20px;font-family:SK-Text;font-size:1.1em;" id="info">
                 
             </div>
@@ -302,62 +317,63 @@
             </a>
         </div>
     </div>
+</form>
 
+{% endblock %}
 
-    <script type="text/javascript">
-        var page_now = 1;
-        var confirm = false;
-        function nextpage(){
+{% block script %}
+<script type="text/javascript">
+    var page_now = 1;
+    var confirm = false;
+    function nextpage(){
+        document.getElementById('page_0'+page_now).style.display = "none"
+        document.getElementById('state_0'+page_now).className = "node"
+        page_now++;
+        document.getElementById('page_0'+page_now).style.display = "block";
+        document.getElementById('state_0'+page_now).className = "node-active"
+        if(page_now == 7) getInfo();
+    }
+    function prevpage(){
+        document.getElementById('page_0'+page_now).style.display = "none"
+        document.getElementById('state_0'+page_now).className = "node"
+        page_now--;
+        document.getElementById('page_0'+page_now).style.display = "block";
+        document.getElementById('state_0'+page_now).className = "node-active"
+    }
+    function getInfo(){
+        var text = "";
+        text += "<div class='sum_name'>คุณ"+$('#info_name').val()+" "+$('#info_lastname').val()+"</div>";
+        text += "เลขบัตรประจำตัวประชาชน " + $('#info_idno').val()+"<br><br>";
+        var checkText = $('#info_address5').val().split("กรุงเทพ")[1];
+        if(checkText != undefined){
+            text += "บ้านเลขที่ "+$('#info_address1').val()+" ถนน"+$('#info_address2').val()+" แขวง"+$('#info_address3').val()+"<br>เขต"+$('#info_address4').val()+" จังหวัด"+$('#info_address5').val()+" "+$('#info_address6').val()+"<br>";
+        }
+        else{
+            text += "บ้านเลขที่ "+$('#info_address1').val()+" ถนน"+$('#info_address2').val()+" ตำบล"+$('#info_address3').val()+"<br>อำเภอ"+$('#info_address4').val()+" จังหวัด"+$('#info_address5').val()+" "+$('#info_address6').val()+"<br>";
+        }
+        text += "วันเกิด "+$('#info_day').val()+"/"+$('#info_month').val()+"/"+$('#info_year').val()+"<br>";
+        text += "เบอร์โทรศัพท์ " + $('#info_tel').val()+"<br>";
+        text += "อีเมล " + $('#info_email').val();
+
+        document.getElementById("info").innerHTML = text;
+        if($('#info_name').val() == "" || $('#info_lastname').val() == "" || $('#info_idno').val() == "" || $('#info_address1').val() == "" || $('#info_address2').val() == "" || $('#info_address3').val() == "" || $('#info_address4').val() == "" || $('#info_address5').val() == "" || $('#info_address6').val() == "" || $('#info_day').val() == "" || $('#info_month').val() == "" || $('#info_year').val() == "" || $('#info_tel').val() == "" || $('#info_email').val() == ""){
+            document.getElementById('confirm').className = "col-md-4 next-btn-disable";
+            confirm = false;
+        }
+        else{
+            document.getElementById('confirm').className = "col-md-4 next-btn";
+            confirm = true;
+        }
+    }
+    function confirmInfo(){
+        if(confirm){
             document.getElementById('page_0'+page_now).style.display = "none"
             document.getElementById('state_0'+page_now).className = "node"
             page_now++;
             document.getElementById('page_0'+page_now).style.display = "block";
-            document.getElementById('state_0'+page_now).className = "node-active"
-            if(page_now == 7) getInfo();
+            for(i = 1; i <= 7; i++)
+            document.getElementById('state_0'+i).className = "node-active"
         }
-        function prevpage(){
-            document.getElementById('page_0'+page_now).style.display = "none"
-            document.getElementById('state_0'+page_now).className = "node"
-            page_now--;
-            document.getElementById('page_0'+page_now).style.display = "block";
-            document.getElementById('state_0'+page_now).className = "node-active"
-        }
-        function getInfo(){
-            var text = "";
-            text += "<div class='sum_name'>คุณ"+$('#info_name').val()+" "+$('#info_lastname').val()+"</div>";
-            text += "เลขบัตรประจำตัวประชาชน " + $('#info_idno').val()+"<br><br>";
-            var checkText = $('#info_address5').val().split("กรุงเทพ")[1];
-            if(checkText != undefined){
-                text += "บ้านเลขที่ "+$('#info_address1').val()+" ถนน"+$('#info_address2').val()+" แขวง"+$('#info_address3').val()+"<br>เขต"+$('#info_address4').val()+" จังหวัด"+$('#info_address5').val()+" "+$('#info_address6').val()+"<br>";
-            }
-            else{
-                text += "บ้านเลขที่ "+$('#info_address1').val()+" ถนน"+$('#info_address2').val()+" ตำบล"+$('#info_address3').val()+"<br>อำเภอ"+$('#info_address4').val()+" จังหวัด"+$('#info_address5').val()+" "+$('#info_address6').val()+"<br>";
-            }
-            text += "วันเกิด "+$('#info_day').val()+"/"+$('#info_month').val()+"/"+$('#info_year').val()+"<br>";
-            text += "เบอร์โทรศัพท์ " + $('#info_tel').val()+"<br>";
-            text += "อีเมล " + $('#info_email').val();
-
-            document.getElementById("info").innerHTML = text;
-            if($('#info_name').val() == "" || $('#info_lastname').val() == "" || $('#info_idno').val() == "" || $('#info_address1').val() == "" || $('#info_address2').val() == "" || $('#info_address3').val() == "" || $('#info_address4').val() == "" || $('#info_address5').val() == "" || $('#info_address6').val() == "" || $('#info_day').val() == "" || $('#info_month').val() == "" || $('#info_year').val() == "" || $('#info_tel').val() == "" || $('#info_email').val() == ""){
-                document.getElementById('confirm').className = "col-md-4 next-btn-disable";
-                confirm = false;
-            }
-            else{
-                document.getElementById('confirm').className = "col-md-4 next-btn";
-                confirm = true;
-            }
-        }
-        function confirmInfo(){
-            if(confirm){
-                document.getElementById('page_0'+page_now).style.display = "none"
-                document.getElementById('state_0'+page_now).className = "node"
-                page_now++;
-                document.getElementById('page_0'+page_now).style.display = "block";
-                for(i = 1; i <= 7; i++)
-                document.getElementById('state_0'+i).className = "node-active"
-            }
-        }
-    </script>
-
-
+    }
+</script>
 {% endblock %}
