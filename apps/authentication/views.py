@@ -232,13 +232,13 @@ def register(request):
     if request.POST:
         input = {}
         input['national_id'] = request.POST['national_id']
-        input['username'] = input['national_id']
+        input['temp_username'] = input['national_id']
         input['password'] = ''.join(random.choice(string.ascii_uppercase + string.digits) for _ in range(8))
         input['email'] = request.POST['email']
         input['phone'] = request.POST['phone']
 
         user = User.objects.create_user(
-            input['username'], input['email'], input['password']
+            input['temp_username'], input['email'], input['password']
         )
 
         if user.id < 10:
@@ -255,8 +255,9 @@ def register(request):
             user.digit_id = str(user.id)
 
         input['hospital_id'] = str((timezone.now().year+543)%100) + user.digit_id + str(random.randint(0,9)) + str(random.randint(0,9))
-        
-        user.username = input['hospital_id']
+        input['username'] = input['hospital_id']
+
+        user.username = input['username']
         user.save()
 
         input['prefix_name'] = request.POST['prefix_name']
@@ -318,19 +319,61 @@ def register(request):
 
 
 def list_patient(request):
-    patients = Patient.objects.all()
-    data = {
-        'patients' : patients,
-    }
-    return render(request, 'list_patient.html', data)
+    if request.POST:
+        input = {}
+        if request.POST['first_name'] and request.POST['first_name'] != '':
+            input['first_name'] = request.POST['first_name']
+            patients = Patient.objects.filter(first_name__contains=input['first_name'])
+        if request.POST['hospital_id'] and request.POST['hospital_id'] != '':
+            input['hospital_id'] = request.POST['hospital_id']
+            patients = Patient.objects.filter(hospital_id=input['hospital_id'])
+
+        data = {
+            'patients' : patients,
+            'hospital_id' : '',
+            'first_name' : '',
+            'last_name' : '',
+        }
+        return render(request, 'list_patient.html', data)
+
+    else:
+        patients = Patient.objects.all()
+        data = {
+            'patients' : patients,
+            'hospital_id' : '',
+            'first_name' : '',
+            'last_name' : '',
+        }
+        return render(request, 'list_patient.html', data)
 
 
 def list_doctor(request):
-    doctors = Officer.objects.filter(position=2)
-    data = {
-        'doctors' : doctors,
-    }
-    return render(request, 'list_doctor.html', data)
+    if request.POST:
+        input = {}
+        if request.POST['first_name'] and request.POST['first_name'] != '':
+            input['first_name'] = request.POST['first_name']
+            doctors = Officer.objects.filter(first_name__contains=input['first_name'])
+        if request.POST['hospital_id'] and request.POST['hospital_id'] != '':
+            input['hospital_id'] = request.POST['hospital_id']
+            doctors = Officer.objects.filter(hospital_id=input['hospital_id'])
+
+        data = {
+            'doctors' : doctors,
+            'hospital_id' : '',
+            'first_name' : '',
+            'last_name' : '',
+        }
+        return render(request, 'list_doctor.html', data)
+
+    else:
+        doctors = Officer.objects.filter(position=2)
+        data = {
+            'doctors' : doctors,
+            'hospital_id' : '',
+            'first_name' : '',
+            'last_name' : '',
+        }
+        return render(request, 'list_doctor.html', data)
 
 
 def handle_uploaded_file(f, i):
