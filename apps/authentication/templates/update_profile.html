@@ -1,8 +1,17 @@
 {% extends "base.html" %}
 {% block main %}
-    <div id="login" class="row">
+{% load staticfiles %}
+<link href="{% static 'css/listTable.css' %}" rel="stylesheet" media="screen">
+    <div class="row">
+        <div class="col-md-10 col-md-offset-1 navText">
+            <a href="/home/" style="text-decoration:none"><span>Home</span></a>
+            <span class="next"> > </span>
+            <span>แก้ไขข้อมูลส่วนตัว</span>
+        </div>
+    </div>
+    <div class="row">
         <div class="col-md-4 col-md-offset-4">
-            <h1>Update Profile ({{ request.user.username }})</h1>
+            <h1 class="headText" style="text-align:center">แก้ไขข้อมูลส่วนตัว</h1>
             <hr/>
             <form class="form-horizontal" name="RegisterForm" action="/update_profile/" method="post">
                 {% csrf_token %}
@@ -49,9 +58,11 @@
                     <label class="control-label" for="email">อีเมล</label>
                     <input type="email" class="form-control" id="email" name="email" value="{{ profile.email }}" >
                 </div>
-
-                <div class="form-group">
-                    <button type="submit" class="btn btn-default">Update</button>
+                <br>
+                <div class="col-md-4 col-md-offset-4">
+                    <div class="form-group">
+                        <button type="submit" class="default-button">UPDATE</button>
+                    </div>
                 </div>
             </form>
         </div>

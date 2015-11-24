@@ -1,32 +1,51 @@
 {% extends "base.html" %}
 {% block main %}
 {% load staticfiles %}
-<link href="{% static 'css/list_appointment.css' %}" rel="stylesheet" media="screen">
-    <div id="login" class="row">
+<link href="{% static 'css/listTable.css' %}" rel="stylesheet" media="screen">
+    <div class="row">
+        <div class="col-md-10 col-md-offset-1 navText">
+        {% if request.session.user_role == 'doctor' %}
+            <a href="/home/" style="text-decoration:none"><span>Home</span></a>
+            <span class="next"> > </span>
+            <span>ดูเวลานัดหมาย</span>
+        {% elif request.session.user_role == 'staff' %}
+            <a href="/home/" style="text-decoration:none"><span>Home</span></a>
+            <span class="next"> > </span>
+            <a href="/list_doctor/" style="text-decoration:none"><span>จัดการแพทย์</span></a>
+            <span class="next"> > </span>
+            <span>ดูเวลานัดหมาย</span>
+        {% endif %}
+        </div>
+    </div>
+    <div class="row">
         <div class="col-md-8 col-md-offset-2">
-            <h1 class="headText" style="text-align:center">ตารางรายการออกตรวจ ({{ doctor.prefix_name }} {{ doctor.first_name }} {{ doctor.last_name }})</h1>
+            <h1 class="headText" style="text-align:center">ตารางรายการออกตรวจ</h1><h1 class="headText" style="text-align:center;">({{ doctor.prefix_name }} {{ doctor.first_name }} {{ doctor.last_name }})</h1>
             <hr/>
             <table class="table tableStyle info" >
-                <tr>
-                    <th class="header topic">ชื่อแพทยผู้รับผิดชอบ</th>
-                    <th class="header topic">เวลาและวันที่</th>
-                    <th class="header topic">จำนวนผู้ป่วย</th>
-                    <th class="header topic"></th>
-                    <th class="header " th class="header" style="border-top-right-radius:10px"></th>
-                </tr>
-                {% for clinic_time in clinic_times %}
-                <tr>
-                    <td>dr. {{ clinic_time.officer.first_name }} {{ clinic_time.officer.last_name }}</td>
-                    <td>{{ clinic_time.clinic_datetime }}</td>
-                    <td><div class="progress">
-                      <div class="progress-bar" role="progressbar" aria-valuemin="0" aria-valuemax="15" style="width: {{ clinic_time.clinic_bar }}%; background-color: #59C9B2;"></div>
-                    </div></td>
-                    <td>{{ clinic_time.clinic_status }} / 15</td>
-                    <td style="text-align:right">
-                        <a class="btn btn-default" style="inline-block" href="#" onclick="confirmDelete({{ doctor_id }},{{ clinic_time.id }})">ยกเลิกการออกตรวจ</a>
-                    </td>
-                </tr>
-                {% endfor %}
+                {% if clinic_times|length > 0 %}
+                    <tr>
+                        <th class="header" th class="header" style="border-top-left-radius:5px">ชื่อแพทยผู้รับผิดชอบ</th>
+                        <th class="header topic">เวลาและวันที่</th>
+                        <th class="header topic">จำนวนผู้ป่วย</th>
+                        <th class="header topic"></th>
+                        <th class="header" th class="header" style="border-top-right-radius:5px"></th>
+                    </tr>
+                    {% for clinic_time in clinic_times %}
+                    <tr>
+                        <td>dr. {{ clinic_time.officer.first_name }} {{ clinic_time.officer.last_name }}</td>
+                        <td>{{ clinic_time.clinic_datetime }}</td>
+                        <td><div class="progress">
+                          <div class="progress-bar" role="progressbar" aria-valuemin="0" aria-valuemax="15" style="width: {{ clinic_time.clinic_bar }}%; background-color: #59C9B2;"></div>
+                        </div></td>
+                        <td>{{ clinic_time.clinic_status }} / 15</td>
+                        <td style="text-align:right">
+                            <a class="btn btn-default" style="inline-block" href="#" onclick="confirmDelete({{ doctor_id }},{{ clinic_time.id }})">ยกเลิกการออกตรวจ</a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                {% else %}
+                    <h1 class="headText" style="text-align:center">ไม่พบรายการ</h1>
+                {% endif %}
             </table>
         </div>
     </div>

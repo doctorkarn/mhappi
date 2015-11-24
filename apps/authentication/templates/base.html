@@ -17,6 +17,11 @@
     <link href="{% static 'css/justified-nav.css' %}" rel="stylesheet" media="screen">
     <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}" />
 
+    
+    <!-- Bootstrap core JS -->
+    <script src="{% static 'js/jquery.min.js' %}"></script>
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+
     <style type="text/css">
     {% block loginBg %}
     {% endblock %}
@@ -112,11 +117,6 @@
       </div>
 
     </div> <!-- /container -->
-
-
-    <!-- Bootstrap core JS -->
-    <script src="{% static 'js/jquery.min.js' %}"></script>
-    <script src="{% static 'js/bootstrap.min.js' %}"></script>
     <div id="fade" class="fade">
     {% block popup %}{% endblock %}
     </div>

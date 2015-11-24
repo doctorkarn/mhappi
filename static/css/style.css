@@ -250,7 +250,7 @@ html, body{
     margin-left: auto;
 }
 .wrapper{
-	margin-top: 50px;
+	margin-top: 0px;
 }
 @media (max-width: 991px){
 	.wrapper{
@@ -315,7 +315,7 @@ html, body{
 	background-color: transparent;
 	padding: 0.5em;
     font-family: SK-Text;
-    font-size: 1.2em;
+    font-size: 1em;
     color: #CFCFCF;
 	margin-bottom: 2em;
 }
