@@ -1,24 +1,24 @@
 .node{
-	width: 1.5em;
-	height: 1.5em;
-	border-radius: 1.5em;
+	width: 4.545454545454545%;
+	height: 1em;
+	border-radius: 1em;
 	border: 2px solid white;
 	float: left;
 }
 .node-active{
 	background-color: white;
-	width: 1.5em;
-	height: 1.5em;
-	border-radius: 1.5em;
+	width: 4.545454545454545%;
+	height: 1em;
+	border-radius: 1em;
 	border: 2px solid white;
 	float: left;
 }
 .line{
-	width: 2.8em;
+	width: 9.090909090909090909%;
 	height: 1px;
 	border: 1px solid white;
 	float: left;
-	margin-top: 0.7em;
+	margin-top: 0.5em;
 }
 .button-cover{
 	position: absolute;

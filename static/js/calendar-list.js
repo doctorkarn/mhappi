@@ -161,15 +161,19 @@ function setCalendarDate(date,notify){
         if(notifyNow == "m") {
             document.getElementById("date_"+textDateNow+"_"+notifyNow).className = "cal-day-morning-select";
             showCancelMorning();
+            cancelMorning();
         }
         else if(notifyNow == "a") {
             document.getElementById("date_"+textDateNow+"_"+notifyNow).className = "cal-day-afternoon-select";
             showCancelAfternoon();
+            cancelAfternoon();
         }
         else if(notifyNow == "all") {
             document.getElementById("date_"+textDateNow+"_"+notifyNow).className = "cal-day-all-select";
             showCancelMorning();
             showCancelAfternoon();
+            cancelMorning();
+            cancelAfternoon();
         }
     }
     textTimeNow = "";
@@ -272,18 +276,20 @@ function backMonth(){
 }
 
 function cancelMorning(){
-    var elem = document.getElementById("clinic_time");
+    var elem = document.getElementById("clinic_time_m");
     elem.value = textDateNow + " 9:00";
 }
 
 function cancelAfternoon(){
-    var elem = document.getElementById("clinic_time");
+    var elem = document.getElementById("clinic_time_a");
     elem.value = textDateNow + " 13:00";
 }
 
 function clearField(){
-    var elem = document.getElementById("clinic_time");
-    elem.value = "";
+    var elem_m = document.getElementById("clinic_time_m");
+    elem_m.value = "";
+    var elem_a = document.getElementById("clinic_time_a");
+    elem_a.value = "";
 }
 
 function resetForm(){

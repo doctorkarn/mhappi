@@ -1,6 +1,15 @@
 {% extends "base.html" %}
 {% block main %}
-    <div id="login" class="row">
+    <div class="row">
+        <div class="row">
+            <div class="col-md-10 col-md-offset-1 navText">
+                <a href="/home/" style="text-decoration:none"><span>Home</span></a>
+                <span class="next"> > </span>
+                <a href="/list_patient/" style="text-decoration:none"><span>ใบสั่งยาผู้ป่วย</span></a>
+                <span class="next"> > </span>
+                <span>รายการใบสั่งยา</span>
+            </div>
+        </div>
         <div class="col-md-8 col-md-offset-2">
             <h1>Medical History (patient {{ patient_id }})</h1>
             <hr/>

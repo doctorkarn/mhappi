@@ -1,6 +1,21 @@
 {% extends "base.html" %}
 {% block main %}
     <div id="login" class="row">
+        <div class="row">
+            <div class="col-md-10 col-md-offset-1 navText">
+                {% if request.session.user_role == 'staff' %}
+                <a href="/home/" style="text-decoration:none"><span>Home</span></a>
+                <span class="next"> > </span>
+                <span>ดูรายการนัดหมาย</span>
+                {% elif request.session.user_role == 'nurse' %}
+                <a href="/home/" style="text-decoration:none"><span>Home</span></a>
+                <span class="next"> > </span>
+                <a href="/list_patient/" style="text-decoration:none"><span>จัดการผู้ป่วย</span></a>
+                <span class="next"> > </span>
+                <span>ข้อมูลผู้ป่วย</span>
+                {% endif %}
+            </div>
+        </div>
         <div class="col-md-8 col-md-offset-2">
             <h1>ข้อมูลผู้ป่วย (patient: {{ patient_id }})</h1>
             <hr/>

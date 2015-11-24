@@ -23,7 +23,6 @@
     src: url("../fonts/SukhumvitSet-Light.ttf");
 }
 html, body{
-	height:100% !important;
 	cursor: default;
     background-repeat: no-repeat;
     background-position: center center;
@@ -116,8 +115,8 @@ html, body{
     margin-bottom: 1.8em;
 }
 
-#login{
-	margin-top: 60px;
+.loginn{
+	margin-top: 0px;
 	border-radius: 5px;
 }
 .top-login{
@@ -195,7 +194,7 @@ html, body{
 	width: 100%;
 	padding: 0px;
 	margin: 0px;
-	height: 10em;
+	height: 30em;
 	vertical-align: middle;
 	text-align: center;
 }
@@ -304,7 +303,7 @@ html, body{
 	background-color: transparent;
 	padding: 0.5em;
     font-family: SK-Text;
-    font-size: 1.2em;
+    font-size: 1em;
     color: #59C9B2;
 	margin-bottom: 2em;
 }

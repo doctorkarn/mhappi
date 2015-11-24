@@ -2,7 +2,7 @@
 {% block main %}
 
 {% load staticfiles %}
-<link href="{% static 'css/nurse.css' %}" rel="stylesheet" media="screen">
+<link href="{% static 'css/home.css' %}" rel="stylesheet" media="screen">
     <div class="row">
     	<div class="frame col-md-12">
         	<div class="contentFrame margin col-md-8 col-md-offset-3" style="text-align:center" >
@@ -10,7 +10,7 @@
                     <!-- <img src="{% static 'img/Logo-Green.svg' %}" /> -->
                     <p><img src="{% static 'avatar/' %}{{request.user.id}}.jpg" style="height:100%;width:100%"></p>
                 </div>
-                <div class="informationFrame col-md-8" style="display:inline-block">
+                <div class="informationFrame col-md-6" style="display:inline-block">
                     <div class="name" style="text-align:left">
                         <p>{{ request.session.user_info.prefix_name }}  {{ request.session.user_info.first_name }} {{ request.session.user_info.last_name }}</p>
                     </div>
@@ -23,11 +23,11 @@
                     <div class="info" style="text-align:left">
                         <p>เบอร์โทรศัพท์ {{ request.session.user_info.phone }}</p>
                     </div>
-                    <div class="col-md-5"style="text-align:center;padding-left:0px;margin-top:1em;">
+                    <div class="col-md-6"style="text-align:center;padding-left:0px;margin-top:1em;">
                         <a href="/update_profile/" style="text-decoration: none;">
                     <div class="default-button">แก้ไขข้อมูลส่วนตัว</div></a>
                     </div>
-                     <div class="col-md-5"style="text-align:center;padding-left:0px;margin-top:1em;">
+                     <div class="col-md-6"style="text-align:center;padding-left:0px;margin-top:1em;">
                         <a href="/change_password/" style="text-decoration: none;">
                     <div class="default-button">เปลี่ยนรหัสผ่าน</div></a>
                     </div>
@@ -42,10 +42,10 @@
     <div class="row">
     	<div class="line col-md-12" style="text-align:center;" 	>
     	</div>
-    	<div class="splitter col-md-5 col-md-offset-5" style="text-align:center;">
-             <div class="button col-md-3" style="display:inline-block;">
+    	<div class="splitter col-md-4 col-md-offset-4" style="text-align:center;">
+             <div class="button col-md-3" style="display:inline-block;margin-left:20%">
                 <a href="/list_patient">
-                    <img src="{% static 'img/home/nurse_manage.svg' %}" style="width:70%;margin-top:30px;">
+                    <img src="{% static 'img/home/nurse_manage.svg' %}" style="width:80%;margin-top:30px;">
                 </a>
             </div>	
         </div>

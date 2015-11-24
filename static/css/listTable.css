@@ -22,18 +22,16 @@
 }
 .tableStyle>tbody>tr>th{
 	 border: 0px !important;
-
+	 padding: 0.8em 1em 0.5em 1em;
 }
 .info{
 	color: black;
 	font-family: SK-text;
-	font-size: 1.2em;
 
 }
 .topic{
 	color: white;
 	font-family: SK-Medium;
-	font-size: 1.2em;
 
 }
 .button{

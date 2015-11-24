@@ -122,6 +122,10 @@
 	color: #9b9b9b;
 	cursor: pointer;
 }
+.checkboxTime-m{
+	width:28% !important;
+	margin-left:22% !important;
+}
 
 .checkboxTime p{
 	cursor: default;

@@ -4,9 +4,17 @@
     <link href="{% static 'css/appointment_table_list.css' %}" rel="stylesheet" media="screen">
     <div class="row">
         <div class="col-md-10 col-md-offset-1 navText">
+            {% if request.session.user_role == 'doctor' %}
             <a href="/home/" style="text-decoration:none"><span>Home</span></a>
             <span class="next"> > </span>
             <span>รายการออกตรวจ</span>
+            {% elif request.session.user_role == 'staff' %}
+              <a href="/home/" style="text-decoration:none"><span>Home</span></a>
+              <span class="next"> > </span>
+              <a href="/list_doctor/" style="text-decoration:none"><span>จัดการแพทย์</span></a>
+              <span class="next"> > </span>
+            <span>ดูเวลาออกตรวจ</span>
+          {% endif %}
         </div>
     </div>
     <div class="row title" style="font-size:1.3em;">
@@ -62,22 +70,22 @@
     </div>
     <div class="row">
         <div id="calendar_time" class="col-md-8 col-md-offset-2 calendar_time" style="margin-top: 2em; margin-bottom:2em">
-            <div class="col-md-3 col-md-offset-2">
-                <button class="cancel-button-disable" id="cancel-m" href="#" onclick="cancelMorning();" disabled>ยกเลิกช่วงเช้า</button>
-            </div>
-            <div class="col-md-3 col-md-offset-2 ">
-                <button class="cancel-button-disable" id="cancel-a" href="#" onclick="cancelAfternoon();" disabled>ยกเลิกช่วงบ่าย</button>
-            </div>
-        </div>
-        <div class="col-md-2 col-md-offset-5">
             <form class="form-horizontal" name="CancelClinicTime" action="/cancel_clinic_time/{{ doctor_id }}/#title" method="post">
-                <div class="form-group">
-                    <label class="control-label" for="clinic_time">Clinic Time</label>
-                    <input type="text" class="form-control" id="clinic_time" name="clinic_time" >
-                    <p class="help-block">format: yyyy-mm-dd</p>
+                <div class="form-group hidden-form">
+                    <label class="control-label" for="clinic_time_m">Clinic Time</label>
+                    <input type="text" class="form-control" id="clinic_time_m" name="clinic_time" >
                 </div>
-                <div class="form-group">
-                    <button type="submit" class="cancel-button-disable">ยกเลิกเวลาออกตรวจ</button>
+                <div class="col-md-3 col-md-offset-2">
+                    <button type="submit" class="cancel-button-disable" id="cancel-m" href="#" onclick="cancelMorning();" disabled>ยกเลิกช่วงเช้า</button>
+                </div>
+            </form>
+            <form class="form-horizontal" name="CancelClinicTime" action="/cancel_clinic_time/{{ doctor_id }}/#title" method="post">
+                <div class="form-group hidden-form">
+                    <label class="control-label" for="clinic_time_a">Clinic Time</label>
+                    <input type="text" class="form-control" id="clinic_time_a" name="clinic_time" >
+                </div>
+                <div class="col-md-3 col-md-offset-2 ">
+                    <button type="submit" class="cancel-button-disable" id="cancel-a" href="#" onclick="cancelAfternoon();" disabled>ยกเลิกช่วงบ่าย</button>
                 </div>
             </form>
         </div>
