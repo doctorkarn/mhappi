@@ -17,15 +17,15 @@
             </div>
         </div>
         <div class="col-md-4 col-md-offset-4">
-            <h1>Search Doctor or Department (for Patient/Staff)</h1>
+            <h1 class="headText" style="text-align:center;font-family:SK-Text;">ค้นหาเวลานัดหมาย</h1>
             <hr/>
-            <form class="form-inline" name="RegisterForm" action="/make_appointment/{{ patient_id }}/" method="post">
+            <form class="form-inline" style="text-align:center;" name="RegisterForm" action="/make_appointment/{{ patient_id }}/" method="post">
                 {% csrf_token %}
                 {% if next %}
                     <input type="hidden" name="next" value="{{ next }}" />
                 {% endif %}
-                <div class="form-group">
-                    <label class="control-label" for="doctor_id">Search by Doctor: </label>
+                <div class="form-group" style="text-align:center;">
+                    <label class="control-label" for="doctor_id">ค้นโดยชื่อแพทย์: </label>
                     <br/>
                     <select class="form-control" id="doctor_id" name="doctor_id" >
                         {% for doctor in doctors %}
@@ -33,18 +33,18 @@
                         {% endfor %}
                     </select>
                 </div>
-                <div class="form-group">
-                    <button type="submit" class="btn btn-default">GO</button>
+                <div class="col-md-4 col-md-offset-4">
+                        <button type="submit" class="default-button" style="margin-top:1em;">GO</button>
                 </div>
             </form>
-            <br/><br/>
-            <form class="form-inline" name="RegisterForm" action="/make_appointment/{{ patient_id }}/" method="post">
+            <br/><br/><br/><br/><br/>
+            <form class="form-inline" style="text-align:center;" name="RegisterForm" action="/make_appointment/{{ patient_id }}/" method="post">
                 {% csrf_token %}
                 {% if next %}
                     <input type="hidden" name="next" value="{{ next }}" />
                 {% endif %}
                 <div class="form-group">
-                    <label class="control-label" for="department_id">Search by Department: </label>
+                    <label class="control-label" for="department_id">ค้นโดยชื่อแผนก: </label>
                     <br/>
                     <select class="form-control" id="department_id" name="department_id" >
                         {% for department in departments %}
@@ -52,8 +52,8 @@
                         {% endfor %}
                     </select>
                 </div>
-                <div class="form-group">
-                    <button type="submit" class="btn btn-default">GO</button>
+                <div class="col-md-4 col-md-offset-4">
+                        <button type="submit" class="default-button" style="margin-top:1em;">GO</button>
                 </div>
             </form>
         </div>
