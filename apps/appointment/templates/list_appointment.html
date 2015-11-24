@@ -19,7 +19,7 @@
             </div>
         </div>
         <div class="col-md-8 col-md-offset-2">
-            <h1 class="headText" style="text-align:center">ตารางรายการนัดหมาย (patient {{ patient_id }})</h1>
+            <h1 class="headText" style="text-align:center">ตารางรายการนัดหมาย ({{ patient.first_name }} {{ patient.last_name }})</h1>
             <hr/>
             <table class="table tableStyle info" >
             	<tr>
@@ -35,14 +35,31 @@
             		<td>dr. {{ appointment.clinic_time.officer.first_name }} {{ appointment.clinic_time.officer.first_name }}</td>
             		<td>{{ appointment.clinic_time.clinic_datetime }}</td>
             		<td style="text-align:right">
+<<<<<<< HEAD
             			<a class="btn btn-default" style="inline-block"  href="#">ยกเลิกการนัดหมาย</a>
                     </td>
                     <!--td style="text-align:right">
                         <a class="btn btn-default" style="inline-block"  href="#">ดูการนัดหมาย</a>
             		</td-->
+=======
+            			<a class="btn btn-default" style="inline-block" href="#" onclick="confirmDelete({{ patient_id }},{{ appointment.id }})">ยกเลิกการนัดหมาย</a>
+                        <a class="btn btn-default" style="inline-block" href="#">ดูการนัดหมาย</a>
+            		</td>
+>>>>>>> 7c2e6600ef0c3d519572ac495e988eff965aa62f
             	</tr>
             	{% endfor %}
             </table>
         </div>
     </div>
+{% endblock %}
+
+{% block script %}
+<script type="text/javascript">
+function confirmDelete(pid,aid) {
+    var r = confirm('คุณแน่ใจหรือว่าจะยกเลิกการนัดหมายนี้');
+    if (r == true) {
+        window.location = "/cancel_appointment/" + pid + '/' + aid; 
+    }
+}
+</script>
 {% endblock %}
