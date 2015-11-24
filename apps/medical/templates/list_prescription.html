@@ -1,5 +1,9 @@
 {% extends "base.html" %}
 {% block main %}
+
+{% load staticfiles %}
+<link href="{% static 'css/listTable.css' %}" rel="stylesheet" media="screen">
+
     <div class="row">
         <div class="row">
             <div class="col-md-10 col-md-offset-1 navText">
@@ -11,12 +15,12 @@
             </div>
         </div>
         <div class="col-md-8 col-md-offset-2">
-            <h1>Medical History (patient {{ patient_id }})</h1>
+            <h1 class="headText" style="text-align:center">ประวัติการรับยา (patient {{ patient_id }})</h1>
             <hr/>
-            <table class="table">
+            <table class="table tableStyle info">
             	<tr>
-                    <th>Drug List</th>
-            		<th>Created at</th>
+                    <th class="header" style="border-top-left-radius:5px">รายการยา</th>
+            		<th class="header" style="border-top-right-radius:5px">สร้างวันที่</th>
             	</tr>
             	{% for prescription in prescriptions %}
             	<tr>

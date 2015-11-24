@@ -1,5 +1,8 @@
 {% extends "base.html" %}
 {% block main %}
+{% load staticfiles %}
+<link href="{% static 'css/listTable.css' %}" rel="stylesheet" media="screen">
+
     <div id="login" class="row">
         <div class="row">
             <div class="col-md-10 col-md-offset-1 navText">
@@ -17,18 +20,18 @@
             </div>
         </div>
         <div class="col-md-8 col-md-offset-2">
-            <h1>ข้อมูลผู้ป่วย (patient: {{ patient_id }})</h1>
+            <h1 class="headText" style="text:align:center" >ข้อมูลผู้ป่วย</h1>
             <hr/>
-            <table class="table">
+            <table class="table tableStyle info">
             	<tr>
-                    <th>Information</th>
-            		<th></th>
+                    <th class="header" style="border-top-left-radius:5px">Information</th>
+            		<th class="header" style="border-top-right-radius:5px"></th>
             	</tr>
             	{% for patient_info in patient_infos %}
             	<tr>
                     <td>{{ patient_info.information }}</td>
-            		<td>
-            			<a class="btn btn-default" href="#">button</a>
+            		<td style="text-align:right">
+            			<a class="btn btn-default" style="border-radius: 5px" href="#">button</a>
             		</td>
             	</tr>
             	{% endfor %}
