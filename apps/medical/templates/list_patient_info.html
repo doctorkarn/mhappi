@@ -22,20 +22,18 @@
         <div class="col-md-8 col-md-offset-2">
             <h1 class="headText" style="text:align:center" >ข้อมูลผู้ป่วย</h1>
             <hr/>
-            <table class="table tableStyle info">
-            	<tr>
-                    <th class="header" style="border-top-left-radius:5px">Information</th>
-            		<th class="header" style="border-top-right-radius:5px"></th>
-            	</tr>
-            	{% for patient_info in patient_infos %}
-            	<tr>
-                    <td>{{ patient_info.information }}</td>
-            		<td style="text-align:right">
-            			<a class="btn btn-default" style="border-radius: 5px" href="#">button</a>
-            		</td>
-            	</tr>
-            	{% endfor %}
-            </table>
+              <table class="table tableStyle info">
+                <tr>
+                  <th class="header" style="border-top-left-radius:5px">ข้อมูลผู้ป่วย</th>
+                  <th class="header" style="border-top-right-radius:5px">บันทึกเมื่อ</th>
+                </tr>
+                {% for patient_info in patient_infos %}
+                <tr>
+                  <td>{{ patient_info.information }}</td>
+                  <td>{{ patient_info.created_at }}</td>
+                </tr>
+                {% endfor %}
+              </table>
         </div>
     </div>
 {% endblock %}

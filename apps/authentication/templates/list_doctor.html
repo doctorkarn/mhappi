@@ -23,7 +23,7 @@
             		<th class="header" style="border-top-right-radius:5px"></th>
             	</tr>
                 <tr>
-                <form class="form-inline" method="post" action="/list_patient/">
+                <form class="form-inline" method="post" action="/list_doctor/">
                     {% csrf_token %}
                     {% if next %}
                         <input type="hidden" name="next" value="{{ next }}" />

@@ -35,17 +35,9 @@
             		<td>dr. {{ appointment.clinic_time.officer.first_name }} {{ appointment.clinic_time.officer.first_name }}</td>
             		<td>{{ appointment.clinic_time.clinic_datetime }}</td>
             		<td style="text-align:right">
-<<<<<<< HEAD
-            			<a class="btn btn-default" style="inline-block"  href="#">ยกเลิกการนัดหมาย</a>
-                    </td>
-                    <!--td style="text-align:right">
-                        <a class="btn btn-default" style="inline-block"  href="#">ดูการนัดหมาย</a>
-            		</td-->
-=======
             			<a class="btn btn-default" style="inline-block" href="#" onclick="confirmDelete({{ patient_id }},{{ appointment.id }})">ยกเลิกการนัดหมาย</a>
-                        <a class="btn btn-default" style="inline-block" href="#">ดูการนัดหมาย</a>
+                        <!-- <a class="btn btn-default" style="inline-block" href="#">ดูการนัดหมาย</a> -->
             		</td>
->>>>>>> 7c2e6600ef0c3d519572ac495e988eff965aa62f
             	</tr>
             	{% endfor %}
             </table>
