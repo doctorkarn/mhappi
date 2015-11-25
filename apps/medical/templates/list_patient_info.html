@@ -29,7 +29,9 @@
                 </tr>
                 {% for patient_info in patient_infos %}
                 <tr>
-                  <td>{{ patient_info.information }}</td>
+                  <td>{% for item in patient_info.list %}
+                        {{ item }}<br/>
+                    {% endfor %}</td>
                   <td>{{ patient_info.created_at }}</td>
                 </tr>
                 {% endfor %}

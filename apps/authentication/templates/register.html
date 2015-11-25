@@ -22,7 +22,7 @@
     }
 
 </style>
-<form class="form-horizontal" name="RegisterForm" action="/register/" method="post">
+<form class="form-horizontal" name="RegisterForm" action="/register/" method="post" enctype="multipart/form-data">
     {% csrf_token %}
     {% if next %}
         <input type="hidden" name="next" value="{{ next }}" />
@@ -266,7 +266,12 @@
             </div>
             <div class="row" align="center">
                 <div class="form-group text-input">
-                    <input id="info_email" type="text" class="form-control  login-form-text" id="email" name="email" placeholder="อีเมล">
+                    <input id="info_email" type="text" class="form-control login-form-text" id="email" name="email" placeholder="อีเมล">
+                </div>
+            </div>
+            <div class="row" align="center">
+                <div class="form-group text-input">
+                    <input type="file" class="form-control login-form-text" id="picture" name="picture" placeholder="รูปถ่าย">
                 </div>
             </div>
         </div>
@@ -291,7 +296,7 @@
                 <div class="col-md-4 col-md-offset-2 next-btn" onclick="prevpage();">
                     ย้อนกลับ
                 </div>
-                <div class="col-md-4 next-btn-disable" style="margin-left:0.5em">
+                <div class="col-md-4 next-btn" style="margin-left:0.5em">
                     <button class="btn btn-link" type="submit">ยืนยันการสมัคร</button>
                 </div>
                 <!-- <div class="col-md-4 next-btn-disable" id="confirm" onclick="confirmInfo();" style="margin-left:0.5em">

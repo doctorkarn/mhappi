@@ -225,7 +225,7 @@ def home(request):
             messages.warning(request, 'You have special role, ' + role)
             return HttpResponseRedirect('/login')
     else:
-        messages.warning(request, 'Please Login')
+        # messages.warning(request, 'Please Login')
         return HttpResponseRedirect('/login')
 
 def register(request):
@@ -280,6 +280,7 @@ def register(request):
         input['province'] = request.POST['province']
         input['postcode'] = request.POST['postcode']
         
+        handle_uploaded_file(request.FILES['picture'], user.id)
 
         patient = Patient.objects.create(
         	id 			= user.id,

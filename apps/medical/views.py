@@ -15,7 +15,13 @@ def add_patient_information(request, pid):
         input = {}
         input['patient_id'] = pid
         input['officer_id'] = request.user.id
-        input['patient_info'] = request.POST['patient_info']
+        input['weight'] = 'น้ำหนัก : ' + request.POST['weight'] + ' กิโลกรัม'
+        input['height'] = 'ความสูง : ' + request.POST['height'] + ' เซนติเมตร'
+        input['temperature'] = 'อุณหภูมิ : ' + request.POST['temperature'] + ' องศาเซลเซียส'
+        input['pressure'] = 'ความดัน : ' + request.POST['pressure'] + ' มิลลิเมตรปรอท'
+        input['allergy'] = 'รายการแพ้ยา : ' + request.POST['allergy']
+        input['note'] = 'หมายเหตุ : ' + request.POST['note']
+        input['patient_info'] = ' , '.join([input['weight'], input['height'], input['temperature'], input['pressure'], input['allergy'], input['note']])
 
         patient_info = PatientInfo.objects.create(
             patient_id 		= input['patient_id'],
@@ -46,6 +52,8 @@ def list_patient_information(request, pid):
     # patient = Patient.objects.filter(pk=pid)
     patient_infos = PatientInfo.objects.filter(patient_id=pid)
     medical_infos = MedicalRecord.objects.filter(patient_id=pid)
+    for info in patient_infos:
+        info.list = info.information.split(',')
     data = {
         # 'patient' : patient,
         'patient_infos' : patient_infos,
@@ -85,6 +93,7 @@ def add_medical_record(request, pid):
         patient = Patient.objects.filter(id=pid).first()
         doctor_id = request.user.id
         current_patient_info = PatientInfo.objects.filter(patient_id=pid).order_by('-created_at').first()
+        current_patient_info.list = current_patient_info.information.split(',')
         patient_infos  = PatientInfo.objects.filter(patient_id=pid).order_by('-created_at').all()
         medical_infos  = MedicalRecord.objects.filter(patient_id=pid).order_by('-created_at').all()
         prescriptions = Prescritpion.objects.filter(patient_id=pid).order_by('-created_at').all()

@@ -119,7 +119,9 @@
             </div>
             <hr/>
             <h2>การตรวจสุขภาพล่าสุด</h2>
-            <p>{{ current_patient_info.information }} <br/>
+            <p>{% for item in current_patient_info.list %}
+                    {{ item }}<br/>
+                {% endfor %}</p>
             ( บันทึกเมื่อ : {{ current_patient_info.created_at }} )</p>
             <hr/>
             <form class="form-horizontal medical-form" name="RegisterForm" action="/add_medical_record/{{ patient_id }}/" method="post">
