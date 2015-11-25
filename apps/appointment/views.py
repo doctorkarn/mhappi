@@ -9,6 +9,7 @@ import json, random, datetime
 from apps.authentication.models import Patient, Officer, Department
 from apps.appointment.models import ClinicTime, Appointment
 from django.core.exceptions import ObjectDoesNotExist
+from django.core.mail import send_mail
 
 
 def make_appointment(request, pid):
@@ -32,6 +33,18 @@ def make_appointment(request, pid):
         clinic_time = ClinicTime.objects.get(id=input['clinic_time_id'])
         clinic_time.clinic_status += 1
         clinic_time.save()
+
+        patient = Patient.objects.get(id=pid)
+        to_email = patient.email
+        email_subject = 'ยืนยันการนัดหมายแพทย์ผ่านระบบ MHAPPI '
+        email_message = "เรียน คุณ" + patient.first_name + " " + patient.last_name + "\n"
+        email_message += "ท่านได้ทำการนัดหมายแพทย์ผ่านระบบ MHAPPI \n โดยมีข้อมูลการนัดหมาย ดังต่อไปนี้ : \n\n"
+        email_message += "รายชื่อแพทย์ : " + clinic_time.officer.prefix_name + " " + clinic_time.officer.first_name + " " + clinic_time.officer.last_name + "\n"
+        email_message += "แผนก : " + clinic_time.officer.specialist.name + "\n"
+        email_message += "วันเวลา : " + (clinic_time.clinic_datetime + datetime.timedelta(hours=7)).strftime("%d %B %Y, %H:%M") + "\n\n"
+        email_message += "กรุณามารับการรักษา ณ โรงพยาบาลก่อนเวลานัด 30 นาที \n"
+        email_message += "ขอบคุณที่ใช้บริการของเราค่ะ MHAPPI "
+        mail_success = send_mail(email_subject, email_message, 'mhappi@karnlab.com', [to_email])
 
         messages.success(request, 'Appoint Doctor successful')
         return redirect('/list_appointment/' + pid + '/')
@@ -130,6 +143,18 @@ def cancel_appointment(request, pid, aid):
         clinic_time = ClinicTime.objects.get(id=appointment.clinic_time_id)
         clinic_time.clinic_status -= 1
         clinic_time.save()
+
+        patient = Patient.objects.get(id=pid)
+        to_email = patient.email
+        email_subject = 'ยกเลิกการนัดหมายแพทย์ผ่านระบบ MHAPPI '
+        email_message = "เรียน คุณ" + patient.first_name + " " + patient.last_name + "\n"
+        email_message += "ท่านได้ยกเลิกการนัดหมายแพทย์ผ่านระบบ MHAPPI \n โดยมีข้อมูลการนัดหมาย ดังต่อไปนี้ : \n\n"
+        email_message += "รายชื่อแพทย์ : " + clinic_time.officer.prefix_name + " " + clinic_time.officer.first_name + " " + clinic_time.officer.last_name + "\n"
+        email_message += "แผนก : " + clinic_time.officer.specialist.name + "\n"
+        email_message += "วันเวลา : " + (clinic_time.clinic_datetime + datetime.timedelta(hours=7)).strftime("%d %B %Y, %H:%M") + "\n\n"
+        email_message += "ขอบคุณที่ใช้บริการของเราค่ะ MHAPPI "
+        mail_success = send_mail(email_subject, email_message, 'mhappi@karnlab.com', [to_email])
+
     except ObjectDoesNotExist:
         messages.success(request, 'Cannot Cancel Appointment')
         return redirect('/list_appointment/' + pid + '/')
