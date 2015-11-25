@@ -22,7 +22,13 @@
         </div>
     </div>
     <div class="row title" style="font-size:1.3em;">
-        กรุณาเลือกวันที่ท่านต้องการทำการนัดหมายแพทย์
+        กรุณาเลือกวันที่ท่านต้องการทำการนัดหมายแพทย์<br/>
+        {% if doctor %}
+        <img src="{% static 'avatar/' %}{{ doctor.id }}.jpg" style="height: 60px;" />
+        (คุณหมอ {{ doctor.first_name }} {{ doctor.last_name }})
+        {% elif department %}
+        (แผนก {{ department.name }})
+        {% endif %}
     </div>
     <div class="row"  style="zoom:80%">
         <div class="col-md-8 col-md-offset-2" style="padding-left:2em">
@@ -73,6 +79,14 @@
     </div>
     <div class="row">
         <div id="calendar_time" class="col-md-8 col-md-offset-2 calendar_time" style="margin-top: 2em; margin-bottom:2em">
+            <!-- Doctor Box -->
+            <div class="row" style="text-align:center; margin-bottom: 25px;">
+                <div class="col-md-3"></div>
+                <div class="col-md-2"></div>
+                <div class="col-md-4"></div>
+                <div class="col-md-3"></div>
+            </div>
+
              <form class="form-horizontal" name="RegisterForm" action="/make_appointment/{{ patient_id }}/" method="post">
                 {% csrf_token %}
                 {% if next %}
@@ -97,8 +111,6 @@
                     <button type="submit" class="cancel-button-disable" id="cancel-m" href="#" disabled>นัดหมายช่วงเช้า</button>
                 </div>
             </form>
-
-
 
             <form class="form-horizontal" name="RegisterForm" action="/make_appointment/{{ patient_id }}/" method="post">
                 {% csrf_token %}

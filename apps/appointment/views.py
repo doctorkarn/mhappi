@@ -22,7 +22,7 @@ def make_appointment(request, pid):
 
         if clinic_time.clinic_status >= 15:
             messages.error(request, 'This Clinic Time is full, please select new clinic time')
-            return redirect('/list_appointment/' + pid + '/')
+            return redirect('/make_appointment/' + pid + '/')
 
         appointment = Appointment.objects.create(
             patient_id          = input['patient_id'],
@@ -38,18 +38,22 @@ def make_appointment(request, pid):
 
     elif request.POST.get('doctor_id'):
         did = request.POST['doctor_id']
+        doctor = Officer.objects.get(id=did)
         clinics = ClinicTime.objects.filter(officer_id=did)
         data = {
             'patient_id' : pid,
+            'doctor' : doctor,
             'clinics' : clinics,
         }
         return render(request, 'appoint_doctor.html', data)
 
     elif request.POST.get('department_id'):
         did = request.POST['department_id']
+        department = Department.objects.get(id=did)
         clinics = ClinicTime.objects.filter(officer__specialist_id=did)
         data = {
             'patient_id' : pid,
+            'department' : department,
             'clinics' : clinics,
         }
         return render(request, 'appoint_doctor.html', data)
@@ -214,5 +218,11 @@ def cancel_clinic_time(request, did, cid):
     return redirect('/list_clinic_time/' + did + '/')
 
 
-def view_clinic_time(request):
-    return "Under Construction ....."
+def view_clinic_time(request, cid):
+    clinic_time = ClinicTime.objects.get(id=cid)
+    appointments = Appointment.objects.filter(clinic_time_id=cid, appointment_status=1)
+    data = {
+        'clinic_time' : clinic_time,
+        'appointments' : appointments,
+    }
+    return render(request, 'view_clinic_time.html', data)

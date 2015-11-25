@@ -19,19 +19,23 @@
             </div>
         </div>
         <div class="col-md-8 col-md-offset-2">
-            <h1 class="headText" style="text-align:center">ตารางรายการนัดหมาย ({{ patient.first_name }} {{ patient.last_name }})</h1>
+            <h1 class="headText" style="text-align:center">ตารางรายการนัดหมาย <br/>({{ patient.first_name }} {{ patient.last_name }})</h1>
             <hr/>
             <table class="table tableStyle info" >
             	<tr>
-                    <th class="header topic" th class="header" style="border-top-left-radius:5px">ชื่อผู้ป่วย</th>
-            		<th class="header topic">ชื่อแพทยผู้รับผิดชอบ</th>
-            		<th class="header topic">เวลาและวันที่</th>
-                    <th class="header topic"></th>
-            		<th class="header " th class="header" style="border-top-right-radius:5px"></th>
+                    <th class="header "style="border-top-left-radius:5px"></th>
+                    <th class="header ">ชื่อผู้ป่วย</th>
+                    <th class="header "></th>
+            		<th class="header ">ชื่อแพทยผู้รับผิดชอบ</th>
+            		<th class="header ">เวลาและวันที่</th>
+                    <th class="header "></th>
+            		<th class="header " style="border-top-right-radius:5px"></th>
             	</tr>
             	{% for appointment in appointments %}
             	<tr>
+                    <td><img src="{% static 'avatar/' %}{{ appointment.patient.id }}.jpg" style="height: 40px;"></td>
                     <td>{{ appointment.patient.first_name }} {{ appointment.patient.first_name }}</td>
+                    <td><img src="{% static 'avatar/' %}{{ appointment.clinic_time.officer.id }}.jpg" style="height: 40px;"></td>
             		<td>dr. {{ appointment.clinic_time.officer.first_name }} {{ appointment.clinic_time.officer.first_name }}</td>
             		<td>{{ appointment.clinic_time.clinic_datetime }}</td>
             		<td style="text-align:right">
