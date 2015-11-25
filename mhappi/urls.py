@@ -45,6 +45,7 @@ urlpatterns = [
     url(r'^make_appointment/([0-9]+)/$', appo_view.make_appointment, name='make_appointment'),
     # url(r'^list_appointment/$', appo_view.list_appointment, name='list_appointment'),
     url(r'^list_appointment/([0-9]+)/$', appo_view.list_appointment, name='list_appointment'),
+    url(r'^list_all_appointment/$', appo_view.list_all_appointment, name='list_all_appointment'),
     # url(r'^view_appointment/$', appo_view.view_appointment, name='view_appointment'),
     url(r'^cancel_appointment/([0-9]+)/([0-9]+)/$', appo_view.cancel_appointment, name='cancel_appointment'),
 
@@ -53,9 +54,10 @@ urlpatterns = [
     url(r'^make_clinic_time/([0-9]+)/$', appo_view.make_clinic_time, name='make_clinic_time'),
     # url(r'^list_clinic_time/$', appo_view.list_clinic_time, name='list_clinic_time'),
     url(r'^list_clinic_time/([0-9]+)/$', appo_view.list_clinic_time, name='list_clinic_time'),
+    url(r'^list_all_clinic_time/$', appo_view.list_all_clinic_time, name='list_all_clinic_time'),
     url(r'^view_clinic_time/([0-9]+)/$', appo_view.view_clinic_time, name='view_clinic_time'),
     url(r'^cancel_clinic_time/([0-9]+)/([0-9]+)/$', appo_view.cancel_clinic_time, name='cancel_clinic_time'),
-
+    
 
     # Medical
     url(r'^add_patient_information/([0-9]+)/', medi_view.add_patient_information, name='add_patient_information'),

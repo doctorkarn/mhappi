@@ -31,7 +31,7 @@ def login(request):
                 # assign role
                 if user.is_superuser:
                     request.session['user_role'] = 'admin'
-                    return HttpResponseRedirect('/login')
+                    return HttpResponseRedirect('/home')
                 else:
                     try:
                         patient = Patient.objects.get(id=user.id)
@@ -221,6 +221,8 @@ def home(request):
             return render(request, 'nurse_home.html')
         elif role == 'pharmacist':
             return render(request, 'pharmacist_home.html')
+        elif role == 'admin':
+            return render(request, 'admin_home.html')
         else:
             messages.warning(request, 'You have special role, ' + role)
             return HttpResponseRedirect('/login')
@@ -279,7 +281,7 @@ def register(request):
         input['amphur'] = request.POST['amphur']
         input['province'] = request.POST['province']
         input['postcode'] = request.POST['postcode']
-        
+
         handle_uploaded_file(request.FILES['picture'], user.id)
 
         patient = Patient.objects.create(
@@ -353,10 +355,10 @@ def list_doctor(request):
         input = {}
         if request.POST['first_name'] and request.POST['first_name'] != '':
             input['first_name'] = request.POST['first_name']
-            doctors = Officer.objects.filter(first_name__contains=input['first_name'])
+            doctors = Officer.objects.filter(position=2, first_name__contains=input['first_name'])
         if request.POST['hospital_id'] and request.POST['hospital_id'] != '':
             input['hospital_id'] = request.POST['hospital_id']
-            doctors = Officer.objects.filter(hospital_id=input['hospital_id'])
+            doctors = Officer.objects.filter(position=2, ospital_id=input['hospital_id'])
 
         data = {
             'doctors' : doctors,
@@ -376,6 +378,34 @@ def list_doctor(request):
         }
         return render(request, 'list_doctor.html', data)
 
+def list_officer(request):
+    if request.POST:
+        input = {}
+        if request.POST['first_name'] and request.POST['first_name'] != '':
+            input['first_name'] = request.POST['first_name']
+            officers = Officer.objects.filter(first_name__contains=input['first_name'])
+        if request.POST['hospital_id'] and request.POST['hospital_id'] != '':
+            input['hospital_id'] = request.POST['hospital_id']
+            officers = Officer.objects.filter(hospital_id=input['hospital_id'])
+
+        data = {
+            'officers' : officers,
+            'hospital_id' : '',
+            'first_name' : '',
+            'last_name' : '',
+        }
+        return render(request, 'list_officer.html', data)
+
+    else:
+        officers = Officer.objects.all()
+        data = {
+            'officers' : officers,
+            'hospital_id' : '',
+            'first_name' : '',
+            'last_name' : '',
+        }
+        return render(request, 'list_officer.html', data)
+
 
 def handle_uploaded_file(f, i):
     with open('static/avatar/'+str(i)+'.jpg', 'wb+') as destination:
@@ -389,34 +419,36 @@ def add_officer(request):
         input['username'] = request.POST['username']
         input['password'] = request.POST['password']
         input['confirm_password'] = request.POST['confirm_password']
-
-        if user.id < 10:
-            user.digit_id = "00000" + user.id
-        if user.id < 100:
-            user.digit_id = "0000" + user.id
-        if user.id < 1000:
-            user.digit_id = "000" + user.id
-        if user.id < 10000:
-            user.digit_id = "00" + user.id
-        if user.id < 100000:
-            user.digit_id = "0" + user.id
-
-        input['hospital_id'] = "MD" + user.digit_id + str(random.randint(0,9)) + str(random.randint(0,9))
-        input['national_id'] = request.POST['national_id']
-        input['first_name'] = request.POST['first_name']
-        input['last_name'] = request.POST['last_name']
-        input['gender'] = request.POST['gender']
-        input['birthdate'] = '2000-01-01'
-        input['address'] = request.POST['address']
-        input['phone'] = request.POST['phone']
         input['email'] = request.POST['email']
-        input['position'] = request.POST['position']
 
         user = User.objects.create_user(
             input['username'], input['email'], input['password']
         )
         user.is_staff = 1
         user.save()
+
+        if user.id < 10:
+            user.digit_id = "00000" + str(user.id)
+        elif user.id < 100:
+            user.digit_id = "0000" + str(user.id)
+        elif user.id < 1000:
+            user.digit_id = "000" + str(user.id)
+        elif user.id < 10000:
+            user.digit_id = "00" + str(user.id)
+        elif user.id < 100000:
+            user.digit_id = "0" + str(user.id)
+        else:
+            user.digit_id = str(user.id)
+
+        input['hospital_id'] = "MD" + user.digit_id + str(random.randint(0,9)) + str(random.randint(0,9))
+        input['national_id'] = request.POST['national_id']
+        input['first_name'] = request.POST['first_name']
+        input['last_name'] = request.POST['last_name']
+        input['gender'] = request.POST['gender']
+        input['birthdate'] = request.POST['birthdate']
+        input['address'] = request.POST['address']
+        input['phone'] = request.POST['phone']
+        input['position'] = request.POST['position']
 
         officer = Officer.objects.create(
         	id 			= user.id,
@@ -448,8 +480,4 @@ def add_officer(request):
 
 
 def update_officer(request):
-    return "Under Construction ....."
-
-
-def list_officer(request):
     return "Under Construction ....."

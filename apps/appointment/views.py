@@ -93,6 +93,14 @@ def list_appointment(request, pid):
     }
     return render(request, 'list_appointment.html', data)
 
+def list_all_appointment(request):
+    start = timezone.now() - datetime.timedelta(days=1)
+    appointments = Appointment.objects.filter(appointment_status=1, clinic_time__clinic_datetime__gte=start).order_by('clinic_time__clinic_datetime')
+    data = {
+        'appointments' : appointments,
+    }
+    return render(request, 'list_appointment.html', data)
+
 
 # def view_appointment(request):
 #     if request.POST:
@@ -202,6 +210,17 @@ def list_clinic_time(request, did):
         'clinic_times' : clinic_times,
         'doctor_id' : did,
         'doctor' : doctor,
+    }
+    return render(request, 'list_clinic_time.html', data)
+
+def list_all_clinic_time(request):
+    start = timezone.now() - datetime.timedelta(days=1)
+    clinic_times = ClinicTime.objects.filter(clinic_status__gte=0, clinic_datetime__gte=start).order_by('clinic_datetime')
+    for clinic in clinic_times:
+        clinic.clinic_bar = clinic.clinic_status / 15 * 100
+        clinic.save()
+    data = {
+        'clinic_times' : clinic_times,
     }
     return render(request, 'list_clinic_time.html', data)
 
