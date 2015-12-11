@@ -1,0 +1,73 @@
+{% extends "base.html" %}
+{% block main %}
+{% load staticfiles %}
+<link href="{% static 'css/listTable.css' %}" rel="stylesheet" media="screen">
+    <div class="row">
+        <div class="col-md-10 col-md-offset-1 navText">
+        {% if request.session.user_role == 'doctor' %}
+            <a href="/home/" style="text-decoration:none"><span>Home</span></a>
+            <span class="next"> > </span>
+            <span>ดูเวลานัดหมาย</span>
+        {% elif request.session.user_role == 'staff' %}
+            <a href="/home/" style="text-decoration:none"><span>Home</span></a>
+            <span class="next"> > </span>
+            <a href="/list_doctor/" style="text-decoration:none"><span>จัดการแพทย์</span></a>
+            <span class="next"> > </span>
+            <span>ดูเวลานัดหมาย</span>
+        {% endif %}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-8 col-md-offset-2">
+            <h1 class="headText" style="text-align:center">รายชื่อผู้ป่วย</h1><h1 class="headText" style="text-align:center;">({{ clinic_time.clinic_datetime }})</h1>
+            <hr/>
+            <table class="table tableStyle info">
+                <tr>
+                    <th class="header" style="border-top-left-radius:5px"></th>
+                    <th class="header">รหัสผู้ป่วย</th>
+                    <th class="header">ชื่อ-นามสกุล</th>
+                    <th class="header" style="border-top-right-radius:5px"></th>
+                </tr>
+                <tr>
+                <form class="form-inline" method="post" action="/list_patient/">
+                    {% csrf_token %}
+                    {% if next %}
+                        <input type="hidden" name="next" value="{{ next }}" />
+                    {% endif %}
+                    <td></td>
+                    <td><input type="text" class="form-control" id="hospital_id" name="hospital_id" value="{{ hospital_id }}" placeholder="ค้นหาด้วย ID"></th>
+                    <td>
+                        <input type="text" class="form-control" id="first_name" name="first_name" value="{{ first_name }}" placeholder="ค้นหาด้วย ชื่อ">
+                    </td>
+                    <td><button type="submit" class="btn btn-default">ค้นหา</button></td>
+                </form>
+                </tr>
+                {% for appo in appointments %}
+                <tr>
+                    <td><img src="{% static 'avatar/' %}{{ appo.patient.id }}.jpg" style="height: 40px;"></td>
+                    <td>{{ appo.patient.hospital_id }}</td>
+                    <td>{{ appo.patient.first_name }} {{ appo.patient.last_name }}</td>
+                    <td style="text-align:right">
+                        {% if request.session.user_role == 'doctor' %}
+                        <a class="btn btn-default" style="inline-block" href="/add_medical_record/{{ appo.patient.id }}/">บันทึกการรักษา</a>
+                        <a class="btn btn-default" style="inline-block" href="/list_medical_record/{{ appo.patient.id }}/">ประวัติการรักษา</a>
+                        <a class="btn btn-default" style="inline-block"  href="/make_appointment/{{ appo.patient.id }}/">ทำการนัดหมาย</a>
+                        {% endif %}
+                    </td>
+                </tr>
+                {% endfor %}
+            </table>
+        </div>
+    </div>
+{% endblock %}
+
+{% block script %}
+<script type="text/javascript">
+function confirmDelete(pid,aid) {
+    var r = confirm('คุณแน่ใจหรือว่าจะยกเลิกการออกตรวจนี้');
+    if (r == true) {
+        window.location = "/cancel_clinic_time/" + pid + '/' + aid; 
+    }
+}
+</script>
+{% endblock %}

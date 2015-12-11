@@ -1,0 +1,72 @@
+{% extends "base.html" %}
+{% block main %}
+{% load staticfiles %}
+    <link href="{% static 'css/officer.css' %}" rel="stylesheet" media="screen">
+    <div class="row">
+        <div class="frame col-md-12">
+            <div class="contentFrame margin col-md-8 col-md-offset-3" style="text-align:center" >
+                <div class="pictureFrame ">
+                    <!-- <img src="{% static 'img/Logo-Green.svg' %}" /> -->
+                    <p><img src="{% static 'avatar/' %}{{request.user.id}}.jpg" style="height:100%;width:100%"></p>
+                </div>
+                <div class="informationFrame col-md-6" style="display:inline-block">
+                    <div class="name" style="text-align:left">Administrator</div>
+                    <div class="col-md-6"style="text-align:center;padding-left:0px;margin-top:1em;">
+                        <a href="/list_patient/" style="text-decoration: none;">
+                            <div class="default-button">รายชื่อผู้ป่วย</div></a>
+                        <a href="/list_officer/" style="text-decoration: none;">
+                            <div class="default-button">รายชื่อเจ้าหน้าที่</div></a>
+                        <a href="/add_officer/" style="text-decoration: none;">
+                            <div class="default-button">เพิ่มเจ้าหน้าที่</div></a>
+                    </div>
+                    <div class="col-md-6"style="text-align:center;padding-left:0px;margin-top:1em;">
+                        <a href="/list_all_appointment/" style="text-decoration: none;">
+                            <div class="default-button">รายการนัดหมาย</div></a>
+                        <a href="/list_all_clinic_time/" style="text-decoration: none;">
+                            <div class="default-button">รายการเวลาออกตรวจ</div></a>
+                    </div>
+                </div>   
+            </div>
+
+
+        </div>    
+    </div>
+    <!-- <div class="row">
+        <div class="line col-md-12" style="text-align:center;"  >
+        </div>
+        <div class="splitter col-md-8 col-md-offset-2" style="text-align:center;">
+            <a href="/list_patient">
+                <div class="button" style="display:inline-block;text-align:center">
+                    <img src="{% static 'img/home/nurse_manage.svg' %}" style="width:80%;height:80% ;margin-top:30px;"> 
+                </div>
+            </a>
+            <a href="/list_doctor/">
+                <div class="button" style="display:inline-block">
+                    <img src="{% static 'img/home/jadKarnDoctor.svg' %}" style="width:80%;height:80%;margin-top:30px;">
+                </div>
+            </a>  
+
+            
+        </div>
+    </div> -->
+<!--     <div class="row">
+        <div class="line col-md-12" style="text-align:center;"  >
+        </div>
+        <div class="splitter col-md-6 col-md-offset-3" style="text-align:center;">
+            
+            <a href="/list_patient">
+                <div class="button" style="display:inline-block">
+                    <img src="{% static 'img/home/officer_appoint.svg' %}" style="width:81%;height80%;margin-top:30px;">
+                </div>
+            </a>
+            <a href="/list_doctor/">
+                <div class="button" style="display:inline-block">
+                    <img src="{% static 'img/home/officer_seeAppoinment.svg' %}" style="width:80%;height80%;margin-top:30px;">
+                </div>
+            </a>  
+        </div>
+    </div>   
+        -->
+{% endblock %}
+<!-- <a class="btn btn-default btn-block" href="/list_patient">Make Appointment (List Patients)</a>
+            <a class="btn btn-default btn-block" href="/list_doctor">Make Clinic TIme (List Doctors)</a> -->

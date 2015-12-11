@@ -9,6 +9,7 @@ import json, random, datetime
 from apps.authentication.models import Patient, Officer, Department
 from apps.appointment.models import ClinicTime, Appointment
 from django.core.exceptions import ObjectDoesNotExist
+from django.core.mail import send_mail
 
 
 def make_appointment(request, pid):
@@ -22,7 +23,7 @@ def make_appointment(request, pid):
 
         if clinic_time.clinic_status >= 15:
             messages.error(request, 'This Clinic Time is full, please select new clinic time')
-            return redirect('/list_appointment/' + pid + '/')
+            return redirect('/make_appointment/' + pid + '/')
 
         appointment = Appointment.objects.create(
             patient_id          = input['patient_id'],
@@ -33,23 +34,39 @@ def make_appointment(request, pid):
         clinic_time.clinic_status += 1
         clinic_time.save()
 
+        patient = Patient.objects.get(id=pid)
+        to_email = patient.email
+        email_subject = 'ยืนยันการนัดหมายแพทย์ผ่านระบบ MHAPPI '
+        email_message = "เรียน คุณ" + patient.first_name + " " + patient.last_name + "\n"
+        email_message += "ท่านได้ทำการนัดหมายแพทย์ผ่านระบบ MHAPPI \n โดยมีข้อมูลการนัดหมาย ดังต่อไปนี้ : \n\n"
+        email_message += "รายชื่อแพทย์ : " + clinic_time.officer.prefix_name + " " + clinic_time.officer.first_name + " " + clinic_time.officer.last_name + "\n"
+        email_message += "แผนก : " + clinic_time.officer.specialist.name + "\n"
+        email_message += "วันเวลา : " + (clinic_time.clinic_datetime + datetime.timedelta(hours=7)).strftime("%d %B %Y, %H:%M") + "\n\n"
+        email_message += "กรุณามารับการรักษา ณ โรงพยาบาลก่อนเวลานัด 30 นาที \n"
+        email_message += "ขอบคุณที่ใช้บริการของเราค่ะ MHAPPI "
+        mail_success = send_mail(email_subject, email_message, 'mhappi@karnlab.com', [to_email])
+
         messages.success(request, 'Appoint Doctor successful')
         return redirect('/list_appointment/' + pid + '/')
 
     elif request.POST.get('doctor_id'):
         did = request.POST['doctor_id']
+        doctor = Officer.objects.get(id=did)
         clinics = ClinicTime.objects.filter(officer_id=did)
         data = {
             'patient_id' : pid,
+            'doctor' : doctor,
             'clinics' : clinics,
         }
         return render(request, 'appoint_doctor.html', data)
 
     elif request.POST.get('department_id'):
         did = request.POST['department_id']
+        department = Department.objects.get(id=did)
         clinics = ClinicTime.objects.filter(officer__specialist_id=did)
         data = {
             'patient_id' : pid,
+            'department' : department,
             'clinics' : clinics,
         }
         return render(request, 'appoint_doctor.html', data)
@@ -73,6 +90,14 @@ def list_appointment(request, pid):
         'appointments' : appointments,
         'patient_id' : pid,
         'patient' : patient,
+    }
+    return render(request, 'list_appointment.html', data)
+
+def list_all_appointment(request):
+    start = timezone.now() - datetime.timedelta(days=1)
+    appointments = Appointment.objects.filter(appointment_status=1, clinic_time__clinic_datetime__gte=start).order_by('clinic_time__clinic_datetime')
+    data = {
+        'appointments' : appointments,
     }
     return render(request, 'list_appointment.html', data)
 
@@ -126,6 +151,18 @@ def cancel_appointment(request, pid, aid):
         clinic_time = ClinicTime.objects.get(id=appointment.clinic_time_id)
         clinic_time.clinic_status -= 1
         clinic_time.save()
+
+        patient = Patient.objects.get(id=pid)
+        to_email = patient.email
+        email_subject = 'ยกเลิกการนัดหมายแพทย์ผ่านระบบ MHAPPI '
+        email_message = "เรียน คุณ" + patient.first_name + " " + patient.last_name + "\n"
+        email_message += "ท่านได้ยกเลิกการนัดหมายแพทย์ผ่านระบบ MHAPPI \n โดยมีข้อมูลการนัดหมาย ดังต่อไปนี้ : \n\n"
+        email_message += "รายชื่อแพทย์ : " + clinic_time.officer.prefix_name + " " + clinic_time.officer.first_name + " " + clinic_time.officer.last_name + "\n"
+        email_message += "แผนก : " + clinic_time.officer.specialist.name + "\n"
+        email_message += "วันเวลา : " + (clinic_time.clinic_datetime + datetime.timedelta(hours=7)).strftime("%d %B %Y, %H:%M") + "\n\n"
+        email_message += "ขอบคุณที่ใช้บริการของเราค่ะ MHAPPI "
+        mail_success = send_mail(email_subject, email_message, 'mhappi@karnlab.com', [to_email])
+
     except ObjectDoesNotExist:
         messages.success(request, 'Cannot Cancel Appointment')
         return redirect('/list_appointment/' + pid + '/')
@@ -176,6 +213,17 @@ def list_clinic_time(request, did):
     }
     return render(request, 'list_clinic_time.html', data)
 
+def list_all_clinic_time(request):
+    start = timezone.now() - datetime.timedelta(days=1)
+    clinic_times = ClinicTime.objects.filter(clinic_status__gte=0, clinic_datetime__gte=start).order_by('clinic_datetime')
+    for clinic in clinic_times:
+        clinic.clinic_bar = clinic.clinic_status / 15 * 100
+        clinic.save()
+    data = {
+        'clinic_times' : clinic_times,
+    }
+    return render(request, 'list_clinic_time.html', data)
+
 
 # def cancel_clinic_time(request, did):
 #     if request.POST:
@@ -214,5 +262,11 @@ def cancel_clinic_time(request, did, cid):
     return redirect('/list_clinic_time/' + did + '/')
 
 
-def view_clinic_time(request):
-    return "Under Construction ....."
+def view_clinic_time(request, cid):
+    clinic_time = ClinicTime.objects.get(id=cid)
+    appointments = Appointment.objects.filter(clinic_time_id=cid, appointment_status=1)
+    data = {
+        'clinic_time' : clinic_time,
+        'appointments' : appointments,
+    }
+    return render(request, 'view_clinic_time.html', data)

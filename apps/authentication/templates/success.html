@@ -1,0 +1,75 @@
+{% extends "base.html" %}
+{% block loginBg %}
+.logout{
+    display: none !important;
+}
+{% endblock %}
+{% block main %}
+{% load staticfiles %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}"/>
+<link rel="stylesheet" type="text/css" href="{% static 'css/signup.css' %}"/>
+<style>
+    .row-100{
+        width:100%;
+        margin: 0px;
+        margin-top: -2em;
+    }
+    #page_08{
+        display: block;
+    }
+
+</style>
+
+    <div class="row row-100 regis-header">
+        <div style="color:white;">
+            <h1 style="margin:10px;font-family:SK-Text;">ลงทะเบียนผู้ป่วย</h1>
+            <div class="col-md-4 col-md-offset-4" style="margin-top:2em;padding-bottom:2em;">
+                <div class="node-active" id="state_01"></div>
+                <div class="line" id="state_01"></div>
+                <div class="node" id="state_02"></div>
+                <div class="line" id="state_02"></div>
+                <div class="node" id="state_03"></div>
+                <div class="line" id="state_03"></div>
+                <div class="node" id="state_04"></div>
+                <div class="line" id="state_04"></div>
+                <div class="node" id="state_05"></div>
+                <div class="line" id="state_05"></div>
+                <div class="node" id="state_06"></div>
+                <div class="line" id="state_06"></div>
+                <div class="node" id="state_07"></div>
+                <div class="line" id="state_07"></div>
+                <div class="node" id="state_08"></div>
+            </div>
+        </div>
+    </div>
+
+    <div id="page_08" class="regis-bottom" align="center">
+        <div class="col-md-6 col-md-offset-3" style="margin-top:4em">
+            <br>
+            <h3 class="row" style="color: #948d94;">ลงทะเบียนเรียบร้อย</h3>
+            <h4 >กรุณายืนยันการลงทะเบียนและรับรหัสผ่านทางอีเมลของท่าน</h4>
+            <div class="row" style="margin-top:20px;font-family:SK-Text;font-size:1.1em;" id="info">
+                
+            </div>
+        </div>
+        <div class="row button-cover col-md-6 col-md-offset-3">
+            <a href="/login/">
+                <div class="col-md-6 col-md-offset-3 next-btn" onclick="nextpage();">
+                    กลับสู่หน้าหลัก
+                </div>
+            </a>
+        </div>
+    </div>
+
+
+{% endblock %}
+
+{% block script %}
+<script type="text/javascript">
+function confirmInfo(){
+    for(i = 1; i <= 8; i++)
+    document.getElementById('state_0'+i).className = "node-active"
+}
+confirmInfo();
+</script>
+{% endblock %}

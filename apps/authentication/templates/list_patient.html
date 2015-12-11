@@ -29,12 +29,28 @@
             <hr/>
             <table class="table tableStyle info">
             	<tr>
-            		<th class="header" style="border-top-left-radius:5px">รหัสผู้ป่วย</th>
+            		<th class="header" style="border-top-left-radius:5px"></th>
+            		<th class="header">รหัสผู้ป่วย</th>
             		<th class="header">ชื่อ-นามสกุล</th>
             		<th class="header" style="border-top-right-radius:5px"></th>
             	</tr>
+            	<tr>
+				<form class="form-inline" method="post" action="/list_patient/">
+					{% csrf_token %}
+                    {% if next %}
+                        <input type="hidden" name="next" value="{{ next }}" />
+                    {% endif %}
+					<td></td>
+            		<td><input type="text" class="form-control" id="hospital_id" name="hospital_id" value="{{ hospital_id }}" placeholder="ค้นหาด้วย ID"></th>
+            		<td>
+            			<input type="text" class="form-control" id="first_name" name="first_name" value="{{ first_name }}" placeholder="ค้นหาด้วย ชื่อ">
+            		</td>
+            		<td><button type="submit" class="btn btn-default">ค้นหา</button></td>
+            	</form>
+            	</tr>
             	{% for patient in patients %}
             	<tr>
+            		<td><img src="{% static 'avatar/' %}{{ patient.id }}.jpg" style="height: 40px;"></td>
             		<td>{{ patient.hospital_id }}</td>
             		<td>{{ patient.first_name }} {{ patient.last_name }}</td>
             		<td style="text-align:right">
