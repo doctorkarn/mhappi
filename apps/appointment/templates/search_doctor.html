@@ -13,6 +13,12 @@
                 <a href="/list_patient/" style="text-decoration:none"><span>จัดการผู้ป่วย</span></a>
                 <span class="next"> > </span>
                 <span>ทำการนัดหมาย</span>
+            {% elif request.session.user_role == 'doctor' %}
+                <a href="/home/" style="text-decoration:none"><span>Home</span></a>
+                <span class="next"> > </span>
+                <a href="/list_patient/" style="text-decoration:none"><span>จัดการผู้ป่วย</span></a>
+                <span class="next"> > </span>
+                <span>ทำการนัดหมาย</span>
             {% endif %}
             </div>
         </div>

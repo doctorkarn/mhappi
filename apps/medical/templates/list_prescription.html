@@ -20,7 +20,8 @@
             <table class="table tableStyle info">
             	<tr>
                     <th class="header" style="border-top-left-radius:5px">รายการยา</th>
-            		<th class="header" style="border-top-right-radius:5px">สร้างวันที่</th>
+            		<th class="header">สร้างวันที่</th>
+                    <th class="header" style="border-top-right-radius:5px"></th>
             	</tr>
             	{% for prescription in prescriptions %}
             	<tr>
@@ -28,9 +29,38 @@
                         {{ item }}<br/>
                     {% endfor %}</td>
             		<td>{{ prescription.created_at }}</td>
+                    <td><button class="default-button" onclick="genPDF({{forloop.counter}});">พิมพ์ใบสั่งยา</button></td>
             	</tr>
             	{% endfor %}
             </table>
         </div>
     </div>
+    <script type="text/javascript" src="{% static 'js/jspdf.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/jspdf.plugin.autotable.src.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/basic.js' %}"></script>
+    <script type="text/javascript">
+        var columns = ["Drug List"];
+        var data =  [{% for prescription in prescriptions %}
+                        [{% for item in prescription.list %}
+                            {% if forloop.counter > 1%} , {% endif %}
+                            ['{{ item }}']
+                        {% endfor %}],
+                    {% endfor %}"none"];
+        
+        function genPDF(num){
+
+            var doc = new jsPDF('p', 'pt');
+            var row = data[num-1];
+
+            doc.setFontSize(18);
+            doc.text('Presciprtion', 40, 60);
+            doc.setFontSize(11);
+            doc.setTextColor(100);
+            var text = doc.splitTextToSize('{{patient}}', doc.internal.pageSize.width - 80, {});
+            doc.text(text, 40, 80);
+
+            doc.autoTable(columns, row, {startY: 100});
+            doc.save("table.pdf");
+        }
+    </script>
 {% endblock %}

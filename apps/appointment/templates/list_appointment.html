@@ -22,32 +22,30 @@
             <h1 class="headText" style="text-align:center">ตารางรายการนัดหมาย ({{ patient.first_name }} {{ patient.last_name }})</h1>
             <hr/>
             <table class="table tableStyle info" >
-            	<tr>
-                    <th class="header topic" th class="header" style="border-top-left-radius:5px">ชื่อผู้ป่วย</th>
-            		<th class="header topic">ชื่อแพทยผู้รับผิดชอบ</th>
-            		<th class="header topic">เวลาและวันที่</th>
-                    <th class="header topic"></th>
-            		<th class="header " th class="header" style="border-top-right-radius:5px"></th>
-            	</tr>
-            	{% for appointment in appointments %}
-            	<tr>
-                    <td>{{ appointment.patient.first_name }} {{ appointment.patient.first_name }}</td>
-            		<td>dr. {{ appointment.clinic_time.officer.first_name }} {{ appointment.clinic_time.officer.first_name }}</td>
-            		<td>{{ appointment.clinic_time.clinic_datetime }}</td>
-            		<td style="text-align:right">
-<<<<<<< HEAD
-            			<a class="btn btn-default" style="inline-block"  href="#">ยกเลิกการนัดหมาย</a>
-                    </td>
-                    <!--td style="text-align:right">
-                        <a class="btn btn-default" style="inline-block"  href="#">ดูการนัดหมาย</a>
-            		</td-->
-=======
-            			<a class="btn btn-default" style="inline-block" href="#" onclick="confirmDelete({{ patient_id }},{{ appointment.id }})">ยกเลิกการนัดหมาย</a>
-                        <a class="btn btn-default" style="inline-block" href="#">ดูการนัดหมาย</a>
-            		</td>
->>>>>>> 7c2e6600ef0c3d519572ac495e988eff965aa62f
-            	</tr>
-            	{% endfor %}
+                {% if appointments|length > 0 %}
+                    <tr>
+                        <th class="header topic" th class="header" style="border-top-left-radius:5px">ชื่อผู้ป่วย</th>
+                        <th class="header topic">ชื่อแพทยผู้รับผิดชอบ</th>
+                        <th class="header topic">เวลาและวันที่</th>
+                        <th class="header topic"></th>
+                        <th class="header " th class="header" style="border-top-right-radius:5px"></th>
+                    </tr>
+                	{% for appointment in appointments %}
+                	<tr>
+                        <td>{{ appointment.patient.first_name }} {{ appointment.patient.first_name }}</td>
+                		<td>dr. {{ appointment.clinic_time.officer.first_name }} {{ appointment.clinic_time.officer.first_name }}</td>
+                		<td>{{ appointment.clinic_time.clinic_datetime }}</td>
+                		<td style="text-align:right">
+                			<a class="btn btn-default" style="inline-block" href="#" onclick="confirmDelete({{ patient_id }},{{ appointment.id }})">ยกเลิกการนัดหมาย</a>
+                        </td>
+                        <td style="text-align:right">
+                            <a class="btn btn-default" style="inline-block" href="#">ดูการนัดหมาย</a>
+                		</td>
+                	</tr>
+                	{% endfor %}
+                {% else %}
+                    <h1 class="headText" style="text-align:center">ไม่พบรายการ</h1>
+                {% endif %}
             </table>
         </div>
     </div>

@@ -306,6 +306,8 @@ html, body{
     font-size: 1em;
     color: #59C9B2;
 	margin-bottom: 2em;
+	text-align: center;
+	cursor: pointer;
 }
 .default-button-disable{
 	cursor: default !important;
@@ -318,5 +320,6 @@ html, body{
     font-size: 1em;
     color: #CFCFCF;
 	margin-bottom: 2em;
+	text-align: center;
 }
 button { outline: 0; }

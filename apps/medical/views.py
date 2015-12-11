@@ -189,10 +189,12 @@ def view_prescription(request):
 
 def list_prescription(request, pid):
     prescriptions = Prescritpion.objects.filter(patient_id=pid)
+    patient = Patient.objects.filter(id=pid).first()
     for pres in prescriptions:
         pres.list = pres.drug_list.split(',')
     data = {
         'prescriptions' : prescriptions,
+        'patient' : patient
     }
     return render(request, 'list_prescription.html', data)
 
