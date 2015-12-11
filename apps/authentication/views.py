@@ -77,7 +77,7 @@ def login(request):
                             else:
                                 request.session['user_role'] = 'unknown officer'
                                 auth_logout(request)
-                                messages.error(request, 'User is invalid, please contact admin')
+                                messages.error(request, 'User is unknown role, please contact admin')
                                 return HttpResponseRedirect('/login')
 
                         except ObjectDoesNotExist:
@@ -449,6 +449,7 @@ def add_officer(request):
         input['address'] = request.POST['address']
         input['phone'] = request.POST['phone']
         input['position'] = request.POST['position']
+        input['specialist_id'] = request.POST['specialist_id']
 
         officer = Officer.objects.create(
         	id 			= user.id,
@@ -463,6 +464,7 @@ def add_officer(request):
         	phone 		= input['phone'],
         	email 		= input['email'],
         	position	= input['position'],
+            specialist_id = input['specialist_id'],
         )
 
         handle_uploaded_file(request.FILES['picture'], user.id)

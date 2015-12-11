@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+{% block main %}
+{% load staticfiles %}
+<link href="{% static 'css/listTable.css' %}" rel="stylesheet" media="screen">
+
+    <div class="row">
+        <div class="row">
+            <div class="col-md-10 col-md-offset-1 navText">
+                <a href="/home/" style="text-decoration:none"><span>Home</span></a>
+                <span class="next"> > </span>
+                <span>รายชื่อพนักงาน</span>
+            </div>
+        </div>
+        <div class="col-md-8 col-md-offset-2">
+            <h1 class="headText" style="text-align:center">รายชื่อพนักงาน</h1>
+        </hr>
+        <div id="dateToday"></div>
+            <table class="table tableStyle info" >
+            	<tr>
+                    <th class="header" style="border-top-left-radius:5px"></th>
+            		<th class="header topic">รหัสเจ้าหน้าที่</th>
+            		<th class="header topic">ชื่อ-นามสกุล</th>
+                    <th class="header topic">ตำแหน่ง</th>
+            		<th class="header" style="border-top-right-radius:5px"></th>
+            	</tr>
+                <tr>
+                <form class="form-inline" method="post" action="/list_officer/">
+                    {% csrf_token %}
+                    {% if next %}
+                        <input type="hidden" name="next" value="{{ next }}" />
+                    {% endif %}
+                    <td></td>
+                    <td><input type="text" class="form-control" id="hospital_id" name="hospital_id" value="{{ hospital_id }}" placeholder="ค้นหาด้วย ID"></th>
+                    <td>
+                        <input type="text" class="form-control" id="first_name" name="first_name" value="{{ first_name }}" placeholder="ค้นหาด้วย ชื่อ">
+                    </td>
+                    <td></td>
+                    <td><button type="submit" class="btn btn-default" >ค้นหา</button></td>
+                </form>
+                </tr>
+            	{% for officer in officers %}
+            	<tr>
+                    <td><img src="{% static 'avatar/' %}{{ officer.id }}.jpg" style="height: 40px;"></td>
+            		<td>{{ officer.hospital_id }}</td>
+            		<td>{{ officer.first_name }} {{ officer.last_name }}</td>
+                    <td>
+                    {% if officer.position == 1 %}
+                    เจ้าหน้าที่
+                    {% elif officer.position == 2 %}
+                    แพทย์
+                    {% elif officer.position == 3 %}
+                    พยาบาล
+                    {% elif officer.position == 4 %}
+                    เภสัชกร
+                    {% endif %}
+                    </td>
+            		<td style="text-align:right"></td>
+            	</tr>
+            	{% endfor %}
+            </table>
+        </div>
+    </div>
+{% endblock %}
