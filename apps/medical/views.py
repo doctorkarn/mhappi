@@ -1,7 +1,21 @@
+#!/usr/bin/python
+#-*-coding: utf-8 -*-
+
 from django.http import *
 from django.shortcuts import render, redirect
 from django.template import RequestContext
 from django.contrib import messages
+
+try:
+    from StringIO import StringIO
+except ImportError:
+    import io
+
+from xhtml2pdf import pisa
+from django.template.loader import get_template
+from django.template import Context
+from django.http import HttpResponse
+from cgi import escape
 
 import json, random
 

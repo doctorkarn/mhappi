@@ -1,3 +1,6 @@
+#!/usr/bin/python
+#-*-coding: utf-8 -*-
+
 """mhappi URL Configuration
 
 The `urlpatterns` list routes URLs to views. For more information please see:
@@ -38,7 +41,6 @@ urlpatterns = [
     url(r'^add_officer/$', auth_view.add_officer, name='add_officer'),
     url(r'^update_officer/$', auth_view.update_officer, name='update_officer'),
 
-
     # Appointment
     # url(r'^make_appointment/$', appo_view.make_appointment, name='make_appointment'),
     # url(r'^staff_make_appointment/([0-9]+)/$', appo_view.staff_make_appointment, name='staff_make_appointment'),
@@ -70,5 +72,6 @@ urlpatterns = [
 
     url(r'^add_prescription/([0-9]+)/$', medi_view.add_prescription, name='add_prescription'),
     # url(r'^view_prescription/', medi_view.view_prescription, name='view_prescription'),
-    url(r'^list_prescription/([0-9]+)/$', medi_view.list_prescription, name='list_prescription'),
+    url(r'^list_prescription/([0-9]+)/$', medi_view.list_prescription, name='list_prescription')
+
 ]

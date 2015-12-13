@@ -30,6 +30,7 @@
                 		<th class="header ">ชื่อแพทยผู้รับผิดชอบ</th>
                 		<th class="header ">เวลาและวันที่</th>
                         <th class="header "></th>
+                        <th class="header "></th>
                 		<th class="header " style="border-top-right-radius:5px"></th>
                 	</tr>
                 	{% for appointment in appointments %}
@@ -43,6 +44,10 @@
                 			<a class="btn btn-default" style="inline-block" href="#" onclick="confirmDelete({{ patient_id }},{{ appointment.id }})">ยกเลิกการนัดหมาย</a>
                             <!-- <a class="btn btn-default" style="inline-block" href="#">ดูการนัดหมาย</a> -->
                 		</td>
+                        <td style="text-align:right">
+                            <a class="btn btn-default" style="inline-block" onclick="genPDF({{forloop.counter0}})">พิมพ์รายการนัดหมาย</a>
+                            <!-- <a class="btn btn-default" style="inline-block" href="#">ดูการนัดหมาย</a> -->
+                        </td>
                 	</tr>
                 	{% endfor %}
                 {% else %}
@@ -54,6 +59,9 @@
 {% endblock %}
 
 {% block script %}
+<script type="text/javascript" src="{% static 'js/jspdf.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/jspdf.plugin.autotable.src.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/basic.js' %}"></script>
 <script type="text/javascript">
 function confirmDelete(pid,aid) {
     var r = confirm('คุณแน่ใจหรือว่าจะยกเลิกการนัดหมายนี้');
@@ -61,5 +69,58 @@ function confirmDelete(pid,aid) {
         window.location = "/cancel_appointment/" + pid + '/' + aid; 
     }
 }
+
+var dataPatient =  [{% for appointment in appointments %}
+                        {% if forloop.counter > 1%} , {% endif %}
+                        '{{ appointment.patient.first_name }} {{ appointment.patient.first_name }}'
+                    {% endfor %}];
+
+var dataDoctor  =  [{% for appointment in appointments %}
+                        {% if forloop.counter > 1%} , {% endif %}
+                        'dr. {{ appointment.clinic_time.officer.first_name }} {{ appointment.clinic_time.officer.first_name }}'
+                    {% endfor %}];
+
+var dataTime  =    [{% for appointment in appointments %}
+                        {% if forloop.counter > 1%} , {% endif %}
+                        '{{ appointment.clinic_time.clinic_datetime }}'
+                    {% endfor %}];
+
+function genPDF(num){
+
+    var doc = new jsPDF('p', 'pt');
+    
+    var patient = dataPatient[num];
+    var doctor = dataDoctor[num];
+    var clinic_time = dataTime[num];
+
+    doc.setFontSize(18);
+    doc.text('Appointment Report', 40, 60);
+    doc.setFontSize(11);
+    doc.setTextColor(100);
+    var text = doc.splitTextToSize(patient, doc.internal.pageSize.width - 80, {});
+    doc.text(text, 40, 90);
+
+    var text = doc.splitTextToSize('appoint : ' + doctor, doc.internal.pageSize.width - 80, {});
+    doc.text(text, 40, 110);
+
+    var text = doc.splitTextToSize(clinic_time, doc.internal.pageSize.width - 80, {});
+    doc.text(text, 40, 140);
+
+    var text = doc.splitTextToSize('------------------------------', doc.internal.pageSize.width - 80, {});
+    doc.text(text, 40, 160);
+
+    var text = doc.splitTextToSize('Please bring this appointment to the officer on date for your convenience.', doc.internal.pageSize.width - 80, {});
+    doc.text(text, 40, 180);
+
+    var text = doc.splitTextToSize('Thank you,', doc.internal.pageSize.width - 80, {});
+    doc.text(text, 40, 200);
+
+    var text = doc.splitTextToSize('mhappi', doc.internal.pageSize.width - 80, {});
+    doc.text(text, 40, 200);
+
+    // doc.autoTable(columns, row, {startY: 100});
+    doc.save("table.pdf");
+}
+
 </script>
 {% endblock %}

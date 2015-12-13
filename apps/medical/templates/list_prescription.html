@@ -29,7 +29,7 @@
                         {{ item }}<br/>
                     {% endfor %}</td>
             		<td>{{ prescription.created_at }}</td>
-                    <td><button class="default-button" onclick="genPDF({{forloop.counter}});">พิมพ์ใบสั่งยา</button></td>
+                    <td><button class="btn-default" onclick="genPDF({{forloop.counter0}});">พิมพ์ใบสั่งยา</button></td>
             	</tr>
             	{% endfor %}
             </table>
@@ -50,7 +50,7 @@
         function genPDF(num){
 
             var doc = new jsPDF('p', 'pt');
-            var row = data[num-1];
+            var row = data[num];
 
             doc.setFontSize(18);
             doc.text('Presciprtion', 40, 60);
